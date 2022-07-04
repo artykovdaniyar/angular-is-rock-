@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Course } from '../models/course';
 import {
   faClock,
@@ -18,4 +18,8 @@ export class CoursesItemComponent {
   faCalendarDays = faCalendarDays;
   faPen = faPen;
   faTrash = faTrash;
+  @Output() onDelete: EventEmitter<Course> = new EventEmitter<Course>();
+  deleteCourse(course: Course) {
+    this.onDelete.emit(course);
+  }
 }

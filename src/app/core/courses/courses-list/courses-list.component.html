@@ -5,7 +5,10 @@
   </button>
   <ul class="courses__list">
     <li *ngFor="let course of coursesList">
-      <app-courses-item [course]="course"></app-courses-item>
+      <app-courses-item
+        (onDelete)="deleteEventEmit($event)"
+        [course]="course"
+      ></app-courses-item>
     </li>
   </ul>
 </section>

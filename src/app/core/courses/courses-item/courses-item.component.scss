@@ -60,6 +60,9 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
   transition: background 0.3s;
 }
+.btn-icon {
+  pointer-events: none;
+}
 .btn:hover {
   background: #299fc4;
 }
