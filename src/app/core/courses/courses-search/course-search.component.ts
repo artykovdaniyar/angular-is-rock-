@@ -10,5 +10,9 @@ export class CoursesSearchComponent implements OnInit {
   faMagnifyingGlass = faMagnifyingGlass;
   constructor() {}
 
+  searchValue = '';
   ngOnInit(): void {}
+  onSubmit(input: string) {
+    console.log(input);
+  }
 }
