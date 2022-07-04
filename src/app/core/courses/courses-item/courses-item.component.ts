@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Course } from '../models/course';
 import {
   faClock,
   faCalendarDays,
@@ -12,6 +13,7 @@ import {
   styleUrls: ['./courses-item.component.scss'],
 })
 export class CoursesItemComponent {
+  @Input() course!: Course;
   faClock = faClock;
   faCalendarDays = faCalendarDays;
   faPen = faPen;

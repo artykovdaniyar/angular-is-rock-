@@ -4,14 +4,8 @@
     Add course
   </button>
   <ul class="courses__list">
-    <li>
-      <app-courses-item></app-courses-item>
-    </li>
-    <li>
-      <app-courses-item></app-courses-item>
-    </li>
-    <li>
-      <app-courses-item></app-courses-item>
+    <li *ngFor="let course of coursesList">
+      <app-courses-item [course]="course"></app-courses-item>
     </li>
   </ul>
 </section>
