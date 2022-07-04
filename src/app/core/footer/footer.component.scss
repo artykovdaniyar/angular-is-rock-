@@ -1,0 +1,20 @@
+:host {
+  margin-top: auto;
+}
+.footer {
+  height: 70px;
+  color: #878a97;
+  background: #414452;
+  font-size: 12px;
+}
+.container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+@media screen and (max-width: 480px) {
+  .container {
+    justify-content: center;
+  }
+}
