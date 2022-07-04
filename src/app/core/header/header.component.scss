@@ -1,0 +1,53 @@
+.header {
+  color: #e8e9ea;
+  background: #414452;
+  height: 70px;
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  &__icon-link {
+    display: flex;
+    align-items: center;
+  }
+  &__icon-title {
+    text-transform: uppercase;
+    margin-left: 8px;
+  }
+}
+
+.registration {
+  &__link:first-child {
+    margin-right: 18px;
+  }
+}
+a {
+  transition: color 0.2s;
+}
+a:hover {
+  color: #30b6dd;
+}
+a:focus,
+a:active {
+  color: #106ebe;
+}
+@media screen and (max-width: 767px) {
+  .registration {
+    &__link {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      font-size: 0;
+      border: 1px solid #fff;
+    }
+    &__icon {
+      font-size: 16px;
+    }
+  }
+}
