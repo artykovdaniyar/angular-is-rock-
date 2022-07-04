@@ -12,4 +12,5 @@ export class HeaderComponent {
   faPlayCircle = faPlayCircle;
   faUser = faUser;
   faRightFromBracket = faRightFromBracket;
+  @Input() title = '';
 }
