@@ -1,0 +1,26 @@
+.breadcrumbs {
+  height: 70px;
+  background: #fff;
+  &__container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+  &__list {
+    display: flex;
+  }
+  &__item {
+    color: #464854;
+    font-weight: 700;
+  }
+}
+a {
+  transition: color 0.2s;
+}
+a:hover {
+  color: #30b6dd;
+}
+a:focus,
+a:active {
+  color: #106ebe;
+}
