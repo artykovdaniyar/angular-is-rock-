@@ -1,0 +1,20 @@
+.more-btn {
+  width: 100%;
+  height: 45px;
+  background: #fff;
+  border-radius: 6px;
+  text-transform: uppercase;
+  color: #30b6dd;
+  text-decoration: underline;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  transition: all 0.3s;
+}
+.more-btn:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+}
+
+.more-btn:active {
+  transform: translateY(1px);
+}
