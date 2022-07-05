@@ -5,10 +5,9 @@ import { CoursesComponent } from './courses.component';
 import { CoursesSearchComponent } from './courses-search/course-search.component';
 import { CoursesListComponent } from './courses-list/courses-list.component';
 import { CoursesItemComponent } from './courses-item/courses-item.component';
-// import { CoursesMoreComponent } from './courses-more/courses-more.component';
 import { FormsModule } from '@angular/forms';
 import { CoursesMoreComponent } from './courses-more/courses-more.component';
-import { NewCourseHighlighterDirective } from './directives/new-course-highlighter.directive';
+import { CourseMarkerDirective } from './directives/course-marker.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,7 @@ import { NewCourseHighlighterDirective } from './directives/new-course-highlight
     CoursesListComponent,
     CoursesItemComponent,
     CoursesMoreComponent,
-    NewCourseHighlighterDirective,
+    CourseMarkerDirective,
   ],
   exports: [CoursesComponent, CoursesSearchComponent],
   imports: [CommonModule, FontAwesomeModule, FormsModule],
