@@ -19,6 +19,14 @@
 .card--inrelease {
   border: 3px solid #00bfff;
 }
+.card--top-rated {
+  background: rgb(237, 255, 0);
+  background: linear-gradient(
+    0deg,
+    rgba(237, 255, 0, 0.9884259259259259) 0%,
+    rgba(255, 255, 255, 1) 83%
+  );
+}
 .info {
   flex-basis: calc((100% / 12) * 9);
 }
@@ -74,6 +82,10 @@
 }
 .btn:active {
   background: #30b6dd;
+}
+.top-rated {
+  font-size: 14px;
+  color: rgb(255, 255, 27);
 }
 @media screen and (max-width: 767px) {
   .card {
