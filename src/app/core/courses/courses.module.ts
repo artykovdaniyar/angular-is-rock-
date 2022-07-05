@@ -8,6 +8,7 @@ import { CoursesItemComponent } from './courses-item/courses-item.component';
 // import { CoursesMoreComponent } from './courses-more/courses-more.component';
 import { FormsModule } from '@angular/forms';
 import { CoursesMoreComponent } from './courses-more/courses-more.component';
+import { NewCourseHighlighterDirective } from './directives/new-course-highlighter.directive';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { CoursesMoreComponent } from './courses-more/courses-more.component';
     CoursesListComponent,
     CoursesItemComponent,
     CoursesMoreComponent,
+    NewCourseHighlighterDirective,
   ],
   exports: [CoursesComponent, CoursesSearchComponent],
   imports: [CommonModule, FontAwesomeModule, FormsModule],

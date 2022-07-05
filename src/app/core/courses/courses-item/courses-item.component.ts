@@ -22,4 +22,5 @@ export class CoursesItemComponent {
   deleteCourse(course: Course) {
     this.onDelete.emit(course);
   }
+  currentDate = new Date('02 Jul 2022').getTime();
 }
