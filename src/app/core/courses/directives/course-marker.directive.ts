@@ -26,6 +26,8 @@ export class CourseMarkerDirective implements AfterViewChecked {
       this.creationDate >= this.currentDate - getMiniSecondsFromDay(14)
     ) {
       this.r.addClass(this.el.nativeElement, 'card--new');
+    } else if (this.creationDate > this.currentDate) {
+      this.r.addClass(this.el.nativeElement, 'card--inrelease');
     }
   }
 }

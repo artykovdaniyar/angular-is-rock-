@@ -7,6 +7,7 @@ import { CoursesListComponent } from './courses-list/courses-list.component';
 import { CoursesItemComponent } from './courses-item/courses-item.component';
 import { FormsModule } from '@angular/forms';
 import { CoursesMoreComponent } from './courses-more/courses-more.component';
+
 import { CourseMarkerDirective } from './directives/course-marker.directive';
 
 @NgModule({
