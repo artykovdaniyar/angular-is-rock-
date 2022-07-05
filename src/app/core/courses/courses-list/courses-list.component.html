@@ -1,14 +1,23 @@
 <section class="courses">
-  <button class="courses__add-btn">
-    <fa-icon [icon]="faPlus" class="courses__add-icon"></fa-icon>
+  <button class="add-btn">
+    <fa-icon [icon]="faPlus" class="add-icon"></fa-icon>
     Add course
   </button>
-  <ul class="courses__list">
-    <li *ngFor="let course of coursesList">
-      <app-courses-item
-        (onDelete)="deleteEventEmit($event)"
-        [course]="course"
-      ></app-courses-item>
-    </li>
-  </ul>
+  <ng-container *ngIf="coursesList.length > 0; else noCourse">
+    <ul class="list">
+      <li *ngFor="let course of coursesList">
+        <app-courses-item
+          (onDelete)="deleteEventEmit($event)"
+          [course]="course"
+        ></app-courses-item>
+      </li>
+    </ul>
+    <app-courses-more></app-courses-more>
+  </ng-container>
+
+  <ng-template #noCourse>
+    <div class="no-course">
+      <h2>No data, feel free to add new course</h2>
+    </div>
+  </ng-template>
 </section>
