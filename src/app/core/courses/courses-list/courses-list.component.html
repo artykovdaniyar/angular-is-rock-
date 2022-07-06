@@ -5,7 +5,7 @@
   </button>
   <ng-container *ngIf="coursesList.length > 0; else noCourse">
     <ul class="list">
-      <li *ngFor="let course of coursesList">
+      <li *ngFor="let course of coursesList | orderBy">
         <app-courses-item
           (onDelete)="deleteEventEmit($event)"
           [course]="course"
