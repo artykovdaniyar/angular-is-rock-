@@ -37,10 +37,21 @@
   flex-wrap: wrap;
   margin-bottom: 10px;
 }
+.title-wrapper {
+  display: flex;
+  align-items: center;
+}
 .title {
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 1px;
+}
+.top-rated-icon {
+  font-size: 14px;
+  color: rgb(255, 255, 27);
+}
+.top-rated-btn {
+  padding: 0 5px;
 }
 .info-date {
   display: flex;
@@ -83,10 +94,7 @@
 .btn:active {
   background: #30b6dd;
 }
-.top-rated {
-  font-size: 14px;
-  color: rgb(255, 255, 27);
-}
+
 @media screen and (max-width: 767px) {
   .card {
     flex-direction: column;
