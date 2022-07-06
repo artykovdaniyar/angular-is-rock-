@@ -15,7 +15,7 @@ export class CoursesComponent implements OnInit {
         id: 1,
         description:
           "Learn about where you cna  find description, what information they include, how they work, and deatils about various components od a course description. Courses description report information about a university or college's classes. They're published both in coures catagogs thst outline degree requirements and in course schedules thst contain descriptions for all courses offered during",
-        duration: '1h 28 min',
+        duration: 96,
         date: 1656871200000,
         topRated: false,
       },
@@ -24,7 +24,7 @@ export class CoursesComponent implements OnInit {
         id: 2,
         description:
           "Learn about where you cna  find description, what information they include, how they work, and deatils about various components od a course description. Courses description report information about a university or college's classes. They're published both in coures catagogs thst outline degree requirements and in course schedules thst contain descriptions for all courses offered during",
-        duration: '1h 28 min',
+        duration: 88,
         date: 1541700000000,
         topRated: true,
       },
@@ -33,8 +33,17 @@ export class CoursesComponent implements OnInit {
         id: 3,
         description:
           "Learn about where you cna  find description, what information they include, how they work, and deatils about various components od a course description. Courses description report information about a university or college's classes. They're published both in coures catagogs thst outline degree requirements and in course schedules thst contain descriptions for all courses offered during",
-        duration: '1h 28 min',
+        duration: 120,
         date: 1658512800000,
+        topRated: false,
+      },
+      {
+        name: 'Video Course 4. Name Tag',
+        id: 4,
+        description:
+          "Learn about where you cna  find description, what information they include, how they work, and deatils about various components od a course description. Courses description report information about a university or college's classes. They're published both in coures catagogs thst outline degree requirements and in course schedules thst contain descriptions for all courses offered during",
+        duration: 40,
+        date: 1558612800000,
         topRated: false,
       },
     ];

@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { CoursesMoreComponent } from './courses-more/courses-more.component';
 
 import { CourseMarkerDirective } from './directives/course-marker.directive';
+import { DurationPipe } from './pipes/duration.pipe';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { CourseMarkerDirective } from './directives/course-marker.directive';
     CoursesItemComponent,
     CoursesMoreComponent,
     CourseMarkerDirective,
+    DurationPipe,
   ],
   exports: [CoursesComponent, CoursesSearchComponent],
   imports: [CommonModule, FontAwesomeModule, FormsModule],
