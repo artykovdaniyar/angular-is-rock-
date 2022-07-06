@@ -11,6 +11,7 @@ import { CoursesMoreComponent } from './courses-more/courses-more.component';
 import { CourseMarkerDirective } from './directives/course-marker.directive';
 import { DurationPipe } from './pipes/duration.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { OrderByPipe } from './pipes/order-by.pipe';
     CourseMarkerDirective,
     DurationPipe,
     OrderByPipe,
+    FilterPipe,
   ],
   exports: [CoursesComponent, CoursesSearchComponent],
   imports: [CommonModule, FontAwesomeModule, FormsModule],

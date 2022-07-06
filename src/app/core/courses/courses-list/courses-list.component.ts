@@ -10,6 +10,7 @@ import { Course } from '../models/course';
 })
 export class CoursesListComponent implements OnInit {
   faPlus = faPlus;
+  @Input() searchValue = '';
   @Input() coursesList: Course[] = [];
   constructor() {}
 

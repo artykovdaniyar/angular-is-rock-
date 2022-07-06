@@ -1,9 +1,8 @@
-<form class="search" (ngSubmit)="onSubmit(searchInput.value)">
+<form class="search" (ngSubmit)="submitHandler(searchInput.value)">
   <label for="serchInput" class="icon-wrapper">
     <fa-icon [icon]="faMagnifyingGlass" size="sm" flip="horizontal"></fa-icon>
   </label>
   <input
-    [(ngModel)]="searchValue"
     type="text"
     class="input"
     id="serchInput"

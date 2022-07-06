@@ -1,7 +1,8 @@
 <section class="courses">
   <div class="courses__container container">
-    <app-courses-search></app-courses-search>
+    <app-courses-search (onSubmit)="searchHandler($event)"></app-courses-search>
     <app-courses-list
+      [searchValue]="searchValue"
       (onDelete)="deleteCourseHandler($event)"
       [coursesList]="courses"
     ></app-courses-list>
