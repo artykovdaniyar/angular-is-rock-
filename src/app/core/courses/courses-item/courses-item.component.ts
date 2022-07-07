@@ -27,7 +27,7 @@ export class CoursesItemComponent {
   deleteCourse(course: Course) {
     if (
       confirm(`Do you really want to delete
-${course.name}?`)
+${course.name}`)
     ) {
       this.coursesService.removeCourse(course);
     }
