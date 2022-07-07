@@ -8,14 +8,17 @@ export class AuthService {
   TOKEN = 'angularRockToken';
   constructor() {}
 
-  loginIn(userLogin: Login) {
+  loginIn(userLogin: Login): void {
     localStorage.setItem('angularRockToken', JSON.stringify(userLogin));
   }
-  loginOut() {
+  loginOut(): void {
     localStorage.removeItem(this.TOKEN);
   }
+  getUserInfo(): Login {
+    return JSON.parse(localStorage[this.TOKEN]);
+  }
   isAuthenticated(): boolean {
-    if (localStorage.getItem(this.TOKEN)) {
+    if (this.getUserInfo()) {
       return true;
     } else {
       return false;
