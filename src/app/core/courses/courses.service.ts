@@ -5,7 +5,7 @@ import { Course } from './models/course';
   providedIn: 'root',
 })
 export class CoursesService {
-  private courses = [
+  courses = [
     {
       name: 'Angular 9. Теория и Практика 2020.',
       id: 1,
@@ -43,6 +43,8 @@ export class CoursesService {
       topRated: false,
     },
   ];
+  constructor() {}
+
   getCoursesList(): Course[] {
     return this.courses;
   }
@@ -61,5 +63,9 @@ export class CoursesService {
       return console.error(`No found any course by id ${id}`);
     }
   }
-  constructor() {}
+  removeCourse(courseForDelete: Course): void {
+    this.courses = this.courses.filter((course) => {
+      return course.id !== courseForDelete.id;
+    });
+  }
 }

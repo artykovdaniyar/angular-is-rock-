@@ -7,6 +7,7 @@ import {
   faTrash,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
+import { CoursesService } from '../courses.service';
 
 @Component({
   selector: 'app-courses-item',
@@ -20,9 +21,15 @@ export class CoursesItemComponent {
   faCalendarDays = faCalendarDays;
   faPen = faPen;
   faTrash = faTrash;
-  @Output() onDelete: EventEmitter<Course> = new EventEmitter<Course>();
+
+  constructor(private coursesService: CoursesService) {}
+
   deleteCourse(course: Course) {
-    this.onDelete.emit(course);
+    if (
+      confirm(`Do you really want to delete
+${course.name}?`)
+    ) {
+      this.coursesService.removeCourse(course);
+    }
   }
-  currentDate = new Date('02 Jul 2022').getTime();
 }

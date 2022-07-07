@@ -8,18 +8,10 @@ import { Course } from './models/course';
   styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements OnInit {
-  courses: Course[] = [];
   searchValue = '';
-  constructor(private courseService: CoursesService) {}
-  ngOnInit(): void {
-    this.courses = this.courseService.getCoursesList();
-  }
+  constructor() {}
+  ngOnInit(): void {}
   searchHandler(searchValue: string) {
     this.searchValue = searchValue;
-  }
-  deleteCourseHandler(courseForDelete: Course) {
-    this.courses = this.courses.filter((course) => {
-      return course.id !== courseForDelete.id;
-    });
   }
 }
