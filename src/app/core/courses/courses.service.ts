@@ -43,12 +43,23 @@ export class CoursesService {
       topRated: false,
     },
   ];
-  getCoursesList() {
+  getCoursesList(): Course[] {
     return this.courses;
   }
-  createCourse(course: Course) {
-    let newCourse = { ...course, id: this.courses.length + 1 };
+  createCourse(course: Course): void {
+    const newCourse = { ...course, id: this.courses.length + 1 };
     this.courses.push(newCourse);
+  }
+  getCourseById(id: number) {
+    const course = this.courses.find((course) => {
+      return course.id === id;
+    });
+
+    if (course) {
+      return course;
+    } else {
+      return console.error(`No found any course by id ${id}`);
+    }
   }
   constructor() {}
 }
