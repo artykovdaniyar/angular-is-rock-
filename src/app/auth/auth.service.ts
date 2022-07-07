@@ -14,4 +14,11 @@ export class AuthService {
   loginOut() {
     localStorage.removeItem(this.TOKEN);
   }
+  isAuthenticated(): boolean {
+    if (localStorage.getItem(this.TOKEN)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
