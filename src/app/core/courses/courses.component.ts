@@ -12,7 +12,7 @@ export class CoursesComponent implements OnInit {
   searchValue = '';
   constructor(private courseService: CoursesService) {}
   ngOnInit(): void {
-    this.courses = this.courseService.getCourses();
+    this.courses = this.courseService.getCoursesList();
   }
   searchHandler(searchValue: string) {
     this.searchValue = searchValue;

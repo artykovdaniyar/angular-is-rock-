@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Course } from './models/course';
 
 @Injectable({
   providedIn: 'root',
@@ -42,8 +43,12 @@ export class CoursesService {
       topRated: false,
     },
   ];
-  getCourses() {
+  getCoursesList() {
     return this.courses;
+  }
+  createCourse(course: Course) {
+    let newCourse = { ...course, id: this.courses.length + 1 };
+    this.courses.push(newCourse);
   }
   constructor() {}
 }
