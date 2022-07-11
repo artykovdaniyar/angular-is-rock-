@@ -6,6 +6,7 @@
     </a>
     <div class="header__registration registration">
       <button
+        *ngIf="!isAuthenticated"
         href="/login"
         type="button"
         class="registration__link"
@@ -15,7 +16,13 @@
 
         User Login
       </button>
-      <button href="/sign-in" type="button" class="registration__link">
+      <button
+        href="/sign-in"
+        type="button"
+        class="registration__link"
+        *ngIf="isAuthenticated"
+        (click)="loginOut()"
+      >
         <fa-icon
           class="registration__icon"
           [icon]="faRightFromBracket"

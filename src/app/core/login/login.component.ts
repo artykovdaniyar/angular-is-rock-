@@ -3,13 +3,12 @@ import {
   AfterViewInit,
   Component,
   DoCheck,
-  ElementRef,
   OnChanges,
   OnInit,
   SimpleChanges,
-  ViewChild,
 } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Login } from 'src/app/auth/models/login';
 
 @Component({
   selector: 'app-login',
@@ -43,7 +42,12 @@ export class LoginComponent
   onSubmit(event: Event) {
     event.preventDefault();
     if (this.userEmail && this.userPassword) {
-      console.log(this.userEmail, this.userPassword);
+      const userLogin: Login = {
+        email: this.userEmail,
+        password: this.userPassword,
+      };
+      this.authService.loginIn(userLogin);
+      this.authService.toggleLoginModel();
     }
   }
   closeModal() {

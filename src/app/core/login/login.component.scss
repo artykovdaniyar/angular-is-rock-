@@ -6,7 +6,7 @@
   height: 100vh;
   background: rgba($color: #000000, $alpha: 0.5);
   z-index: 2;
-  animation: fadeIn 1s ease-in-out forwards;
+  animation: fadeIn 0.6s ease-in-out forwards;
 }
 .card {
   position: fixed;
@@ -19,8 +19,7 @@
   z-index: 3;
   overflow: hidden;
   border-radius: 6px;
-  opacity: 0;
-  animation: slideInDown 0.5s 0.1s ease-in forwards;
+  animation: fadeIn 0.6s ease-in forwards;
 }
 
 .title {

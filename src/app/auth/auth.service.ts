@@ -7,7 +7,7 @@ import { Login } from './models/login';
 export class AuthService {
   isLoginModelOpened = false;
 
-  private TOKEN = 'angularRockToken';
+  TOKEN = 'angularRockToken';
   constructor() {}
 
   toggleLoginModel() {
@@ -20,13 +20,14 @@ export class AuthService {
   loginOut(): void {
     localStorage.removeItem(this.TOKEN);
   }
-  getUserInfo(): Login {
-    return JSON.parse(localStorage[this.TOKEN]);
+  getUserInfo() {
+    return localStorage[this.TOKEN];
   }
   isAuthenticated(): boolean {
     if (this.getUserInfo()) {
       return true;
     } else {
+      console.log(false);
       return false;
     }
   }
