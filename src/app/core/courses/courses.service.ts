@@ -68,4 +68,13 @@ export class CoursesService {
       course.id !== courseForDelete.id;
     });
   }
+  updateCourse(updatedCourse: Course) {
+    this.courses = this.courses.map((course) => {
+      if (course.id === updatedCourse.id) {
+        return updatedCourse;
+      } else {
+        return course;
+      }
+    });
+  }
 }
