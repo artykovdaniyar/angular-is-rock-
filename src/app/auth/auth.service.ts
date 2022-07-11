@@ -5,8 +5,14 @@ import { Login } from './models/login';
   providedIn: 'root',
 })
 export class AuthService {
-  TOKEN = 'angularRockToken';
+  isLoginModelOpened = false;
+
+  private TOKEN = 'angularRockToken';
   constructor() {}
+
+  toggleLoginModel() {
+    this.isLoginModelOpened = !this.isLoginModelOpened;
+  }
 
   loginIn(userLogin: Login): void {
     localStorage.setItem('angularRockToken', JSON.stringify(userLogin));

@@ -65,7 +65,7 @@ export class CoursesService {
   }
   removeCourse(courseForDelete: Course): void {
     this.courses = this.courses.filter((course) => {
-      return course.id !== courseForDelete.id;
+      course.id !== courseForDelete.id;
     });
   }
 }

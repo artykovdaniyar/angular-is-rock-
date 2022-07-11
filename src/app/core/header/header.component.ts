@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -13,4 +14,10 @@ export class HeaderComponent {
   faUser = faUser;
   faRightFromBracket = faRightFromBracket;
   @Input() title = '';
+
+  constructor(private authService: AuthService) {}
+
+  openLoginModel() {
+    this.authService.toggleLoginModel();
+  }
 }

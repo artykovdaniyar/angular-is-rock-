@@ -23,16 +23,18 @@
     margin-right: 18px;
   }
 }
-a {
+button {
+  font-size: 16px;
   transition: color 0.2s;
+  &:hover {
+    color: #30b6dd;
+  }
+  &:focus,
+  &:active {
+    color: #106ebe;
+  }
 }
-a:hover {
-  color: #30b6dd;
-}
-a:focus,
-a:active {
-  color: #106ebe;
-}
+
 @media screen and (max-width: 767px) {
   .registration {
     &__link {
