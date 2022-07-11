@@ -15,18 +15,11 @@ import { Login } from 'src/app/auth/models/login';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent
-  implements OnInit, AfterViewInit, OnChanges, AfterContentInit, DoCheck
-{
+export class LoginComponent implements DoCheck {
   userEmail = '';
   userPassword = '';
   isVisible = false;
   constructor(public authService: AuthService) {}
-  ngOnInit(): void {}
-  ngAfterContentInit(): void {}
-  ngOnChanges(changes: SimpleChanges): void {}
-
-  ngAfterViewInit(): void {}
 
   ngDoCheck() {
     this.isVisible = this.authService.isLoginModelOpened;

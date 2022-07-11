@@ -26,7 +26,7 @@ export class HeaderComponent implements DoCheck {
     this.authService.toggleLoginModel();
   }
   loginOut(): void {
-    if (confirm('Are you sure?')) {
+    if (confirm('Do you really want to login out?')) {
       this.authService.loginOut();
     }
   }
