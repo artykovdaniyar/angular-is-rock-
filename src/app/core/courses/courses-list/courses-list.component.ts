@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Counter } from '@fortawesome/fontawesome-svg-core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Course } from '../models/course';
+import { Course } from '../course';
 import { CoursesService } from '../courses.service';
 
 @Component({

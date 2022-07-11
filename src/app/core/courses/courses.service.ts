@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Course } from './models/course';
+import { Course } from './course';
 
 @Injectable({
   providedIn: 'root',
@@ -65,7 +65,7 @@ export class CoursesService {
   }
   removeCourse(courseForDelete: Course): void {
     this.courses = this.courses.filter((course) => {
-      course.id !== courseForDelete.id;
+      return course.id !== courseForDelete.id;
     });
   }
   updateCourse(updatedCourse: Course) {

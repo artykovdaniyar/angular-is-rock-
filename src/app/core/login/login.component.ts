@@ -8,7 +8,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Login } from 'src/app/auth/models/login';
+import { Login } from 'src/app/auth/login';
 
 @Component({
   selector: 'app-login',
