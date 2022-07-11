@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -6,11 +6,9 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './course-search.component.html',
   styleUrls: ['./course-search.component.scss'],
 })
-export class CoursesSearchComponent implements OnInit {
+export class CoursesSearchComponent {
   faMagnifyingGlass = faMagnifyingGlass;
   @Output() onSubmit: EventEmitter<string> = new EventEmitter<string>();
-
-  ngOnInit(): void {}
 
   submitHandler(input: string) {
     this.onSubmit.emit(input);

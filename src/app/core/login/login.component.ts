@@ -3,9 +3,6 @@ import {
   AfterViewInit,
   Component,
   DoCheck,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
 } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Login } from 'src/app/auth/login';

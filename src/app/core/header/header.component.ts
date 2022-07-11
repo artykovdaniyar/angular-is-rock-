@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, OnInit } from '@angular/core';
+import { Component, DoCheck, Input } from '@angular/core';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
