@@ -13,6 +13,7 @@ export class HeaderComponent {
   faPlayCircle = faPlayCircle;
   faUser = faUser;
   faRightFromBracket = faRightFromBracket;
+  isAuthenticated = false;
   @Input() title = '';
 
   constructor(private authService: AuthService) {}
