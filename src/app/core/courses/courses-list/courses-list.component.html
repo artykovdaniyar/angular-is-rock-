@@ -6,7 +6,10 @@
 
   <ul class="list">
     <li *ngFor="let course of coursesList | orderBy | filter: searchValue">
-      <app-courses-item [course]="course"></app-courses-item>
+      <app-courses-item
+        [course]="course"
+        (onDelete)="deleteEventEmit($event)"
+      ></app-courses-item>
     </li>
   </ul>
 

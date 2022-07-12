@@ -27,7 +27,6 @@ export class AuthService {
     if (this.getUserInfo()) {
       return true;
     } else {
-      console.log(false);
       return false;
     }
   }

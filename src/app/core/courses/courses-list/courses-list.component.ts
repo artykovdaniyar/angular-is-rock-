@@ -1,6 +1,14 @@
-import { Component, DoCheck, Input } from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { Counter } from '@fortawesome/fontawesome-svg-core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Observable } from 'rxjs';
 import { Course } from '../course';
 import { CoursesService } from '../courses.service';
 
@@ -8,18 +16,16 @@ import { CoursesService } from '../courses.service';
   selector: 'app-courses-list',
   templateUrl: './courses-list.component.html',
   styleUrls: ['./courses-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CoursesListComponent implements DoCheck {
+export class CoursesListComponent {
   faPlus = faPlus;
   @Input() searchValue = '';
-  coursesList: Course[] = [];
-  constructor(private coursesService: CoursesService) {}
-
-  ngDoCheck(): void {
-    this.coursesList = this.coursesService.courses;
-  }
+  @Output() onDelete: EventEmitter<Course> = new EventEmitter();
+  @Input() coursesList!: Course[];
+  constructor() {}
 
   deleteEventEmit(course: Course) {
-    this.coursesService.removeCourse(course);
+    this.onDelete.emit(course);
   }
 }
