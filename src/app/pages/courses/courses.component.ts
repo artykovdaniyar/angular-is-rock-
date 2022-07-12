@@ -1,7 +1,6 @@
 import { Component, DoCheck } from '@angular/core';
-import { Course } from './course';
-import { CoursesService } from './courses.service';
-import { Observable, of } from 'rxjs';
+import { Course } from '../../shared/models/course';
+import { CoursesService } from '../../core/services/courses.service';
 
 @Component({
   selector: 'app-courses',

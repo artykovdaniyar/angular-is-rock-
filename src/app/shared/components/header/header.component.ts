@@ -2,7 +2,7 @@ import { Component, DoCheck, Input } from '@angular/core';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-header',

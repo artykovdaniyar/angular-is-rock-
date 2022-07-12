@@ -4,8 +4,8 @@ import {
   Component,
   DoCheck,
 } from '@angular/core';
-import { AuthService } from 'src/app/auth/auth.service';
-import { Login } from 'src/app/auth/login';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { Login } from 'src/app/shared/models/login';
 
 @Component({
   selector: 'app-login',

@@ -1,5 +1,5 @@
 import { Component, DoCheck } from '@angular/core';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-breadcrumbs',

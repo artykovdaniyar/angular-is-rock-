@@ -6,11 +6,8 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { Counter } from '@fortawesome/fontawesome-svg-core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Observable } from 'rxjs';
-import { Course } from '../course';
-import { CoursesService } from '../courses.service';
+import { Course } from '../../../shared/models/course';
 
 @Component({
   selector: 'app-courses-list',

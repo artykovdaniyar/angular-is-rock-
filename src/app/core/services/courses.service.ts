@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Course } from './course';
+import { Course } from '../../shared/models/course';
 
 @Injectable({
   providedIn: 'root',
@@ -53,7 +53,7 @@ export class CoursesService {
     const newCourse = { ...course, id: this.courses.length + 1 };
     this.courses.push(newCourse);
   }
-  getCourseById(id: number) {
+  getCourseById(id: number): Course | null {
     const course = this.courses.find((course) => {
       return course.id === id;
     });
@@ -61,7 +61,8 @@ export class CoursesService {
     if (course) {
       return course;
     } else {
-      return console.error(`No found any course by id ${id}`);
+      console.error(`No found any course by id ${id}`);
+      return null;
     }
   }
   removeCourse(courseForDelete: Course): void {

@@ -5,7 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Course } from '../course';
+import { Course } from '../../../shared/models/course';
 import {
   faClock,
   faCalendarDays,
@@ -13,7 +13,6 @@ import {
   faTrash,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
-import { CoursesService } from '../courses.service';
 
 @Component({
   selector: 'app-courses-item',
@@ -29,7 +28,7 @@ export class CoursesItemComponent {
   faPen = faPen;
   faTrash = faTrash;
 
-  constructor(private coursesService: CoursesService) {}
+  constructor() {}
   @Output() onDelete: EventEmitter<Course> = new EventEmitter<Course>();
   deleteCourse(course: Course) {
     if (
