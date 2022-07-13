@@ -1,9 +1,13 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
+  OnChanges,
+  OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { Course } from '../../../shared/models/course';
 import {
@@ -21,13 +25,14 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CoursesItemComponent {
-  @Input() course!: Course;
   faStar = faStar;
   faClock = faClock;
   faCalendarDays = faCalendarDays;
   faPen = faPen;
   faTrash = faTrash;
+  constructor() {}
 
+  @Input() course!: Course;
   @Output() onDelete: EventEmitter<Course> = new EventEmitter<Course>();
   deleteCourse(course: Course) {
     if (

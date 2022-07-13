@@ -40,6 +40,5 @@ export class AddCourseComponent implements OnInit {
   onSubmit(event: any) {
     event.preventDefault();
     this.courseService.createCourse(this.newCourse);
-    console.log(this.courseService.getCoursesList());
   }
 }

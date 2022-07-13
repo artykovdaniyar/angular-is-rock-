@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { Course } from '../../shared/models/course';
 
 @Injectable({
@@ -51,7 +52,7 @@ export class CoursesService {
   createCourse(course: Course): void {
     this.courses = [...this.courses, course];
   }
-  getCourseById(id: number): Course | null {
+  getCourseById(id: number) {
     const course = this.courses.find((course) => {
       return course.id === id;
     });
@@ -69,6 +70,8 @@ export class CoursesService {
     });
   }
   updateCourse(updatedCourse: Course) {
-    this.courses = [...this.courses, updatedCourse];
+    this.courses = this.courses.map((course) =>
+      course.id === updatedCourse.id ? updatedCourse : course
+    );
   }
 }

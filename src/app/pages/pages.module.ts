@@ -4,6 +4,7 @@ import { CoursesModule } from './courses/courses.module';
 import { LoginModule } from './login/login.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AddCourseModule } from './add-course/add-course.module';
+import { EditCourseModule } from './edit-course/edit-course.module';
 
 @NgModule({
   declarations: [],
@@ -13,7 +14,8 @@ import { AddCourseModule } from './add-course/add-course.module';
     LoginModule,
     FontAwesomeModule,
     AddCourseModule,
+    EditCourseModule,
   ],
-  exports: [CoursesModule, LoginModule, AddCourseModule],
+  exports: [CoursesModule, LoginModule, AddCourseModule, EditCourseModule],
 })
 export class PagesModule {}

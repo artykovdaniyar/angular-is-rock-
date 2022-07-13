@@ -1,7 +1,7 @@
-<section class="add-course">
+<section class="edit-course">
   <div class="container">
     <div class="card">
-      <h2 class="title">New course</h2>
+      <h2 class="title">Edit course</h2>
       <form class="form" (submit)="onSubmit($event)">
         <fieldset class="form-group">
           <label for="courseTitle">Title:</label>
@@ -11,6 +11,7 @@
             id="courseTitle"
             autocomplete="off"
             placeholder="Enter Title"
+            [value]="courseForChange.name"
             (input)="onInput($event.target)"
           />
         </fieldset>
@@ -20,21 +21,24 @@
             id="courseDescription"
             placeholder="Enter Description"
             autocomplete="off"
+            [value]="courseForChange.description"
             (input)="onInput($event.target)"
           ></textarea>
         </fieldset>
         <fieldset class="form-group">
-          <app-add-course-date
+          <app-edit-course-date
+            [date]="courseForChange.date"
             (onSelectDate)="onInputDate($event)"
-          ></app-add-course-date>
+          ></app-edit-course-date>
         </fieldset>
         <fieldset class="form-group">
-          <app-add-course-duration
+          <app-edit-course-duration
+            [duration]="courseForChange.duration"
             (onEnterDuration)="onInputDuration($event)"
-          ></app-add-course-duration>
+          ></app-edit-course-duration>
         </fieldset>
         <fieldset class="form-group">
-          <app-add-course-authors></app-add-course-authors>
+          <app-edit-course-authors></app-edit-course-authors>
         </fieldset>
         <fieldset class="form-group btns">
           <button class="btn btn-save">Save</button>
