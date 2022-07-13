@@ -1,0 +1,44 @@
+<section class="add-course">
+  <div class="container">
+    <h2 class="title">Add new course</h2>
+    <form class="form" (submit)="onSubmit($event)">
+      <fieldset class="form-group">
+        <label for="courseTitle">Title:</label>
+        <input
+          type="text"
+          class="input"
+          id="courseTitle"
+          autocomplete="off"
+          placeholder="Enter Title"
+          (input)="onInput($event.target)"
+        />
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="courseDescription">Description:</label>
+        <textarea
+          id="courseDescription"
+          placeholder="Enter Description"
+          autocomplete="off"
+          (input)="onInput($event.target)"
+        ></textarea>
+      </fieldset>
+      <fieldset class="form-group">
+        <app-add-course-date
+          (onSelectDate)="onInputDate($event)"
+        ></app-add-course-date>
+      </fieldset>
+      <fieldset class="form-group">
+        <app-add-course-duration
+          (onEnterDuration)="onInputDuration($event)"
+        ></app-add-course-duration>
+      </fieldset>
+      <fieldset class="form-group">
+        <app-add-course-authors></app-add-course-authors>
+      </fieldset>
+      <fieldset class="form-group btns">
+        <button class="btn btn-save">Save</button>
+        <button class="btn btn-cancel" type="button">Cancel</button>
+      </fieldset>
+    </form>
+  </div>
+</section>

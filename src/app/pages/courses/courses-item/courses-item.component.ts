@@ -28,7 +28,6 @@ export class CoursesItemComponent {
   faPen = faPen;
   faTrash = faTrash;
 
-  constructor() {}
   @Output() onDelete: EventEmitter<Course> = new EventEmitter<Course>();
   deleteCourse(course: Course) {
     if (

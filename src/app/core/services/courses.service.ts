@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { Course } from '../../shared/models/course';
 
 @Injectable({
@@ -50,8 +49,7 @@ export class CoursesService {
     return this.courses;
   }
   createCourse(course: Course): void {
-    const newCourse = { ...course, id: this.courses.length + 1 };
-    this.courses.push(newCourse);
+    this.courses = [...this.courses, course];
   }
   getCourseById(id: number): Course | null {
     const course = this.courses.find((course) => {
@@ -71,12 +69,6 @@ export class CoursesService {
     });
   }
   updateCourse(updatedCourse: Course) {
-    this.courses = this.courses.map((course) => {
-      if (course.id === updatedCourse.id) {
-        return updatedCourse;
-      } else {
-        return course;
-      }
-    });
+    this.courses = [...this.courses, updatedCourse];
   }
 }
