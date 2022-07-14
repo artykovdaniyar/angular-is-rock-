@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { CoursesMoreComponent } from './courses-more/courses-more.component';
 import { CoursesInfoCardComponent } from './courses-info-card/courses-info-card.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CoursesInfoCardComponent,
   ],
   exports: [CoursesComponent, CoursesSearchComponent],
-  imports: [CommonModule, FontAwesomeModule, FormsModule, SharedModule],
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+    FormsModule,
+    SharedModule,
+    RouterModule,
+  ],
 })
 export class CoursesModule {}

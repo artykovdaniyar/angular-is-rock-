@@ -1,4 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CoursesService } from 'src/app/core/services/courses.service';
 import { Course } from 'src/app/shared/models/course';
 
@@ -10,10 +11,16 @@ import { Course } from 'src/app/shared/models/course';
 export class EditCourseComponent implements OnInit {
   courseForChange: any;
 
-  constructor(private courseService: CoursesService) {}
+  constructor(
+    private courseService: CoursesService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.courseForChange = this.courseService.getCourseById(1);
+    this.route.params.subscribe((params: Params) => {
+      this.courseForChange = this.courseService.getCourseById(+params['id']);
+    });
   }
 
   onInput(target: any) {
@@ -34,5 +41,9 @@ export class EditCourseComponent implements OnInit {
   onSubmit(event: Event) {
     event.preventDefault();
     this.courseService.updateCourse(this.courseForChange);
+    this.goToCoursesPage();
+  }
+  goToCoursesPage() {
+    this.router.navigate(['courses']);
   }
 }

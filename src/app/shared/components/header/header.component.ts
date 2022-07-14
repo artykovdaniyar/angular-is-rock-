@@ -1,4 +1,5 @@
 import { Component, DoCheck, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
@@ -17,17 +18,15 @@ export class HeaderComponent implements DoCheck {
 
   @Input() title = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
   ngDoCheck(): void {
     this.isAuthenticated = this.authService.isAuthenticated();
   }
 
-  openLoginModel() {
-    this.authService.toggleLoginModel();
-  }
   loginOut(): void {
     if (confirm('Do you really want to login out?')) {
       this.authService.loginOut();
+      this.router.navigate(['/login']);
     }
   }
 }

@@ -1,11 +1,11 @@
 <section class="courses">
-  <button class="add-btn">
+  <a routerLink="/courses/new" class="add-btn">
     <fa-icon [icon]="faPlus" class="add-icon"></fa-icon>
     Add course
-  </button>
+  </a>
 
   <ul class="list">
-    <li *ngFor="let course of coursesList">
+    <li *ngFor="let course of coursesList | orderBy | filter: searchValue">
       <app-courses-item
         [course]="course"
         (onDelete)="deleteEventEmit($event)"

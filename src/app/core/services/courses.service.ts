@@ -52,17 +52,8 @@ export class CoursesService {
   createCourse(course: Course): void {
     this.courses = [...this.courses, course];
   }
-  getCourseById(id: number) {
-    const course = this.courses.find((course) => {
-      return course.id === id;
-    });
-
-    if (course) {
-      return course;
-    } else {
-      console.error(`No found any course by id ${id}`);
-      return null;
-    }
+  getCourseById(id: number): Course | undefined {
+    return this.courses.find((course) => course.id === id);
   }
   removeCourse(courseForDelete: Course): void {
     this.courses = this.courses.filter((course) => {

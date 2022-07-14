@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CoursesService } from 'src/app/core/services/courses.service';
 import { Course } from 'src/app/shared/models/course';
 
@@ -17,7 +18,7 @@ export class AddCourseComponent implements OnInit {
     topRated: false,
   };
 
-  constructor(private courseService: CoursesService) {}
+  constructor(private courseService: CoursesService, private router: Router) {}
   ngOnInit(): void {
     this.newCourse.id = this.courseService.getCoursesList().length + 1;
   }
@@ -40,5 +41,9 @@ export class AddCourseComponent implements OnInit {
   onSubmit(event: any) {
     event.preventDefault();
     this.courseService.createCourse(this.newCourse);
+    this.goToCoursePage();
+  }
+  goToCoursePage() {
+    this.router.navigate(['/courses']);
   }
 }

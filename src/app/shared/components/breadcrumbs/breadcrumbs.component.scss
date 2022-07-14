@@ -16,6 +16,7 @@
 }
 a {
   transition: color 0.2s;
+  cursor: pointer;
 }
 a:hover {
   color: #30b6dd;
@@ -23,4 +24,11 @@ a:hover {
 a:focus,
 a:active {
   color: #106ebe;
+}
+.blue {
+  font-weight: 700;
+  color: #30b6dd;
+}
+.grey {
+  color: #777;
 }

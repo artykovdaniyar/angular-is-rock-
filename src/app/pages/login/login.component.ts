@@ -4,6 +4,7 @@ import {
   Component,
   DoCheck,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Login } from 'src/app/shared/models/login';
 
@@ -16,7 +17,7 @@ export class LoginComponent implements DoCheck {
   userEmail = '';
   userPassword = '';
   isVisible = false;
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   ngDoCheck() {
     this.isVisible = this.authService.isLoginModelOpened;
@@ -37,10 +38,7 @@ export class LoginComponent implements DoCheck {
         password: this.userPassword,
       };
       this.authService.loginIn(userLogin);
-      this.authService.toggleLoginModel();
+      this.router.navigate(['/courses']);
     }
-  }
-  closeModal() {
-    this.authService.toggleLoginModel();
   }
 }

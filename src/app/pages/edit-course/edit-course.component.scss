@@ -82,6 +82,8 @@ textarea::placeholder {
   }
 }
 .card {
+  max-width: 730px;
+  margin: 0 auto;
   padding: 24px 24px 34px;
   background: #fff;
   border-radius: 6px;

@@ -11,6 +11,11 @@
   &__icon-link {
     display: flex;
     align-items: center;
+    cursor: pointer;
+    transition: color 0.3s;
+    &:hover {
+      color: #30b6dd;
+    }
   }
   &__icon-title {
     text-transform: uppercase;

@@ -2,7 +2,13 @@
   <div class="breadcrumbs__container container">
     <ul class="breadcrumbs__list">
       <li class="breadcrumbs__item">
-        <a class="breadcrumbs__link" href="/courses">Courses</a>
+        <a class="breadcrumbs__link" routerLink="/courses">Courses</a>
+      </li>
+      &nbsp;
+      <li class="breadcrumbs__item blue">/</li>
+      &nbsp;
+      <li class="breadcrumbs__item grey">
+        {{ course?.name }}
       </li>
     </ul>
   </div>

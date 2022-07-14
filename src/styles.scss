@@ -92,8 +92,11 @@ input[type="number"]::-webkit-outer-spin-button {
   overflow: hidden;
 }
 main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
   background: #f2f3f7;
-  height: fit-content;
+  height: 100%;
 }
 fieldset {
   border: none;

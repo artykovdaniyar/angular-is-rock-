@@ -17,6 +17,7 @@ import {
   faTrash,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses-item',
@@ -30,7 +31,8 @@ export class CoursesItemComponent {
   faCalendarDays = faCalendarDays;
   faPen = faPen;
   faTrash = faTrash;
-  constructor() {}
+
+  constructor(private router: Router) {}
 
   @Input() course!: Course;
   @Output() onDelete: EventEmitter<Course> = new EventEmitter<Course>();
@@ -41,5 +43,8 @@ ${course.name}`)
     ) {
       this.onDelete.emit(course);
     }
+  }
+  goToEditPage() {
+    this.router.navigate([`courses/${this.course.id}`]);
   }
 }

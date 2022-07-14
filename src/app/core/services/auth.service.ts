@@ -10,10 +10,6 @@ export class AuthService {
   TOKEN = 'angularRockToken';
   constructor() {}
 
-  toggleLoginModel() {
-    this.isLoginModelOpened = !this.isLoginModelOpened;
-  }
-
   loginIn(userLogin: Login): void {
     localStorage.setItem('angularRockToken', JSON.stringify(userLogin));
   }

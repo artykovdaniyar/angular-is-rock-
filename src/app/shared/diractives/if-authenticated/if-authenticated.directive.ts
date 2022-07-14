@@ -11,11 +11,12 @@ import {
   selector: '[IfAuthenticated]',
 })
 export class IfAuthenticatedDirective implements OnChanges {
-  @Input('IfAuthenticated') IfAuthenticated!: boolean;
+  @Input() IfAuthenticated!: boolean;
   constructor(
     private templateRef: TemplateRef<any>,
     private vcRef: ViewContainerRef
   ) {}
+
   ngOnChanges(changes: SimpleChanges): void {
     if (this.IfAuthenticated) {
       this.vcRef.createEmbeddedView(this.templateRef);
