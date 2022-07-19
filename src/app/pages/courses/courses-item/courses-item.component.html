@@ -2,7 +2,7 @@
   class="card"
   appCourseMarker
   [creationDate]="course.date"
-  [ngClass]="{ 'card--top-rated': course.topRated }"
+  [ngClass]="{ 'card--top-rated': course.isTopRated }"
 >
   <div class="info">
     <div class="info-header">
@@ -12,7 +12,7 @@
         </h3>
         <button class="top-rated-btn">
           <fa-icon
-            *ngIf="course.topRated"
+            *ngIf="course.isTopRated"
             [icon]="faStar"
             class="top-rated-icon"
           ></fa-icon>
@@ -22,7 +22,7 @@
       <ul class="info-date">
         <li class="visite-time">
           <fa-icon [icon]="faClock"></fa-icon>
-          {{ course.duration | courseDuration }}
+          {{ course.length | courseDuration }}
         </li>
         <li class="creation-time">
           <fa-icon [icon]="faCalendarDays"></fa-icon>

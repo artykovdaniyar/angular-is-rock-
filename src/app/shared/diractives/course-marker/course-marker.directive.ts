@@ -15,19 +15,19 @@ function getMiniSecondsFromDay(number: number) {
   selector: '[appCourseMarker]',
 })
 export class CourseMarkerDirective implements AfterViewChecked {
-  @Input() creationDate!: number;
+  @Input() creationDate!: string;
   currentDate = new Date().getTime();
 
   constructor(private el: ElementRef, private r: Renderer2) {}
 
   ngAfterViewChecked() {
-    if (
-      this.creationDate < this.currentDate &&
-      this.creationDate >= this.currentDate - getMiniSecondsFromDay(14)
-    ) {
-      this.r.addClass(this.el.nativeElement, 'card--new');
-    } else if (this.creationDate > this.currentDate) {
-      this.r.addClass(this.el.nativeElement, 'card--inrelease');
-    }
+    // if (
+    //   this.creationDate < this.currentDate &&
+    //   this.creationDate >= this.currentDate - getMiniSecondsFromDay(14)
+    // ) {
+    //   this.r.addClass(this.el.nativeElement, 'card--new');
+    // } else if (this.creationDate > this.currentDate) {
+    //   this.r.addClass(this.el.nativeElement, 'card--inrelease');
+    // }
   }
 }

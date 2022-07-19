@@ -1,4 +1,4 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
 import { Course } from '../../shared/models/course';
 import { CoursesService } from '../../core/services/courses.service';
 
@@ -7,13 +7,14 @@ import { CoursesService } from '../../core/services/courses.service';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss'],
 })
-export class CoursesComponent implements DoCheck {
+export class CoursesComponent implements DoCheck, OnInit {
   searchValue = '';
-  courses!: Course[];
+  courses$!: any;
   constructor(private courseService: CoursesService) {}
-  ngDoCheck(): void {
-    this.courses = this.courseService.getCoursesList();
+  ngOnInit(): void {
+    this.courses$ = this.courseService.getCoursesList();
   }
+  ngDoCheck(): void {}
 
   searchHandler(searchValue: string) {
     this.searchValue = searchValue;

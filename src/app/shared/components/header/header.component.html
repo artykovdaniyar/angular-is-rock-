@@ -4,22 +4,16 @@
       <fa-icon [icon]="faPlayCircle" size="2x"></fa-icon>
       <h1 class="header__icon-title">{{ title }}</h1>
     </a>
-    <div class="header__registration registration">
-      <button
-        *ngIf="!isAuthenticated"
-        href="/login"
-        type="button"
-        class="registration__link"
-      >
+    <div class="header__registration registration" *ngIf="isAuthenticated">
+      <button href="/login" type="button" class="registration__link">
         <fa-icon [icon]="faUser" class="registration__icon"></fa-icon>
 
-        User Login
+        {{ userName?.first }} {{ userName?.last }}
       </button>
       <button
         href="/sign-in"
         type="button"
         class="registration__link"
-        *ngIf="isAuthenticated"
         (click)="loginOut()"
       >
         <fa-icon

@@ -14,7 +14,7 @@
         name="userEmail"
         placeholder="Enter e-mail"
         autocomplete="off"
-        [value]="userEmail"
+        [value]="userLogin"
         (input)="onInput($event)"
       />
       <fieldset class="form-group">
@@ -37,7 +37,7 @@
         <button
           type="submit"
           class="btn"
-          [disabled]="!userEmail || !userPassword"
+          [disabled]="!userLogin || !userPassword"
         >
           Login
         </button>

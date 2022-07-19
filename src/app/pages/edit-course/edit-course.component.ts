@@ -18,32 +18,32 @@ export class EditCourseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.courseForChange = this.courseService.getCourseById(+params['id']);
-    });
+    // this.route.params.subscribe((params: Params) => {
+    //   this.courseForChange = this.courseService.getCourseById(+params['id']);
+    // });
   }
 
-  onInput(target: any) {
-    if (target.tagName === 'INPUT') {
-      const tag = target as HTMLInputElement;
-      this.courseForChange.name = tag.value;
-    } else {
-      const tag = target as HTMLTextAreaElement;
-      this.courseForChange.description = tag.value;
-    }
-  }
-  onInputDate(date: number) {
-    this.courseForChange.date = date;
-  }
-  onInputDuration(duration: number) {
-    this.courseForChange.duration = duration;
-  }
-  onSubmit(event: Event) {
-    event.preventDefault();
-    this.courseService.updateCourse(this.courseForChange);
-    this.goToCoursesPage();
-  }
-  goToCoursesPage() {
-    this.router.navigate(['courses']);
-  }
+  // onInput(target: any) {
+  //   if (target.tagName === 'INPUT') {
+  //     const tag = target as HTMLInputElement;
+  //     this.courseForChange.name = tag.value;
+  //   } else {
+  //     const tag = target as HTMLTextAreaElement;
+  //     this.courseForChange.description = tag.value;
+  //   }
+  // }
+  // onInputDate(date: number) {
+  //   this.courseForChange.date = date;
+  // }
+  // onInputDuration(length: number) {
+  //   this.courseForChange.length = length;
+  // }
+  // onSubmit(event: Event) {
+  //   event.preventDefault();
+  //   this.courseService.updateCourse(this.courseForChange);
+  //   this.goToCoursesPage();
+  // }
+  // goToCoursesPage() {
+  //   this.router.navigate(['courses']);
+  // }
 }

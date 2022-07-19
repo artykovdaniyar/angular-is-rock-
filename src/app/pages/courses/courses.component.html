@@ -2,6 +2,7 @@
   <div class="courses__container container">
     <app-courses-search (onSubmit)="searchHandler($event)"></app-courses-search>
     <app-courses-list
+      *ngIf="courses$ | async as courses"
       [searchValue]="searchValue"
       [coursesList]="courses"
       (onDelete)="deleteCourseHandler($event)"

@@ -21,8 +21,10 @@ export class BreadcrumbsComponent implements OnInit, DoCheck {
   ) {}
   ngDoCheck(): void {
     this.courseId = +window.location.pathname.replace(/\D/g, '');
-    this.isAuthenticated = this.authService.isAuthenticated();
-    this.course = this.courseService.getCourseById(this.courseId);
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.isAuthenticated$.subscribe((state) => {
+      this.isAuthenticated = state;
+    });
+  }
 }

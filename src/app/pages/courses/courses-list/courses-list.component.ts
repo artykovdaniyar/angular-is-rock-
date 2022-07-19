@@ -18,7 +18,7 @@ export class CoursesListComponent {
   faPlus = faPlus;
   @Input() searchValue = '';
   @Output() onDelete: EventEmitter<Course> = new EventEmitter();
-  @Input() coursesList!: Course[];
+  @Input() coursesList!: any;
   constructor() {}
 
   deleteEventEmit(course: Course) {
