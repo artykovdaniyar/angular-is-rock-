@@ -5,11 +5,11 @@
   </a>
 
   <ul class="list">
-    <li *ngFor="let course of coursesList | orderBy | filter: searchValue">
-      <app-courses-item
+    <li *ngFor="let course of coursesList">
+      <courses-item
         [course]="course"
         (onDelete)="deleteEventEmit($event)"
-      ></app-courses-item>
+      ></courses-item>
     </li>
   </ul>
 </section>

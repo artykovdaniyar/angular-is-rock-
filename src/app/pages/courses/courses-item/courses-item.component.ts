@@ -1,13 +1,9 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
-  OnChanges,
-  OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { Course } from '../../../shared/models/course';
 import {
@@ -20,7 +16,7 @@ import {
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-courses-item',
+  selector: 'courses-item',
   templateUrl: './courses-item.component.html',
   styleUrls: ['./courses-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

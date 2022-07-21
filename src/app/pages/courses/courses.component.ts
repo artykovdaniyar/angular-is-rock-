@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit, Query } from '@angular/core';
+import { delay, iif, last, Subscription } from 'rxjs';
 import { Course } from '../../shared/models/course';
-import { CoursesService } from './courses.service';
+import { CoursesService } from '../../core/services/courses.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -9,55 +10,73 @@ import { CoursesService } from './courses.service';
   styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements OnInit, OnDestroy {
+  courses: Course[] = [];
   searchValue = '';
+  searchQuery = '';
   totalCourseNum = 0;
   isLoading = false;
   isAllCourseLoaded = false;
-  courses: Course[] = [];
+  coursesNoFound = false;
+  noData = false;
 
-  coursesSubs!: Subscription;
-  courseTotalNumSubs!: Subscription;
-  isAllCoursesLoadedSubs!: Subscription;
-  isLoadingSubs!: Subscription;
-
-  constructor(private courseService: CoursesService) {}
+  constructor(
+    private courseService: CoursesService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.coursesSubs = this.coursesSubs = this.courseService
-      .getCourses()
-      .subscribe((courses) => {
-        this.courses = courses;
-      });
+    this.route.queryParams.subscribe((query: Params) => {
+      if (query['search']) {
+        this.searchValue = query['search'];
+        this.searchQuery = query['search'];
+      }
+    });
+    this.courseService.getCourses(this.searchValue).subscribe((courses) => {
+      this.courses = courses;
+    });
 
-    this.courseTotalNumSubs = this.courseService
-      .getTotalCoursesNum()
-      .subscribe((num) => {
-        this.totalCourseNum = num;
-      });
+    this.courseService.getTotalCoursesNum().subscribe((num) => {
+      this.totalCourseNum = num;
+    });
 
-    this.isAllCoursesLoadedSubs =
-      this.courseService.isAllCoursesLoaded$.subscribe((state) => {
-        this.isAllCourseLoaded = state;
-      });
+    this.courseService.isAllCoursesLoaded$.subscribe((state) => {
+      this.isAllCourseLoaded = state;
+    });
 
-    this.isLoadingSubs = this.courseService.isLoading$.subscribe((state) => {
+    this.courseService.isLoading$.subscribe((state) => {
       this.isLoading = state;
+    });
+    this.courseService.coursesNoFound$.subscribe(
+      (state) => (this.coursesNoFound = state)
+    );
+    this.courseService.noData$.subscribe((state) => {
+      this.noData = state;
     });
   }
 
   loadMore(): void {
-    this.courseService.loadMoreCourses();
+    this.courseService.loadMoreCourses(this.searchValue);
   }
-  searchHandler(searchValue: string): void {
-    this.searchValue = searchValue;
+  searchHandler(inputSearchValue: string): void {
+    this.router.navigate(['/courses'], {
+      queryParams: {
+        search: inputSearchValue.toLowerCase(),
+      },
+    });
+    this.courseService.resetRequest();
+    this.courseService.getCourses(inputSearchValue);
   }
   deleteCourseHandler(courseForDelete: Course): void {
     this.courseService.removeCourse(courseForDelete);
   }
-  ngOnDestroy(): void {
-    this.coursesSubs.unsubscribe();
-    this.courseTotalNumSubs.unsubscribe();
-    this.isAllCoursesLoadedSubs.unsubscribe();
-    this.isLoadingSubs.unsubscribe();
+  resetSearch() {
+    this.router.navigate(['/courses'], {
+      queryParams: {},
+    });
+    this.searchValue = '';
+    this.courseService.resetRequest();
+    this.courseService.getCourses(this.searchValue);
   }
+  ngOnDestroy(): void {}
 }

@@ -1,15 +1,29 @@
-<form class="search" (ngSubmit)="submitHandler(searchInput.value)">
-  <label for="serchInput" class="icon-wrapper">
-    <fa-icon [icon]="faMagnifyingGlass" size="sm" flip="horizontal"></fa-icon>
-  </label>
-  <input
-    type="text"
-    class="input"
-    id="serchInput"
-    name="searchWord"
-    autocomplete="off"
-    #searchInput
-    placeholder="Text to search"
-  />
-  <button class="btn" type="submit">Search</button>
+<form class="search" (ngSubmit)="submitHandler(searchValue)">
+  <div class="input-wrapper">
+    <label for="serchInput" class="icon-wrapper">
+      <fa-icon [icon]="faMagnifyingGlass" size="sm" flip="horizontal"></fa-icon>
+    </label>
+    <input
+      type="text"
+      id="serchInput"
+      name="searchWord"
+      class="input"
+      placeholder="Text to search"
+      autocomplete="off"
+      [value]="searchValue"
+      (input)="onInput($event)"
+    />
+    <button
+      *ngIf="searchValue"
+      class="reset-btn"
+      type="reset"
+      (click)="resetFormHadler()"
+    >
+      &times;
+    </button>
+  </div>
+
+  <button class="btn-submit" type="submit" [disabled]="!searchValue">
+    Search
+  </button>
 </form>

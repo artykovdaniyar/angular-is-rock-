@@ -1,9 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Course } from '../../shared/models/course';
-import { BehaviorSubject, delay, map, Observable, tap } from 'rxjs';
-import { __values } from 'tslib';
-import { trigger } from '@angular/animations';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,13 +9,19 @@ import { trigger } from '@angular/animations';
 export class CoursesService {
   startWith = 0;
   coursePerPage = 10;
+  noData$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  coursesNoFound$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
   isAllCoursesLoaded$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   totalCourseNum$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   courses$: BehaviorSubject<Course[]> = new BehaviorSubject<Course[]>([]);
+
   constructor(private http: HttpClient) {}
+
   fetchCourse(startNum = 0): void {
     this.isLoading$.next(true);
     let params = new HttpParams();
@@ -27,21 +31,41 @@ export class CoursesService {
       .get<Course[]>('http://localhost:3004/courses', {
         params,
       })
-      .pipe(tap(() => this.isLoading$.next(false)))
+      .pipe(
+        tap(() => this.isLoading$.next(false)),
+        tap((res) => {
+          if (res.length === 0 && !this.courses$.value.length) {
+            this.noData$.next(true);
+          }
+        })
+      )
       .subscribe((courses) => {
         this.courses$.next([...this.courses$.value, ...courses]);
       });
   }
-  getCourses(): Observable<Course[]> {
-    this.fetchCourse(this.startWith);
+  getCourses(searchText = ''): Observable<Course[]> {
+    this.coursesNoFound$.next(false);
+    if (searchText) {
+      this.startWith = 0;
+      this.searchCourses(searchText, this.startWith);
+    } else {
+      this.fetchCourse(this.startWith);
+    }
+
     return this.courses$;
   }
 
-  loadMoreCourses(): void {
+  loadMoreCourses(searchText = ''): void {
     if (!this.isAllCoursesLoaded$.value) {
-      this.startWith += 10;
-      this.fetchCourse(this.startWith);
+      if (searchText) {
+        this.startWith += this.coursePerPage;
+        this.searchCourses(searchText, this.startWith);
+      } else {
+        this.startWith += this.coursePerPage;
+        this.fetchCourse(this.startWith);
+      }
     }
+
     this.isAllCoursesLoaded();
   }
   isAllCoursesLoaded(): void {
@@ -58,6 +82,35 @@ export class CoursesService {
         this.totalCourseNum$.next(coursesList.length);
       });
     return this.totalCourseNum$;
+  }
+
+  searchCourses(searchText = '', startNum = 0): void {
+    this.isLoading$.next(true);
+    let params = new HttpParams();
+    params = params.append('textFragment', searchText);
+    params = params.append('start', startNum);
+    params = params.append('count', this.coursePerPage);
+
+    this.http
+      .get<Course[]>('http://localhost:3004/courses', {
+        params,
+      })
+      .pipe(
+        tap(() => this.isLoading$.next(false)),
+        tap((res) => {
+          if (res.length === 0 && !this.courses$.value.length) {
+            this.coursesNoFound$.next(true);
+          }
+        })
+      )
+      .subscribe((courses) => {
+        this.courses$.next([...this.courses$.value, ...courses]);
+      });
+  }
+  resetRequest(): void {
+    this.startWith = 0;
+    this.courses$.next([]);
+    this.isAllCoursesLoaded$.next(false);
   }
 
   createCourse(course: Course): void {
