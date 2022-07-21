@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { AuthService } from 'src/app/core/auth/auth.service';
 import { Name } from '../../models/Name';
 import { User } from '../../models/user';
 

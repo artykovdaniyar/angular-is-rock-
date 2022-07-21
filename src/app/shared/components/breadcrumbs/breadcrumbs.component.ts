@@ -1,7 +1,7 @@
 import { AfterContentChecked, Component, DoCheck, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { CoursesService } from 'src/app/core/services/courses.service';
+import { AuthService } from 'src/app/core/auth/auth.service';
+import { CoursesService } from 'src/app/pages/courses/courses.service';
 import { Course } from '../../models/course';
 
 @Component({

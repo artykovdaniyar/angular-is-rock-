@@ -1,0 +1,89 @@
+.search {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 41.6666666667%;
+}
+
+.icon-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  -webkit-transform: translateY(-40%);
+      -ms-transform: translateY(-40%);
+          transform: translateY(-40%);
+  color: #9a9da8;
+}
+
+.input {
+  -webkit-box-flex: 2;
+      -ms-flex-positive: 2;
+          flex-grow: 2;
+  padding: 10px 10px 10px 35px;
+  border: 1px solid #e2e4eb;
+  background: #fff;
+  -webkit-transition: border 0.2s;
+  -o-transition: border 0.2s;
+  transition: border 0.2s;
+}
+
+.input:hover,
+.input:focus {
+  outline: none;
+  border: 1px solid #30b6dd;
+}
+
+.input::-webkit-input-placeholder {
+  font-family: inherit;
+  color: #e5e6ea;
+}
+
+.input::-moz-placeholder {
+  font-family: inherit;
+  color: #e5e6ea;
+}
+
+.input:-ms-input-placeholder {
+  font-family: inherit;
+  color: #e5e6ea;
+}
+
+.input::-ms-input-placeholder {
+  font-family: inherit;
+  color: #e5e6ea;
+}
+
+.input::placeholder {
+  font-family: inherit;
+  color: #e5e6ea;
+}
+
+.btn {
+  color: #fff;
+  border-radius: 3px;
+  margin-left: 5px;
+  padding: 5px 15px;
+  background: #9bc837;
+  -webkit-transition: background 0.3s;
+  -o-transition: background 0.3s;
+  transition: background 0.3s;
+}
+
+.btn:hover,
+.btn:focus {
+  background: #85ad2e;
+}
+
+.btn:active {
+  background: #9bc837;
+}
+
+@media screen and (max-width: 767px) {
+  .search {
+    width: 100%;
+  }
+  .input {
+    min-width: 150px;
+  }
+}

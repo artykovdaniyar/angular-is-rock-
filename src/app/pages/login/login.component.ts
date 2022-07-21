@@ -3,10 +3,11 @@ import {
   AfterViewInit,
   Component,
   DoCheck,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { AuthService } from 'src/app/core/auth/auth.service';
 import { Login } from 'src/app/shared/models/login';
 
 @Component({
@@ -14,12 +15,11 @@ import { Login } from 'src/app/shared/models/login';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   userLogin = 'artykovdaniyar@gmail.com';
   userPassword = 'lamap69';
   isVisible = false;
-  constructor(public authService: AuthService, private router: Router) {}
-  ngOnInit(): void {}
+  constructor(public authService: AuthService) {}
 
   onInput(event: any) {
     if (event.target.type === 'email') {

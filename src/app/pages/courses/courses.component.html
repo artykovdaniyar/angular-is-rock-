@@ -1,11 +1,26 @@
 <section class="courses">
   <div class="courses__container container">
     <app-courses-search (onSubmit)="searchHandler($event)"></app-courses-search>
+
     <app-courses-list
-      *ngIf="courses$ | async as courses"
       [searchValue]="searchValue"
       [coursesList]="courses"
       (onDelete)="deleteCourseHandler($event)"
     ></app-courses-list>
+    <app-courses-info-card *ngIf="isLoading">
+      <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <h2 class="text">Loading...</h2>
+    </app-courses-info-card>
+    <app-courses-more
+      *ngIf="!isAllCourseLoaded"
+      infiniteScroll
+      [infiniteScrollDistance]="1"
+      (scrolled)="loadMore()"
+    ></app-courses-more>
   </div>
 </section>
