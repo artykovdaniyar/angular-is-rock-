@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Course } from '../../shared/models/course';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, filter, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,21 +9,22 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 export class CoursesService {
   startWith = 0;
   coursePerPage = 10;
+  courses$: BehaviorSubject<Course[]> = new BehaviorSubject<Course[]>([]);
+  totalCourseNum$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   noData$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   coursesNoFound$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isAllCoursesLoaded$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
-  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  totalCourseNum$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  courses$: BehaviorSubject<Course[]> = new BehaviorSubject<Course[]>([]);
 
   constructor(private http: HttpClient) {}
 
   fetchCourse(startNum = 0): void {
     this.isLoading$.next(true);
+    this.getTotalCoursesNum();
     this.http
       .get<Course[]>(
         `http://localhost:3004/courses?start=${startNum}&count=${this.coursePerPage}`
@@ -67,17 +68,18 @@ export class CoursesService {
   isAllCoursesLoaded(): void {
     if (this.startWith + this.coursePerPage >= this.totalCourseNum$.value) {
       this.isAllCoursesLoaded$.next(true);
+      console.log('all');
     } else {
       this.isAllCoursesLoaded$.next(false);
+      console.log('not all');
     }
   }
-  getTotalCoursesNum(): Observable<number> {
+  getTotalCoursesNum(): void {
     this.http
-      .get<Course[]>('http://localhost:3004/courses')
-      .subscribe((coursesList) => {
-        this.totalCourseNum$.next(coursesList.length);
+      .get<number>('http://localhost:3004/courses/length')
+      .subscribe((totalNum) => {
+        this.totalCourseNum$.next(totalNum);
       });
-    return this.totalCourseNum$;
   }
 
   fetchCoursesBySearch(searchText = '', startNum = 0): void {
@@ -121,9 +123,7 @@ export class CoursesService {
         this.courses$.next(updatedCoursesList);
       });
   }
-  createCourse(course: Course): void {
-    // this.courses = [...this.courses, course];
-  }
+
   getCourseById(courseId: number) {
     this.isLoading$.next(true);
     return this.http
@@ -134,5 +134,8 @@ export class CoursesService {
     // this.courses = this.courses.filter((course: any) => {
     //   return course.id !== courseForDelete.id;
     // });
+  }
+  createCourse(course: Course): void {
+    // this.courses = [...this.courses, course];
   }
 }

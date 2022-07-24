@@ -7,23 +7,23 @@
     ></courses-search>
 
     <courses-list
-      [searchValue]="searchValue"
-      [coursesList]="courses"
+      [searchValue]="searchQuery"
+      [coursesList]="coursesService.courses$ | async"
       (onDelete)="deleteCourseHandler($event)"
     ></courses-list>
-    <courses-info-card *ngIf="coursesNoFound">
+    <courses-info-card *ngIf="coursesService.coursesNoFound$ | async">
       No found any courses by request
     </courses-info-card>
 
-    <courses-info-card *ngIf="isAllCourseLoaded">
+    <courses-info-card *ngIf="coursesService.isAllCoursesLoaded$ | async">
       All courses loaded
     </courses-info-card>
 
-    <courses-info-card *ngIf="noData">
+    <courses-info-card *ngIf="coursesService.noData$ | async">
       No data, feel free to add new course
     </courses-info-card>
 
-    <courses-info-card *ngIf="isLoading">
+    <courses-info-card *ngIf="coursesService.isLoading$ | async">
       <div class="lds-ring">
         <div></div>
         <div></div>

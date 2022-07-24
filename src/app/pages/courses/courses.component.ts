@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit, Query } from '@angular/core';
-import { delay, iif, last, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Course } from '../../shared/models/course';
 import { CoursesService } from '../../core/services/courses.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -9,18 +8,11 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss'],
 })
-export class CoursesComponent implements OnInit {
-  courses: Course[] = [];
-  searchValue = '';
+export class CoursesComponent implements OnInit, OnDestroy {
   searchQuery = '';
-  totalCourseNum = 0;
-  isLoading = false;
-  isAllCourseLoaded = false;
-  coursesNoFound = false;
-  noData = false;
 
   constructor(
-    private courseService: CoursesService,
+    public coursesService: CoursesService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -28,35 +20,14 @@ export class CoursesComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((query: Params) => {
       if (query['search']) {
-        this.searchValue = query['search'];
         this.searchQuery = query['search'];
       }
     });
-    this.courseService.getCourses(this.searchValue).subscribe((courses) => {
-      this.courses = courses;
-    });
-
-    this.courseService.getTotalCoursesNum().subscribe((num) => {
-      this.totalCourseNum = num;
-    });
-
-    this.courseService.isAllCoursesLoaded$.subscribe((state) => {
-      this.isAllCourseLoaded = state;
-    });
-
-    this.courseService.isLoading$.subscribe((state) => {
-      this.isLoading = state;
-    });
-    this.courseService.coursesNoFound$.subscribe(
-      (state) => (this.coursesNoFound = state)
-    );
-    this.courseService.noData$.subscribe((state) => {
-      this.noData = state;
-    });
+    this.coursesService.getCourses(this.searchQuery);
   }
 
   loadMore(): void {
-    this.courseService.loadMoreCourses(this.searchValue);
+    this.coursesService.loadMoreCourses(this.searchQuery);
   }
   searchHandler(inputSearchValue: string): void {
     this.router.navigate(['/courses'], {
@@ -64,18 +35,21 @@ export class CoursesComponent implements OnInit {
         search: inputSearchValue.toLowerCase(),
       },
     });
-    this.courseService.resetRequest();
-    this.courseService.getCourses(inputSearchValue);
+    this.coursesService.resetRequest();
+    this.coursesService.getCourses(inputSearchValue);
   }
   deleteCourseHandler(courseForDelete: Course): void {
-    this.courseService.removeCourse(courseForDelete);
+    this.coursesService.removeCourse(courseForDelete);
   }
-  resetSearch() {
+  resetSearch(): void {
     this.router.navigate(['/courses'], {
       queryParams: {},
     });
-    this.searchValue = '';
-    this.courseService.resetRequest();
-    this.courseService.getCourses(this.searchValue);
+    this.searchQuery = '';
+    this.coursesService.resetRequest();
+    this.coursesService.getCourses(this.searchQuery);
+  }
+  ngOnDestroy(): void {
+    this.coursesService.resetRequest();
   }
 }
