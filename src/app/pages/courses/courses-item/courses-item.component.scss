@@ -2,18 +2,19 @@
   animation: fadeIn 0.7s ease-in forwards;
 }
 .card {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   padding: 30px 20px;
   background: #fff;
   border-radius: 8px;
   margin-bottom: 20px;
   overflow-x: hidden;
-  transition: all 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 .card:hover {
-  text-decoration: none;
   transform: translateY(-2px);
   box-shadow: rgba(0, 0, 0, 0.45) 0px 15px 20px -20px;
 }
@@ -24,12 +25,6 @@
   border: 3px solid #00bfff;
 }
 .card--top-rated {
-  background: var(--golden-color);
-  background: linear-gradient(
-    0deg,
-    rgba(237, 255, 0, 0.9884259259259259) 0%,
-    rgba(255, 255, 255, 1) 83%
-  );
 }
 .info {
   flex-basis: calc((100% / 12) * 9);
@@ -95,6 +90,40 @@
 }
 .btn:active {
   background: var(--primary-color);
+}
+
+.authors {
+  flex: 2 0 100%;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  font-size: 14px;
+}
+.author-title {
+  font-weight: 700;
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -5.5px;
+  color: var(--primary-dark-color);
+}
+.author {
+  white-space: nowrap;
+  &::after {
+    position: relative;
+    content: "/";
+    margin-left: 5px;
+    font-size: 20px;
+    bottom: -2px;
+    color: var(--gray-300);
+  }
+  margin-left: 5px;
+  &:last-child::after {
+    content: "";
+  }
 }
 
 @media screen and (max-width: 767px) {
