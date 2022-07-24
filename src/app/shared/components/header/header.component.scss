@@ -1,6 +1,6 @@
 .header {
   color: #e8e9ea;
-  background: #414452;
+  background: var(--gray-700);
   height: 70px;
   &__container {
     display: flex;
@@ -14,7 +14,7 @@
     cursor: pointer;
     transition: color 0.3s;
     &:hover {
-      color: #30b6dd;
+      color: var(--primary-color);
     }
   }
   &__icon-title {
@@ -32,7 +32,7 @@ button {
   font-size: 16px;
   transition: color 0.2s;
   &:hover {
-    color: #30b6dd;
+    color: var(--primary-color);
   }
   &:focus,
   &:active {

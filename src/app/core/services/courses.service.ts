@@ -24,13 +24,10 @@ export class CoursesService {
 
   fetchCourse(startNum = 0): void {
     this.isLoading$.next(true);
-    let params = new HttpParams();
-    params = params.append('start', startNum);
-    params = params.append('count', this.coursePerPage);
     this.http
-      .get<Course[]>('http://localhost:3004/courses', {
-        params,
-      })
+      .get<Course[]>(
+        `http://localhost:3004/courses?start=${startNum}&count=${this.coursePerPage}`
+      )
       .pipe(
         tap(() => this.isLoading$.next(false)),
         tap((res) => {
@@ -47,7 +44,7 @@ export class CoursesService {
     this.coursesNoFound$.next(false);
     if (searchText) {
       this.startWith = 0;
-      this.searchCourses(searchText, this.startWith);
+      this.fetchCoursesBySearch(searchText, this.startWith);
     } else {
       this.fetchCourse(this.startWith);
     }
@@ -56,17 +53,16 @@ export class CoursesService {
   }
 
   loadMoreCourses(searchText = ''): void {
+    this.isAllCoursesLoaded();
     if (!this.isAllCoursesLoaded$.value) {
       if (searchText) {
         this.startWith += this.coursePerPage;
-        this.searchCourses(searchText, this.startWith);
+        this.fetchCoursesBySearch(searchText, this.startWith);
       } else {
         this.startWith += this.coursePerPage;
         this.fetchCourse(this.startWith);
       }
     }
-
-    this.isAllCoursesLoaded();
   }
   isAllCoursesLoaded(): void {
     if (this.startWith + this.coursePerPage >= this.totalCourseNum$.value) {
@@ -84,17 +80,12 @@ export class CoursesService {
     return this.totalCourseNum$;
   }
 
-  searchCourses(searchText = '', startNum = 0): void {
+  fetchCoursesBySearch(searchText = '', startNum = 0): void {
     this.isLoading$.next(true);
-    let params = new HttpParams();
-    params = params.append('textFragment', searchText);
-    params = params.append('start', startNum);
-    params = params.append('count', this.coursePerPage);
-
     this.http
-      .get<Course[]>('http://localhost:3004/courses', {
-        params,
-      })
+      .get<Course[]>(
+        `http://localhost:3004/courses?textFragment=${searchText}&start=${startNum}&count=${this.coursePerPage}`
+      )
       .pipe(
         tap(() => this.isLoading$.next(false)),
         tap((res) => {
@@ -107,26 +98,41 @@ export class CoursesService {
         this.courses$.next([...this.courses$.value, ...courses]);
       });
   }
+
   resetRequest(): void {
     this.startWith = 0;
     this.courses$.next([]);
     this.isAllCoursesLoaded$.next(false);
   }
-
+  updateCourse(updatedCourse: Course) {
+    this.http
+      .patch<Course>(
+        `http://localhost:3004/courses/${updatedCourse.id}`,
+        updatedCourse
+      )
+      .subscribe((updatedCourse: Course) => {
+        let updatedCoursesList = this.courses$.value.map((course: Course) => {
+          if (course.id === updatedCourse.id) {
+            return updatedCourse;
+          } else {
+            return course;
+          }
+        });
+        this.courses$.next(updatedCoursesList);
+      });
+  }
   createCourse(course: Course): void {
     // this.courses = [...this.courses, course];
   }
-  getCourseById(id: number): any | undefined {
-    // return this.courses.find((course: any) => course.id === id);
+  getCourseById(courseId: number) {
+    this.isLoading$.next(true);
+    return this.http
+      .get<Course>(`http://localhost:3004/courses/${courseId}`)
+      .pipe(tap(() => this.isLoading$.next(false)));
   }
   removeCourse(courseForDelete: Course): void {
     // this.courses = this.courses.filter((course: any) => {
     //   return course.id !== courseForDelete.id;
     // });
-  }
-  updateCourse(updatedCourse: any) {
-    // this.courses = this.courses.map((course: any) =>
-    //   course.id === updatedCourse.id ? updatedCourse : course
-    // );
   }
 }

@@ -19,7 +19,7 @@ a {
   cursor: pointer;
 }
 a:hover {
-  color: #30b6dd;
+  color: var(--primary-color);
 }
 a:focus,
 a:active {
@@ -27,7 +27,7 @@ a:active {
 }
 .blue {
   font-weight: 700;
-  color: #30b6dd;
+  color: var(--primary-color);
 }
 .grey {
   color: #777;

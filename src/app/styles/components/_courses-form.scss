@@ -1,0 +1,130 @@
+.course-form {
+  padding: 30px 0 80px;
+  label {
+    margin-bottom: 8px;
+  }
+  input,
+  textarea {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--gray-200);
+    background: #fff;
+    transition: border 0.2s;
+  }
+  textarea {
+    min-height: 110px;
+    resize: vertical;
+  }
+  input:hover,
+  textarea:hover,
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border: 1px solid var(--primary-color);
+  }
+  input::placeholder,
+  textarea::placeholder {
+    font-family: inherit;
+    color: var(--gray-300);
+  }
+  .card {
+    position: relative;
+    max-width: 730px;
+    margin: 0 auto;
+    padding: 24px 24px 34px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px 0 rgba(29, 30, 38, 0.1),
+      0 2px 10px 0 rgba(29, 30, 38, 0.15);
+    overflow: hidden;
+    z-index: 2;
+  }
+  .title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .form {
+    color: #474a59;
+    margin-top: 24px;
+  }
+  .form-group {
+    margin-top: 20px;
+  }
+  .form-wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .error-message {
+    font-size: 14px;
+    color: var(--danger-color);
+    padding-right: 5px;
+  }
+
+  .btns {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+    .btn {
+      color: #fff;
+      border-radius: 3px;
+      padding: 10px;
+      font-size: 14px;
+      width: 90px;
+      transition: background 0.3s, transform 0.3s;
+      &:first-child {
+        margin-right: 15px;
+      }
+    }
+  }
+
+  .btn-save {
+    background: var(--success-color);
+    &:hover {
+      background: var(--success-dark-color);
+      transform: translateY(-2px);
+    }
+    &:active {
+      transform: translateY(1px);
+      background: var(--primary-dark-color);
+    }
+  }
+  .btn-cancel {
+    background: var(--gray-600);
+    &:hover {
+      background: #6c707c;
+      transform: translateY(-2px);
+    }
+    &:active {
+      transform: translateY(1px);
+      background: var(--primary-dark-color);
+    }
+  }
+  .form-group--duration,
+  .form-group-date {
+    .form-wrapper {
+      justify-content: flex-start;
+      gap: 10px;
+    }
+    input {
+      width: 50%;
+    }
+    b {
+      font-size: 14px;
+      color: var(--gray-300);
+    }
+  }
+}
+@media screen and (max-width: 767px) {
+  .course-form {
+    .form-group--duration,
+    .form-group-date {
+      input {
+        width: 100%;
+      }
+    }
+  }
+}

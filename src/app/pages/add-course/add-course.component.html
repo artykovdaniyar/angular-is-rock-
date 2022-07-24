@@ -1,4 +1,4 @@
-<!-- <section class="add-course">
+<section class="add-course">
   <div class="container">
     <div class="card">
       <h2 class="title">New course</h2>
@@ -24,17 +24,38 @@
           ></textarea>
         </fieldset>
         <fieldset class="form-group">
-          <app-add-course-date
-            (onSelectDate)="onInputDate($event)"
-          ></app-add-course-date>
+          <label for="courseDate">Date:</label>
+          <input
+            type="date"
+            id="courseDate"
+            (input)="onInput($event.target)"
+            value="2022-05-29"
+          />
         </fieldset>
         <fieldset class="form-group">
-          <app-add-course-duration
-            (onEnterDuration)="onInputDuration($event)"
-          ></app-add-course-duration>
+          <div>
+            <label for="courseDuration">Duration:</label>
+            <input
+              type="number"
+              id="courseDuration"
+              placeholder="in minutes"
+              (input)="onInput($event.target)"
+              autocomplete="off"
+            />
+          </div>
+          <b class="info" *ngIf="courseDuration !== 0">{{ courseDuration }}</b>
         </fieldset>
         <fieldset class="form-group">
-          <app-add-course-authors></app-add-course-authors>
+          <ul class="list">
+            <li class="item">
+              John Doe
+              <button class="btn" type="button">&times;</button>
+            </li>
+            <li class="item">
+              John Doe
+              <button class="btn" type="button">&times;</button>
+            </li>
+          </ul>
         </fieldset>
         <fieldset class="form-group btns">
           <button class="btn btn-save">Save</button>
@@ -49,4 +70,4 @@
       </form>
     </div>
   </div>
-</section> -->
+</section>

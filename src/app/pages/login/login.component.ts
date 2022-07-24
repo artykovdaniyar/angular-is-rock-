@@ -1,12 +1,4 @@
-import {
-  AfterContentInit,
-  AfterViewInit,
-  Component,
-  DoCheck,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Login } from 'src/app/shared/models/login';
 

@@ -10,19 +10,19 @@
   top: 50%;
   left: 15px;
   transform: translateY(-40%);
-  color: #9a9da8;
+  color: var(--gray-600);
 }
 .input {
   width: 100%;
   flex-grow: 3;
   padding: 10px 35px;
-  border: 1px solid #e2e4eb;
+  border: 1px solid var(--gray-200);
   background: #fff;
   transition: border 0.2s;
   &:hover,
   &:focus {
     outline: none;
-    border: 1px solid #30b6dd;
+    border: 1px solid var(--primary-color);
   }
   &::placeholder {
     font-family: inherit;
@@ -35,14 +35,14 @@
   border-radius: 3px;
   margin-left: 5px;
   padding: 5px 15px;
-  background: #9bc837;
+  background: var(--success-color);
   transition: background 0.3s;
   &:hover,
   &:focus {
-    background: #85ad2e;
+    background: var(--success-dark-color);
   }
   &:active {
-    background: #9bc837;
+    background: var(--success-color);
   }
   &:disabled {
     background: #ccc;
@@ -54,12 +54,12 @@
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  color: #9a9da8;
+  color: var(--gray-600);
   font-size: 21px;
   width: 35px;
   height: 38px;
   &:hover {
-    color: red;
+    color: var(--alert-color);
   }
 }
 

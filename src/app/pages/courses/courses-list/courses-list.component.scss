@@ -8,16 +8,16 @@
   font-size: 14px;
   width: fit-content;
   white-space: nowrap;
-  background: #30b6dd;
+  background: var(--primary-color);
   transition: background 0.3s, transform 0.3s;
 }
 .add-btn:hover {
   transform: translateY(-2px);
-  background: #299fc4;
+  background: var(--primary-dark-color);
 }
 .add-btn:active {
   transform: translateY(1px);
-  background: #299fc4;
+  background: var(--primary-dark-color);
 }
 .add-icon {
   margin-right: 8px;
@@ -31,7 +31,7 @@
   background: #fff;
   border-radius: 6px;
   text-transform: uppercase;
-  color: #a3a3a3;
+  color: var(--gray-500);
   transition: all 0.3s;
-  border: 1px dashed #a3a3a3;
+  border: 1px dashed var(--gray-500);
 }

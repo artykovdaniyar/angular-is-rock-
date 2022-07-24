@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { EditCourseComponent } from './edit-course.component';
-import { EditCourseDateComponent } from './edit-course-date/edit-course-date.component';
-import { EditCourseDurationComponent } from './edit-course-duration/edit-course-duration.component';
-import { EditCourseAuthorsComponent } from './edit-course-authors/edit-course-authors.component';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  declarations: [
-    EditCourseComponent,
-    EditCourseDateComponent,
-    EditCourseDurationComponent,
-    EditCourseAuthorsComponent,
+  declarations: [EditCourseComponent],
+  imports: [
+    CommonModule,
+    PipesModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
   ],
-  imports: [CommonModule, PipesModule],
   exports: [EditCourseComponent],
+  providers: [DatePipe],
 })
 export class EditCourseModule {}

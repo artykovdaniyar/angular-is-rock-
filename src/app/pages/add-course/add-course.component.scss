@@ -19,7 +19,7 @@ textarea {
   width: 100%;
   padding: 10px;
   border-radius: 6px;
-  border: 1px solid #e2e4eb;
+  border: 1px solid var(--gray-200);
   background: #fff;
   transition: border 0.2s;
 }
@@ -32,7 +32,7 @@ textarea:hover,
 input:focus,
 textarea:focus {
   outline: none;
-  border: 1px solid #30b6dd;
+  border: 1px solid var(--primary-color);
 }
 input::placeholder,
 textarea::placeholder {
@@ -60,25 +60,25 @@ textarea::placeholder {
   }
 }
 .btn-save {
-  background: #9bc837;
+  background: var(--primary-color);
   &:hover {
-    background: #85ad2e;
+    background: var(--primary-dark-color);
     transform: translateY(-2px);
   }
   &:active {
     transform: translateY(1px);
-    background: #299fc4;
+    background: var(--primary-dark-color);
   }
 }
 .btn-cancel {
-  background: #838899;
+  background: var(--gray-600);
   &:hover {
     background: #6c707c;
     transform: translateY(-2px);
   }
   &:active {
     transform: translateY(1px);
-    background: #299fc4;
+    background: var(--primary-dark-color);
   }
 }
 .card {

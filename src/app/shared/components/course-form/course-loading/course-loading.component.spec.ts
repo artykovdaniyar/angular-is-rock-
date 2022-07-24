@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddCourseDateComponent } from './add-course-date.component';
+import { CourseLoadingComponent } from './course-loading.component';
 
-describe('AddCourseDateComponent', () => {
-  let component: AddCourseDateComponent;
-  let fixture: ComponentFixture<AddCourseDateComponent>;
+describe('CourseLoadingComponent', () => {
+  let component: CourseLoadingComponent;
+  let fixture: ComponentFixture<CourseLoadingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddCourseDateComponent ]
+      declarations: [ CourseLoadingComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AddCourseDateComponent);
+    fixture = TestBed.createComponent(CourseLoadingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

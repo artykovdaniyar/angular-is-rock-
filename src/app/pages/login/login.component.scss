@@ -39,7 +39,7 @@
 }
 .error-message {
   display: none;
-  color: red;
+  color: var(--danger-color);
 }
 .error-message.active {
   display: block;
@@ -72,11 +72,11 @@
   border-radius: 3px;
   margin-left: 5px;
   padding: 10px 15px;
-  background: #9bc837;
+  background: var(--primary-color);
   transition: background 0.3s;
   &:hover,
   &:focus {
-    background: #85ad2e;
+    background: var(--primary-dark-color);
   }
   &:disabled {
     background: grey;

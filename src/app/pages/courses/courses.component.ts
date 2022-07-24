@@ -9,7 +9,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss'],
 })
-export class CoursesComponent implements OnInit, OnDestroy {
+export class CoursesComponent implements OnInit {
   courses: Course[] = [];
   searchValue = '';
   searchQuery = '';
@@ -78,5 +78,4 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.courseService.resetRequest();
     this.courseService.getCourses(this.searchValue);
   }
-  ngOnDestroy(): void {}
 }

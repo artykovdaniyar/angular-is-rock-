@@ -10,13 +10,11 @@
         <h3 class="title">
           {{ course.name | uppercase }}
         </h3>
-        <button class="top-rated-btn">
-          <fa-icon
-            *ngIf="course.isTopRated"
-            [icon]="faStar"
-            class="top-rated-icon"
-          ></fa-icon>
-        </button>
+        <fa-icon
+          *ngIf="course.isTopRated"
+          [icon]="faStar"
+          class="top-rated-icon"
+        ></fa-icon>
       </div>
 
       <ul class="info-date">
