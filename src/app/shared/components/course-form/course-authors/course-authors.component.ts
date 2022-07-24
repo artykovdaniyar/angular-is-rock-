@@ -1,10 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormControl, FormGroupDirective } from '@angular/forms';
 import { Author } from 'src/app/shared/models/author';
-import { Course } from '../../../models/course';
 import { TitleCasePipe } from '@angular/common';
-import { CoursesService } from 'src/app/core/services/courses.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'course-authors',

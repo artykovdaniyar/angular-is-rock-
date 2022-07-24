@@ -4,10 +4,6 @@ const url = require("url");
 const moment = require("moment");
 
 module.exports = (server) => {
-  router.get("/courses/length", function (req, res, next) {
-    let courses = server.db.getState().courses;
-    res.json(courses.length);
-  });
   router.get("/courses", (req, res, next) => {
     let url_parts = url.parse(req.originalUrl, true);
     const query = url_parts.query;
@@ -52,6 +48,10 @@ module.exports = (server) => {
     }
 
     res.json(courses);
+  });
+  router.get("/courses/length", function (req, res, next) {
+    let courses = server.db.getState().courses;
+    res.json(courses.length);
   });
 
   router.get("/error", function (req, res, next) {});

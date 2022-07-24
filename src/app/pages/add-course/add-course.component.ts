@@ -1,7 +1,11 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { CoursesService } from 'src/app/core/services/courses.service';
 import { Course } from 'src/app/shared/models/course';
+import { Author } from '../../shared/models/author';
 
 @Component({
   selector: 'app-add-course',
@@ -9,39 +13,33 @@ import { Course } from 'src/app/shared/models/course';
   styleUrls: ['./add-course.component.scss'],
 })
 export class AddCourseComponent implements OnInit {
-  courseDate = 0;
-  courseDuration = 0;
-  newCourse: Course = {
-    name: '',
-    id: 0,
-    description: '',
-    length: 0,
-    date: '',
-    isTopRated: false,
-  };
-  constructor(private courseService: CoursesService, private router: Router) {}
-  ngOnInit(): void {}
-  onInput(target: any) {
-    if (target.tagName === 'INPUT') {
-      const tag = target as HTMLInputElement;
-      this.newCourse.name = tag.value;
-    } else {
-      const tag = target as HTMLTextAreaElement;
-      this.newCourse.description = tag.value;
-    }
+  form!: FormGroup;
+  course$!: Observable<Course>;
+  courseId = 0;
+
+  constructor(public coursesService: CoursesService, private router: Router) {}
+
+  ngOnInit(): void {
+    window.scrollTo(0, 0);
+    this.form = new FormGroup({
+      id: new FormControl(+(Math.random() * (9 - 1) + 1).toFixed(2)),
+      name: new FormControl(''),
+      description: new FormControl(''),
+      length: new FormControl(),
+      date: new FormControl(''),
+      authors: new FormControl([]),
+      isTopRated: new FormControl(false),
+    });
   }
-  onInputDate(date: any) {
-    this.newCourse.date = date;
+
+  updateAuthorsHandler(newAuthorsList: Author[]) {
+    this.form.get('authors')?.patchValue(newAuthorsList);
   }
-  onInputDuration(length: any) {
-    this.newCourse.length = length;
+  onSubmit() {
+    this.coursesService.createCourse(this.form.value);
+    this.goToCoursesPage();
   }
-  onSubmit(event: any) {
-    event.preventDefault();
-    this.courseService.createCourse(this.newCourse);
-    this.goToCoursePage();
-  }
-  goToCoursePage() {
-    this.router.navigate(['/courses']);
+  goToCoursesPage() {
+    this.router.navigate(['courses']);
   }
 }

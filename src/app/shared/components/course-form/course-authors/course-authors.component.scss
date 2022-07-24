@@ -2,12 +2,13 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 10px;
 }
 .column {
   width: 50%;
-  &:last-child {
-    width: calc(50% - 10px);
-  }
+}
+.author-list {
+  width: calc(50% - 10px);
 }
 
 .list {
@@ -95,11 +96,5 @@
   .author {
     flex-direction: column-reverse;
     gap: 20px;
-  }
-  .column {
-    width: 100%;
-    &:last-child {
-      width: 100%;
-    }
   }
 }
