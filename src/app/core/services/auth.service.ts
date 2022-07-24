@@ -18,9 +18,9 @@ export class AuthService {
   loginIn({ login, password }: Login): void {
     this.http
       .post('http://localhost:3004/auth/login', { login, password })
-      .subscribe((token) => {
+      .subscribe((res: any) => {
         this.isAuthenticated$.next(true);
-        localStorage.setItem('angularRockToken', JSON.stringify(token));
+        localStorage.setItem('angularRockToken', res.token);
         this.router.navigate(['/courses']);
       });
   }
@@ -29,17 +29,14 @@ export class AuthService {
     localStorage.removeItem(this.TOKEN_KEY);
   }
 
-  getAuthToken(): Token | null {
-    return this.isLocalAuthenticated()
-      ? JSON.parse(localStorage[this.TOKEN_KEY])
-      : null;
+  getAuthToken(): string {
+    return this.isLocalAuthenticated() && localStorage[this.TOKEN_KEY];
   }
 
   getUserInfo(): Observable<User> {
-    return this.http.post<User>(
-      'http://localhost:3004/auth/userinfo',
-      this.getAuthToken()
-    );
+    return this.http.post<User>('http://localhost:3004/auth/userinfo', {
+      token: this.getAuthToken(),
+    });
   }
 
   isAuthenticated(): boolean {
