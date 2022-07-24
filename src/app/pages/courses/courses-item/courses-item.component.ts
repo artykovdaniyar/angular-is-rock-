@@ -31,13 +31,13 @@ export class CoursesItemComponent {
   constructor(private router: Router) {}
 
   @Input() course!: Course;
-  @Output() onDelete: EventEmitter<Course> = new EventEmitter<Course>();
+  @Output() onDelete: EventEmitter<number> = new EventEmitter<number>();
   deleteCourse(course: Course) {
     if (
       confirm(`Do you really want to delete
 ${course.name}`)
     ) {
-      this.onDelete.emit(course);
+      this.onDelete.emit(course.id);
     }
   }
   goToEditPage() {

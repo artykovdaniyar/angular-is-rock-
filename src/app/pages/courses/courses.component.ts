@@ -38,8 +38,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.coursesService.resetRequest();
     this.coursesService.getCourses(inputSearchValue);
   }
-  deleteCourseHandler(courseForDelete: Course): void {
-    this.coursesService.removeCourse(courseForDelete);
+  deleteCourseHandler(courseId: number): void {
+    this.coursesService.removeCourse(courseId);
   }
   resetSearch(): void {
     this.router.navigate(['/courses'], {
@@ -49,6 +49,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.coursesService.resetRequest();
     this.coursesService.getCourses(this.searchQuery);
   }
+
   ngOnDestroy(): void {
     this.coursesService.resetRequest();
   }

@@ -9,22 +9,12 @@ import { Course } from '../../models/course';
   templateUrl: './breadcrumbs.component.html',
   styleUrls: ['./breadcrumbs.component.scss'],
 })
-export class BreadcrumbsComponent implements OnInit, DoCheck {
+export class BreadcrumbsComponent implements OnInit {
   course?: Course;
   courseId = 0;
-  isAuthenticated = false;
-  constructor(
-    private authService: AuthService,
-    private courseService: CoursesService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
-  ngDoCheck(): void {
-    this.courseId = +window.location.pathname.replace(/\D/g, '');
-  }
+  constructor(public authService: AuthService) {}
+
   ngOnInit(): void {
-    this.authService.isAuthenticated$.subscribe((state) => {
-      this.isAuthenticated = state;
-    });
+    this.courseId = +window.location.pathname.replace(/\D/g, '');
   }
 }

@@ -29,19 +29,13 @@ export class CoursesService {
       .get<Course[]>(
         `http://localhost:3004/courses?start=${startNum}&count=${this.coursePerPage}`
       )
-      .pipe(
-        tap(() => this.isLoading$.next(false)),
-        tap((res) => {
-          if (res.length === 0 && !this.courses$.value.length) {
-            this.noData$.next(true);
-          }
-        })
-      )
       .subscribe((courses) => {
+        this.isLoading$.next(false);
         this.courses$.next([...this.courses$.value, ...courses]);
+        this.isCoursesListEmpty();
       });
   }
-  getCourses(searchText = ''): Observable<Course[]> {
+  getCourses(searchText = ''): void {
     this.coursesNoFound$.next(false);
     if (searchText) {
       this.startWith = 0;
@@ -50,7 +44,7 @@ export class CoursesService {
       this.fetchCourse(this.startWith);
     }
 
-    return this.courses$;
+    // return this.courses$;
   }
 
   loadMoreCourses(searchText = ''): void {
@@ -66,12 +60,13 @@ export class CoursesService {
     }
   }
   isAllCoursesLoaded(): void {
-    if (this.startWith + this.coursePerPage >= this.totalCourseNum$.value) {
+    if (
+      this.startWith + this.coursePerPage >= this.totalCourseNum$.value &&
+      this.courses$.value.length !== 0
+    ) {
       this.isAllCoursesLoaded$.next(true);
-      console.log('all');
     } else {
       this.isAllCoursesLoaded$.next(false);
-      console.log('not all');
     }
   }
   getTotalCoursesNum(): void {
@@ -89,12 +84,12 @@ export class CoursesService {
         `http://localhost:3004/courses?textFragment=${searchText}&start=${startNum}&count=${this.coursePerPage}`
       )
       .pipe(
-        tap(() => this.isLoading$.next(false)),
-        tap((res) => {
-          if (res.length === 0 && !this.courses$.value.length) {
-            this.coursesNoFound$.next(true);
-          }
-        })
+        tap(() => this.isLoading$.next(false))
+        // tap((res) => {
+        //   if (res.length === 0 && !this.courses$.value.length) {
+        //     this.coursesNoFound$.next(true);
+        //   }
+        // })
       )
       .subscribe((courses) => {
         this.courses$.next([...this.courses$.value, ...courses]);
@@ -130,10 +125,24 @@ export class CoursesService {
       .get<Course>(`http://localhost:3004/courses/${courseId}`)
       .pipe(tap(() => this.isLoading$.next(false)));
   }
-  removeCourse(courseForDelete: Course): void {
-    // this.courses = this.courses.filter((course: any) => {
-    //   return course.id !== courseForDelete.id;
-    // });
+  isCoursesListEmpty() {
+    if (this.courses$.value.length === 0) {
+      this.noData$.next(true);
+    } else {
+      this.noData$.next(false);
+    }
+  }
+  removeCourse(courseId: number): void {
+    this.http
+      .delete(`http://localhost:3004/courses/${courseId}`)
+      .subscribe(() => {
+        let updatedCoursesList = this.courses$.value.filter(
+          (course: Course) => course.id !== courseId
+        );
+        this.courses$.next(updatedCoursesList);
+        this.isAllCoursesLoaded();
+        this.isCoursesListEmpty();
+      });
   }
   createCourse(course: Course): void {
     // this.courses = [...this.courses, course];

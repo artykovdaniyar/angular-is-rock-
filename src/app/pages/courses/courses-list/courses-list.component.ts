@@ -17,11 +17,11 @@ import { Course } from '../../../shared/models/course';
 export class CoursesListComponent {
   faPlus = faPlus;
   @Input() searchValue = '';
-  @Output() onDelete: EventEmitter<Course> = new EventEmitter();
+  @Output() onDelete: EventEmitter<number> = new EventEmitter();
   @Input() coursesList!: any;
   constructor() {}
 
-  deleteEventEmit(course: Course) {
-    this.onDelete.emit(course);
+  deleteEventEmit(courseId: number) {
+    this.onDelete.emit(courseId);
   }
 }
