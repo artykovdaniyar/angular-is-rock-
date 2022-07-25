@@ -43,8 +43,6 @@ export class CoursesService {
     } else {
       this.fetchCourse(this.startWith);
     }
-
-    // return this.courses$;
   }
 
   loadMoreCourses(searchText = ''): void {
@@ -83,8 +81,15 @@ export class CoursesService {
       .get<Course[]>(
         `http://localhost:3004/courses?textFragment=${searchText}&start=${startNum}&count=${this.coursePerPage}`
       )
+      .pipe(
+        tap(() => this.isLoading$.next(false)),
+        tap((res) => {
+          if (res.length === 0 && !this.courses$.value.length) {
+            this.coursesNoFound$.next(true);
+          }
+        })
+      )
       .subscribe((courses) => {
-        this.isLoading$.next(false);
         this.courses$.next([...this.courses$.value, ...courses]);
       });
   }

@@ -28,7 +28,6 @@ export class CourseMarkerDirective implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    console.log();
     if (
       this.creationDate < this.currentDate &&
       this.creationDate >= this.currentDate - getMiniSecondsFromDay(14)
