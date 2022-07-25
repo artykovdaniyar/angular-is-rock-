@@ -8,6 +8,7 @@ import { DiractivesModule } from '../diractives/diractives.module';
 import { RouterModule } from '@angular/router';
 import { CourseAuthorsComponent } from './course-form/course-authors/course-authors.component';
 import { CourseLoadingComponent } from './course-form/course-loading/course-loading.component';
+import { CourseErrorComponent } from './course-form/course-error/course-error.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { CourseLoadingComponent } from './course-form/course-loading/course-load
     BreadcrumbsComponent,
     CourseAuthorsComponent,
     CourseLoadingComponent,
+    CourseErrorComponent,
   ],
   imports: [CommonModule, FontAwesomeModule, DiractivesModule, RouterModule],
   exports: [
@@ -24,6 +26,7 @@ import { CourseLoadingComponent } from './course-form/course-loading/course-load
     BreadcrumbsComponent,
     CourseAuthorsComponent,
     CourseLoadingComponent,
+    CourseErrorComponent,
   ],
   providers: [TitleCasePipe],
 })

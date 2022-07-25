@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -12,27 +12,22 @@ import { User } from '../../models/user';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
   faPlayCircle = faPlayCircle;
   faUser = faUser;
   userName?: Name;
   faRightFromBracket = faRightFromBracket;
-  isAuthenticated = false;
+
   @Input() title = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.authService.isAuthenticated$.subscribe((state) => {
-      this.isAuthenticated = state;
+    this.authService.getUserInfo().subscribe((userInfo) => {
+      this.userName = userInfo.name;
     });
-    if (this.isAuthenticated) {
-      this.authService
-        .getUserInfo()
-        .subscribe((userInfo) => (this.userName = userInfo.name));
-    }
   }
-
+  ngAfterViewInit(): void {}
   loginOut(): void {
     if (confirm('Do you really want to login out?')) {
       this.authService.loginOut();

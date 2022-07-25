@@ -1,10 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, switchMap, switchMapTo, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  concatMap,
+  Observable,
+  switchMap,
+  tap,
+  throwError,
+} from 'rxjs';
 import { User } from 'src/app/shared/models/user';
 import { Login } from '../../shared/models/login';
 import { Router } from '@angular/router';
-import { Token } from '../../shared/models/token';
 
 @Injectable({
   providedIn: 'root',
@@ -12,17 +18,32 @@ import { Token } from '../../shared/models/token';
 export class AuthService {
   private TOKEN_KEY = 'angularRockToken';
   isAuthenticated$ = new BehaviorSubject<boolean>(this.isLocalAuthenticated());
+  errorInput$ = new BehaviorSubject<boolean>(false);
+  userInfo$: BehaviorSubject<User | object> = new BehaviorSubject({});
 
   constructor(private http: HttpClient, private router: Router) {}
 
   loginIn({ login, password }: Login): void {
+    this.errorInput$.next(false);
     this.http
       .post('http://localhost:3004/auth/login', { login, password })
-      .subscribe((res: any) => {
-        this.isAuthenticated$.next(true);
-        localStorage.setItem('angularRockToken', res.token);
-        this.router.navigate(['/courses']);
-      });
+      .pipe(
+        concatMap((token) =>
+          this.http.post<User>('http://localhost:3004/auth/userinfo', token)
+        )
+      )
+      .subscribe(
+        (user: User) => {
+          this.isAuthenticated$.next(true);
+          this.userInfo$.next(user);
+          localStorage.setItem('angularRockToken', user.fakeToken);
+          this.router.navigate(['/courses']);
+        },
+        (error) => {
+          this.errorInput$.next(true);
+          return throwError(error.error);
+        }
+      );
   }
   loginOut(): void {
     this.isAuthenticated$.next(false);

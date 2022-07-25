@@ -1,7 +1,14 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Course } from '../../shared/models/course';
-import { BehaviorSubject, filter, Observable, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  filter,
+  Observable,
+  tap,
+  throwError,
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +16,7 @@ import { BehaviorSubject, filter, Observable, tap } from 'rxjs';
 export class CoursesService {
   startWith = 0;
   coursePerPage = 10;
+  error$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   courses$: BehaviorSubject<Course[]> = new BehaviorSubject<Course[]>([]);
   totalCourseNum$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   noData$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -29,11 +37,14 @@ export class CoursesService {
       .get<Course[]>(
         `http://localhost:3004/courses?start=${startNum}&count=${this.coursePerPage}`
       )
-      .subscribe((courses) => {
-        this.isLoading$.next(false);
-        this.courses$.next([...this.courses$.value, ...courses]);
-        this.isCoursesListEmpty();
-      });
+      .subscribe(
+        (courses) => {
+          this.isLoading$.next(false);
+          this.courses$.next([...this.courses$.value, ...courses]);
+          this.isCoursesListEmpty();
+        },
+        (error) => this.onError(error)
+      );
   }
   getCourses(searchText = ''): void {
     this.coursesNoFound$.next(false);
@@ -89,12 +100,16 @@ export class CoursesService {
           }
         })
       )
-      .subscribe((courses) => {
-        this.courses$.next([...this.courses$.value, ...courses]);
-      });
+      .subscribe(
+        (courses) => {
+          this.courses$.next([...this.courses$.value, ...courses]);
+        },
+        (error) => this.onError(error)
+      );
   }
 
   resetRequest(): void {
+    this.error$.next(false);
     this.startWith = 0;
     this.courses$.next([]);
     this.isAllCoursesLoaded$.next(false);
@@ -117,11 +132,20 @@ export class CoursesService {
       });
   }
 
-  getCourseById(courseId: number) {
+  getCourseById(courseId: number): Observable<Course> {
     this.isLoading$.next(true);
     return this.http
       .get<Course>(`http://localhost:3004/courses/${courseId}`)
-      .pipe(tap(() => this.isLoading$.next(false)));
+      .pipe(
+        tap(() => this.isLoading$.next(false)),
+        catchError((error) => this.onError(error))
+      );
+  }
+  onError(error: any) {
+    this.isLoading$.next(false);
+    this.error$.next(true);
+    console.log('ERROR MESSAGE:', error.message);
+    return throwError(error);
   }
   isCoursesListEmpty() {
     if (this.courses$.value.length === 0) {

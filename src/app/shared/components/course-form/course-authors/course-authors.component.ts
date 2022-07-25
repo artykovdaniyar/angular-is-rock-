@@ -10,6 +10,7 @@ import { TitleCasePipe } from '@angular/common';
 })
 export class CourseAuthorsComponent{
 
+  @Input() error: boolean = false
   @Input() authors?: Author[] = []
   @Input() isLoading = false;
 

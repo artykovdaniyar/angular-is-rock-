@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Course } from '../../shared/models/course';
 import { CoursesService } from '../../core/services/courses.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-courses',
@@ -10,7 +11,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class CoursesComponent implements OnInit, OnDestroy {
   searchQuery = '';
-
+  faTriangleExclamation = faTriangleExclamation;
   constructor(
     public coursesService: CoursesService,
     private router: Router,

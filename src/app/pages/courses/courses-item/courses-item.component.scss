@@ -1,6 +1,3 @@
-:host {
-  animation: fadeIn 0.7s ease-in forwards;
-}
 .card {
   position: relative;
   display: flex;
@@ -13,6 +10,7 @@
   margin-bottom: 20px;
   overflow-x: hidden;
   transition: transform 0.3s, box-shadow 0.3s;
+  animation: fadeIn 0.7s ease-in forwards;
 }
 .card:hover {
   transform: translateY(-2px);

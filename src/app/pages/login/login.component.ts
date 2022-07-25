@@ -9,7 +9,7 @@ import { Login } from 'src/app/shared/models/login';
 })
 export class LoginComponent {
   userLogin = 'artykovdaniyar@gmail.com';
-  userPassword = 'lamap69';
+  userPassword = 'lampa69';
   isVisible = false;
   constructor(public authService: AuthService) {}
 

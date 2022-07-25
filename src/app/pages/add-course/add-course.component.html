@@ -4,7 +4,7 @@
       <course-loading
         *ngIf="coursesService.isLoading$ | async"
       ></course-loading>
-      <h2 class="title">Edit course</h2>
+      <h2 class="title">Add course</h2>
       <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
         <fieldset class="form-group">
           <div class="form-wrapper">
