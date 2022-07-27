@@ -8,10 +8,12 @@ import { CoreModule } from './core/core.module';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { PagesModule } from './pages/pages.module';
 import { SharedModule } from './shared/shared.module';
+import { BreadcrumbModule } from 'angular-crumbs';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    BreadcrumbModule,
     BrowserModule,
     CoreModule,
     PagesModule,
@@ -25,6 +27,7 @@ import { SharedModule } from './shared/shared.module';
       multi: true,
       useClass: TokenInterceptor,
     },
+    BreadcrumbModule,
   ],
   bootstrap: [AppComponent],
 })

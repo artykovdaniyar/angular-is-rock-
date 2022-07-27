@@ -5,7 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Course } from '../../../shared/models/course';
+import { Course } from '../../../../shared/models/course';
 import {
   faClock,
   faCalendarDays,

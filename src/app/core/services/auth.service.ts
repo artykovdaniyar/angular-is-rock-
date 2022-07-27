@@ -1,16 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  BehaviorSubject,
-  concatMap,
-  Observable,
-  switchMap,
-  tap,
-  throwError,
-} from 'rxjs';
+import { BehaviorSubject, concatMap, Observable, throwError } from 'rxjs';
 import { User } from 'src/app/shared/models/user';
 import { Login } from '../../shared/models/login';
 import { Router } from '@angular/router';
+import { URLS } from 'src/app/shared/urls/urls';
 
 @Injectable({
   providedIn: 'root',
@@ -26,12 +20,8 @@ export class AuthService {
   loginIn({ login, password }: Login): void {
     this.errorInput$.next(false);
     this.http
-      .post('http://localhost:3004/auth/login', { login, password })
-      .pipe(
-        concatMap((token) =>
-          this.http.post<User>('http://localhost:3004/auth/userinfo', token)
-        )
-      )
+      .post(URLS.LOGIN, { login, password })
+      .pipe(concatMap((token) => this.http.post<User>(URLS.USER_INFO, token)))
       .subscribe(
         (user: User) => {
           this.isAuthenticated$.next(true);
@@ -55,7 +45,7 @@ export class AuthService {
   }
 
   getUserInfo(): Observable<User> {
-    return this.http.post<User>('http://localhost:3004/auth/userinfo', {
+    return this.http.post<User>(URLS.USER_INFO, {
       token: this.getAuthToken(),
     });
   }

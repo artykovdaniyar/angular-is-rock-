@@ -1,11 +1,10 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CoursesService } from 'src/app/core/services/courses.service';
 import { Course } from 'src/app/shared/models/course';
-import { Author } from '../../shared/models/author';
+import { Author } from '../../../shared/models/author';
 
 @Component({
   selector: 'app-add-course',

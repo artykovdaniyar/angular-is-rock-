@@ -23,9 +23,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.authService.getUserInfo().subscribe((userInfo) => {
-      this.userName = userInfo.name;
-    });
+    if (this.authService.isAuthenticated()) {
+      this.authService.getUserInfo().subscribe((userInfo) => {
+        this.userName = userInfo.name;
+      });
+    }
   }
   ngAfterViewInit(): void {}
   loginOut(): void {

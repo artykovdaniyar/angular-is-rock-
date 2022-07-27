@@ -1,32 +1,21 @@
-import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Course } from '../../shared/models/course';
-import {
-  BehaviorSubject,
-  catchError,
-  filter,
-  Observable,
-  tap,
-  throwError,
-} from 'rxjs';
-
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { URLS } from 'src/app/shared/urls/urls';
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
   startWith = 0;
   coursePerPage = 10;
-  error$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  courses$: BehaviorSubject<Course[]> = new BehaviorSubject<Course[]>([]);
-  totalCourseNum$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  noData$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  coursesNoFound$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
-  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  isAllCoursesLoaded$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
+  error$ = new BehaviorSubject<boolean>(false);
+  courses$ = new BehaviorSubject<Course[]>([]);
+  totalCourseNum$ = new BehaviorSubject<number>(0);
+  noData$ = new BehaviorSubject<boolean>(false);
+  coursesNoFound$ = new BehaviorSubject<boolean>(false);
+  isLoading$ = new BehaviorSubject<boolean>(false);
+  isAllCoursesLoaded$ = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {}
 
@@ -34,9 +23,7 @@ export class CoursesService {
     this.isLoading$.next(true);
     this.getTotalCoursesNum();
     this.http
-      .get<Course[]>(
-        `http://localhost:3004/courses?start=${startNum}&count=${this.coursePerPage}`
-      )
+      .get<Course[]>(URLS.COURSES_PAGING(startNum, this.coursePerPage))
       .subscribe(
         (courses) => {
           this.isLoading$.next(false);
@@ -79,18 +66,17 @@ export class CoursesService {
     }
   }
   getTotalCoursesNum(): void {
-    this.http
-      .get<number>('http://localhost:3004/courses/length')
-      .subscribe((totalNum) => {
-        this.totalCourseNum$.next(totalNum);
-      });
+    this.http.get<number>(URLS.COURSES_LENGTH).subscribe((totalNum) => {
+      this.totalCourseNum$.next(totalNum);
+    });
   }
 
   fetchCoursesBySearch(searchText = '', startNum = 0): void {
     this.isLoading$.next(true);
+
     this.http
       .get<Course[]>(
-        `http://localhost:3004/courses?textFragment=${searchText}&start=${startNum}&count=${this.coursePerPage}`
+        URLS.COURSES_SEARCH(searchText, startNum, this.coursePerPage)
       )
       .pipe(
         tap(() => this.isLoading$.next(false)),
@@ -108,30 +94,6 @@ export class CoursesService {
       );
   }
 
-  resetRequest(): void {
-    this.error$.next(false);
-    this.startWith = 0;
-    this.courses$.next([]);
-    this.isAllCoursesLoaded$.next(false);
-  }
-  updateCourse(updatedCourse: Course) {
-    this.http
-      .patch<Course>(
-        `http://localhost:3004/courses/${updatedCourse.id}`,
-        updatedCourse
-      )
-      .subscribe((updatedCourse: Course) => {
-        let updatedCoursesList = this.courses$.value.map((course: Course) => {
-          if (course.id === updatedCourse.id) {
-            return updatedCourse;
-          } else {
-            return course;
-          }
-        });
-        this.courses$.next(updatedCoursesList);
-      });
-  }
-
   getCourseById(courseId: number): Observable<Course> {
     this.isLoading$.next(true);
     return this.http
@@ -141,6 +103,18 @@ export class CoursesService {
         catchError((error) => this.onError(error))
       );
   }
+  resetRequest(): void {
+    this.error$.next(false);
+    this.startWith = 0;
+    this.courses$.next([]);
+    this.isAllCoursesLoaded$.next(false);
+  }
+  updateCourse(updatedCourse: Course) {
+    this.http
+      .patch<Course>(URLS.EDIT_COURSE(updatedCourse.id), updatedCourse)
+      .subscribe();
+  }
+
   onError(error: any) {
     this.isLoading$.next(false);
     this.error$.next(true);
@@ -155,18 +129,16 @@ export class CoursesService {
     }
   }
   removeCourse(courseId: number): void {
-    this.http
-      .delete(`http://localhost:3004/courses/${courseId}`)
-      .subscribe(() => {
-        let updatedCoursesList = this.courses$.value.filter(
-          (course: Course) => course.id !== courseId
-        );
-        this.courses$.next(updatedCoursesList);
-        this.isAllCoursesLoaded();
-        this.isCoursesListEmpty();
-      });
+    this.http.delete(URLS.DELETE_COURSE(courseId)).subscribe(() => {
+      let updatedCoursesList = this.courses$.value.filter(
+        (course: Course) => course.id !== courseId
+      );
+      this.courses$.next(updatedCoursesList);
+      this.isAllCoursesLoaded();
+      this.isCoursesListEmpty();
+    });
   }
   createCourse(course: Course): void {
-    this.http.post(`http://localhost:3004/courses`, course);
+    this.http.post(URLS.CREATE_COURSE, course).subscribe();
   }
 }

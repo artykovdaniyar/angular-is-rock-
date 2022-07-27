@@ -1,37 +1,28 @@
 import { NgModule } from '@angular/core';
-import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
-import { CoursesComponent } from './pages/courses/courses.component';
-import { EditCourseComponent } from './pages/edit-course/edit-course.component';
-import { LoginComponent } from './pages/login/login.component';
-import { AddCourseComponent } from './pages/add-course/add-course.component';
+import { RouterModule, Routes } from '@angular/router';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { AuthGuard } from './core/guards/auth.guard';
-
+import { CoursesComponent } from './pages/courses/courses.component';
 const routes: Routes = [
-  { path: '', redirectTo: 'courses', pathMatch: 'full' },
   {
     path: 'courses',
-    component: CoursesComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'courses/new',
-    component: AddCourseComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'courses/:id',
-    component: EditCourseComponent,
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('./pages/courses/courses.module').then((m) => m.CoursesModule),
     canActivate: [AuthGuard],
   },
 
-  { path: 'login', component: LoginComponent },
   {
-    path: '404',
-    component: ErrorPageComponent,
+    path: 'login',
+    loadChildren: () =>
+      import('./pages/login/login.module').then((m) => m.LoginModule),
   },
-
-  { path: '**', redirectTo: '404' },
+  {
+    path: '',
+    redirectTo: '/courses',
+    pathMatch: 'full',
+  },
+  { path: '**', component: ErrorPageComponent },
 ];
 
 @NgModule({

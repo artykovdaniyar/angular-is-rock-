@@ -6,7 +6,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Course } from '../../../shared/models/course';
+import { Course } from '../../../../shared/models/course';
 
 @Component({
   selector: 'courses-list',
@@ -18,7 +18,7 @@ export class CoursesListComponent {
   faPlus = faPlus;
   @Input() searchValue = '';
   @Output() onDelete: EventEmitter<number> = new EventEmitter();
-  @Input() coursesList!: any;
+  @Input() coursesList!: Course[] | null;
   constructor() {}
 
   deleteEventEmit(courseId: number) {

@@ -1,17 +1,30 @@
 .breadcrumbs {
   height: 70px;
   background: #fff;
-  &__container {
-    display: flex;
-    align-items: center;
-    height: 100%;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.list {
+  display: flex;
+}
+.item {
+  color: #464854;
+  font-weight: 700;
+  &.active {
+    color: var(--primary-color);
   }
-  &__list {
-    display: flex;
-  }
-  &__item {
-    color: #464854;
-    font-weight: 700;
+  &:not(:first-child) {
+    &:before {
+      display: inline-block;
+      margin-right: 8px;
+      content: "/";
+      color: var(--gray-300);
+    }
+    margin-left: 8px;
   }
 }
 a {
