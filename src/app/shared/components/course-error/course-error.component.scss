@@ -1,0 +1,11 @@
+:host {
+}
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: var(--danger-color);
+  font-weight: 700;
+  text-align: center;
+}

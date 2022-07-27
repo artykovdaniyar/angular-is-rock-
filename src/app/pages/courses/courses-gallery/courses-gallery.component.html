@@ -1,0 +1,39 @@
+<section class="courses">
+  <div class="courses__container container">
+    <courses-search
+      (onSubmit)="searchHandler($event)"
+      (onReset)="resetSearch()"
+      [searchQuery]="searchQuery"
+    ></courses-search>
+
+    <courses-list
+      [searchValue]="searchQuery"
+      [coursesList]="coursesService.courses$ | async"
+      (onDelete)="deleteCourseHandler($event)"
+    ></courses-list>
+    <courses-info-card *ngIf="coursesService.error$ | async">
+      <div class="error"><course-error></course-error></div>
+    </courses-info-card>
+    <courses-info-card *ngIf="coursesService.coursesNoFound$ | async">
+      No found any courses by request
+    </courses-info-card>
+
+    <courses-info-card *ngIf="coursesService.isAllCoursesLoaded$ | async">
+      All courses loaded
+    </courses-info-card>
+
+    <courses-info-card *ngIf="coursesService.noData$ | async">
+      No data, feel free to add new course
+    </courses-info-card>
+
+    <courses-info-card *ngIf="coursesService.isLoading$ | async">
+      <course-loading></course-loading>
+    </courses-info-card>
+
+    <courses-more
+      infiniteScroll
+      [infiniteScrollDistance]="1"
+      (scrolled)="loadMore()"
+    ></courses-more>
+  </div>
+</section>

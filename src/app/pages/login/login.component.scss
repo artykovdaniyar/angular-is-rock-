@@ -38,11 +38,9 @@
   margin-top: 30px;
 }
 .error-message {
-  display: none;
-  color: red;
+  color: var(--danger-color);
 }
 .error-message.active {
-  display: block;
 }
 .label {
   font-size: 14px;
@@ -72,42 +70,13 @@
   border-radius: 3px;
   margin-left: 5px;
   padding: 10px 15px;
-  background: #9bc837;
+  background: var(--primary-color);
   transition: background 0.3s;
   &:hover,
   &:focus {
-    background: #85ad2e;
+    background: var(--primary-dark-color);
   }
   &:disabled {
     background: grey;
-  }
-}
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes slideInDown {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, -100%, 0) translateX(-50%) translateY(-50%);
-    visibility: visible;
-  }
-  to {
-    opacity: 1;
-    transform: translateZ(0) translateX(-50%) translateY(-50%);
   }
 }

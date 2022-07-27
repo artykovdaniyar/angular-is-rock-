@@ -1,10 +1,4 @@
-import {
-  AfterContentInit,
-  AfterViewInit,
-  Component,
-  DoCheck,
-} from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Login } from 'src/app/shared/models/login';
 
@@ -13,18 +7,15 @@ import { Login } from 'src/app/shared/models/login';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements DoCheck {
-  userEmail = '';
-  userPassword = '';
+export class LoginComponent {
+  userLogin = 'artykovdaniyar@gmail.com';
+  userPassword = 'lampa69';
   isVisible = false;
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService) {}
 
-  ngDoCheck() {
-    this.isVisible = this.authService.isLoginModelOpened;
-  }
   onInput(event: any) {
     if (event.target.type === 'email') {
-      this.userEmail = event.target.value;
+      this.userLogin = event.target.value;
     } else if (event.target.type === 'password') {
       this.userPassword = event.target.value;
     }
@@ -32,13 +23,12 @@ export class LoginComponent implements DoCheck {
 
   onSubmit(event: Event) {
     event.preventDefault();
-    if (this.userEmail && this.userPassword) {
+    if (this.userLogin && this.userPassword) {
       const userLogin: Login = {
-        email: this.userEmail,
+        login: this.userLogin,
         password: this.userPassword,
       };
       this.authService.loginIn(userLogin);
-      this.router.navigate(['/courses']);
     }
   }
 }

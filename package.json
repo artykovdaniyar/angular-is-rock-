@@ -21,7 +21,11 @@
     "@fortawesome/angular-fontawesome": "^0.11.1",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@ng-web-apis/common": "^2.0.1",
+    "@ng-web-apis/intersection-observer": "^3.0.0",
+    "angular-crumbs": "^3.0.1",
     "bootstrap": "^5.2.0-beta1",
+    "ngx-infinite-scroll": "^14.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

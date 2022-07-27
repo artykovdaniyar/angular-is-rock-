@@ -11,7 +11,7 @@ import {
   selector: '[IfAuthenticated]',
 })
 export class IfAuthenticatedDirective implements OnChanges {
-  @Input() IfAuthenticated!: boolean;
+  @Input() IfAuthenticated: boolean = false;
   constructor(
     private templateRef: TemplateRef<any>,
     private vcRef: ViewContainerRef

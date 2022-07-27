@@ -1,0 +1,138 @@
+.card {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 30px 20px;
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  overflow-x: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: fadeIn 0.7s ease-in forwards;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 15px 20px -20px;
+}
+.card--new {
+  border: 3px solid #00ff7f;
+}
+.card--inrelease {
+  border: 3px solid #00bfff;
+}
+.card--top-rated {
+}
+.info {
+  flex-basis: calc((100% / 12) * 9);
+}
+.info-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.title-wrapper {
+  display: flex;
+  align-items: center;
+}
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.top-rated-icon {
+  padding: 0 5px;
+  font-size: 14px;
+  color: rgb(255, 255, 27);
+}
+.info-date {
+  display: flex;
+  align-items: center;
+  padding: 5px 3px 0;
+  color: var(--gray-300);
+  font-size: 12px;
+  gap: 20px;
+}
+
+.description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--gray-600);
+}
+.course__tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn {
+  display: flex;
+  gap: 8px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 12px;
+  background: var(--primary-color);
+  padding: 5px 12px;
+  display: flex;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+  transition: background 0.3s;
+}
+.btn-icon {
+  pointer-events: none;
+}
+.btn:hover {
+  background: var(--primary-dark-color);
+}
+.btn:active {
+  background: var(--primary-color);
+}
+
+.authors {
+  flex: 2 0 100%;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  font-size: 14px;
+}
+.author-title {
+  font-weight: 700;
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -5.5px;
+  color: var(--primary-dark-color);
+}
+.author {
+  white-space: nowrap;
+  &::after {
+    position: relative;
+    content: "/";
+    margin-left: 5px;
+    font-size: 20px;
+    bottom: -2px;
+    color: var(--gray-300);
+  }
+  margin-left: 5px;
+  &:last-child::after {
+    content: "";
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .card {
+    flex-direction: column;
+  }
+  .info {
+    flex-basis: 100%;
+  }
+  .course__tools {
+    align-self: flex-end;
+    margin-top: 10px;
+  }
+}

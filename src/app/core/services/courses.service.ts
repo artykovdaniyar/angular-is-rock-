@@ -1,68 +1,144 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
 import { Course } from '../../shared/models/course';
-
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { URLS } from 'src/app/shared/urls/urls';
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
-  courses = [
-    {
-      name: 'Angular 9. Теория и Практика 2020.',
-      id: 1,
-      description:
-        'Полное руководство для разработки крутейших динамических приложений. От глубокой теории до практики на Angular. Получите полное понимание того, как Angular работает в деталях и научитесь их использовать',
-      duration: 1053,
-      date: 1656871200000,
-      topRated: false,
-    },
-    {
-      name: 'Angular - The Complete Guide',
-      id: 2,
-      description:
-        'Develop modern, complex, responsive and scalable web applications with Angular 14. Fully understand the architecture behind an Angular application and how to use it. Use the gained, deep understanding of the Angular fundamentals to quickly establish yourself as a frontend developer. Create single-page applications with one of the most modern JavaScript frameworks out there',
-      duration: 2092,
-      date: 1541700000000,
-      topRated: true,
-    },
-    {
-      name: '100 Angular Challenge',
-      id: 3,
-      description:
-        'We will master all Angular has to offer by building 100 re-usable and practical Components, Directives, Services, Pipes and much more to be used in your personal or professional projects. Not only will we build 100 items, but we will also go over Jasmine and Unit Testing so we can write the most solid code possible and certify it does what it is supposed to.',
-      duration: 120,
-      date: 1658512800000,
-      topRated: false,
-    },
-    {
-      name: 'The Complete Angular Course: Beginner to Advanced',
-      id: 4,
-      description:
-        "Angular is one of the most popular frameworks for building client apps with HTML, CSS and TypeScript. If you want to establish yourself as a front-end or a full-stack developer, you need to learn Angular. If you've been confused or frustrated jumping from one Angular 4 tutorial to another, you've come to the right place.",
-      duration: 40,
-      date: 1558612800000,
-      topRated: false,
-    },
-  ];
-  constructor() {}
+  startWith = 0;
+  coursePerPage = 10;
+  error$ = new BehaviorSubject<boolean>(false);
+  courses$ = new BehaviorSubject<Course[]>([]);
+  totalCourseNum$ = new BehaviorSubject<number>(0);
+  noData$ = new BehaviorSubject<boolean>(false);
+  coursesNoFound$ = new BehaviorSubject<boolean>(false);
+  isLoading$ = new BehaviorSubject<boolean>(false);
+  isAllCoursesLoaded$ = new BehaviorSubject<boolean>(false);
 
-  getCoursesList(): Course[] {
-    return this.courses;
+  constructor(private http: HttpClient) {}
+
+  fetchCourse(startNum = 0): void {
+    this.isLoading$.next(true);
+    this.getTotalCoursesNum();
+    this.http
+      .get<Course[]>(URLS.COURSES_PAGING(startNum, this.coursePerPage))
+      .subscribe(
+        (courses) => {
+          this.isLoading$.next(false);
+          this.courses$.next([...this.courses$.value, ...courses]);
+          this.isCoursesListEmpty();
+        },
+        (error) => this.onError(error)
+      );
   }
-  createCourse(course: Course): void {
-    this.courses = [...this.courses, course];
+  getCourses(searchText = ''): void {
+    this.coursesNoFound$.next(false);
+    if (searchText) {
+      this.startWith = 0;
+      this.fetchCoursesBySearch(searchText, this.startWith);
+    } else {
+      this.fetchCourse(this.startWith);
+    }
   }
-  getCourseById(id: number): Course | undefined {
-    return this.courses.find((course) => course.id === id);
+
+  loadMoreCourses(searchText = ''): void {
+    this.isAllCoursesLoaded();
+    if (!this.isAllCoursesLoaded$.value) {
+      if (searchText) {
+        this.startWith += this.coursePerPage;
+        this.fetchCoursesBySearch(searchText, this.startWith);
+      } else {
+        this.startWith += this.coursePerPage;
+        this.fetchCourse(this.startWith);
+      }
+    }
   }
-  removeCourse(courseForDelete: Course): void {
-    this.courses = this.courses.filter((course) => {
-      return course.id !== courseForDelete.id;
+  isAllCoursesLoaded(): void {
+    if (
+      this.startWith + this.coursePerPage >= this.totalCourseNum$.value &&
+      this.courses$.value.length !== 0
+    ) {
+      this.isAllCoursesLoaded$.next(true);
+    } else {
+      this.isAllCoursesLoaded$.next(false);
+    }
+  }
+  getTotalCoursesNum(): void {
+    this.http.get<number>(URLS.COURSES_LENGTH).subscribe((totalNum) => {
+      this.totalCourseNum$.next(totalNum);
     });
   }
+
+  fetchCoursesBySearch(searchText = '', startNum = 0): void {
+    this.isLoading$.next(true);
+
+    this.http
+      .get<Course[]>(
+        URLS.COURSES_SEARCH(searchText, startNum, this.coursePerPage)
+      )
+      .pipe(
+        tap(() => this.isLoading$.next(false)),
+        tap((res) => {
+          if (res.length === 0 && !this.courses$.value.length) {
+            this.coursesNoFound$.next(true);
+          }
+        })
+      )
+      .subscribe(
+        (courses) => {
+          this.courses$.next([...this.courses$.value, ...courses]);
+        },
+        (error) => this.onError(error)
+      );
+  }
+
+  getCourseById(courseId: number): Observable<Course> {
+    this.isLoading$.next(true);
+    return this.http
+      .get<Course>(`http://localhost:3004/courses/${courseId}`)
+      .pipe(
+        tap(() => this.isLoading$.next(false)),
+        catchError((error) => this.onError(error))
+      );
+  }
+  resetRequest(): void {
+    this.error$.next(false);
+    this.startWith = 0;
+    this.courses$.next([]);
+    this.isAllCoursesLoaded$.next(false);
+  }
   updateCourse(updatedCourse: Course) {
-    this.courses = this.courses.map((course) =>
-      course.id === updatedCourse.id ? updatedCourse : course
-    );
+    this.http
+      .patch<Course>(URLS.EDIT_COURSE(updatedCourse.id), updatedCourse)
+      .subscribe();
+  }
+
+  onError(error: any) {
+    this.isLoading$.next(false);
+    this.error$.next(true);
+    console.log('ERROR MESSAGE:', error.message);
+    return throwError(error);
+  }
+  isCoursesListEmpty() {
+    if (this.courses$.value.length === 0) {
+      this.noData$.next(true);
+    } else {
+      this.noData$.next(false);
+    }
+  }
+  removeCourse(courseId: number): void {
+    this.http.delete(URLS.DELETE_COURSE(courseId)).subscribe(() => {
+      let updatedCoursesList = this.courses$.value.filter(
+        (course: Course) => course.id !== courseId
+      );
+      this.courses$.next(updatedCoursesList);
+      this.isAllCoursesLoaded();
+      this.isCoursesListEmpty();
+    });
+  }
+  createCourse(course: Course): void {
+    this.http.post(URLS.CREATE_COURSE, course).subscribe();
   }
 }

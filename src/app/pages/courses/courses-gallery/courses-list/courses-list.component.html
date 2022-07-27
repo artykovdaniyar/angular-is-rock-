@@ -1,0 +1,15 @@
+<section class="courses">
+  <a routerLink="/courses/new" class="add-btn">
+    <fa-icon [icon]="faPlus" class="add-icon"></fa-icon>
+    Add course
+  </a>
+
+  <ul class="list">
+    <li *ngFor="let course of coursesList">
+      <courses-item
+        [course]="course"
+        (onDelete)="deleteEventEmit($event)"
+      ></courses-item>
+    </li>
+  </ul>
+</section>

@@ -1,27 +1,33 @@
 # AngularIsRock
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.3.
+This project was created as tutorial project for "Angular Global Mentoring Program"
 
-## Development server
+## Development
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.3. Feel free to use any command in [Angular CLI](https://github.com/angular/angular-cli) for checking, building, developing or testing.
 
-## Code scaffolding
+In order to delelop the project you have to install dependencies and launch Frontend as well as mock Backend local server!
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+ <hr>
 
-## Build
+1. Download the files to your device from via the link: <br> "git clone project link"
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+BACKEND:
 
-## Running unit tests
+2. In terminal from the root folder of the project open BE folder: <br>
+   "cd BE"
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. Install component dependencies. ONLY USE YARN!:<br>
+   "yarn install"
 
-## Running end-to-end tests
+4. Run mock local server with command:<br> "yarn start"
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+FRONTEND:
 
-## Further help
+5. In terminal get back to the root folder of the project: <br>
+   "cd .."
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+6. Install component dependencies. ONLY USE YARN!:<br>
+   "yarn install"
+
+7. Run Frontend with command:<br> "yarn start"

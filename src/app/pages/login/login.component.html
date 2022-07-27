@@ -4,7 +4,7 @@
       <h3 class="title">Login</h3>
       <fieldset class="form-group">
         <label for="#userEmail" class="label">E-mail:</label>
-        <small class="error-message">*required</small>
+        <!-- <small class="error-message">*required</small> -->
       </fieldset>
 
       <input
@@ -14,12 +14,12 @@
         name="userEmail"
         placeholder="Enter e-mail"
         autocomplete="off"
-        [value]="userEmail"
+        [value]="userLogin"
         (input)="onInput($event)"
       />
       <fieldset class="form-group">
         <label for="#userPassword" class="label">Password:</label>
-        <small class="error-message">*required</small>
+        <!-- <small class="error-message">*required</small> -->
       </fieldset>
 
       <input
@@ -32,12 +32,16 @@
         [value]="userPassword"
         (input)="onInput($event)"
       />
+
+      <small class="error-message" *ngIf="authService.errorInput$ | async"
+        >Invalid login or password</small
+      >
       <fieldset class="form-group form-group--last">
         <a href="/" class="link">Forget password?</a>
         <button
           type="submit"
           class="btn"
-          [disabled]="!userEmail || !userPassword"
+          [disabled]="!userLogin || !userPassword"
         >
           Login
         </button>
