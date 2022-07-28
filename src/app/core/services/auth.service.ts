@@ -16,11 +16,19 @@ import { URLS } from 'src/app/shared/urls/urls';
   providedIn: 'root',
 })
 export class AuthService {
+  initialUserInfo: User = {
+    id: 0,
+    token: '',
+    name: { first: '', last: '' },
+    login: '',
+    password: '',
+    fakeToken: '',
+  };
   private TOKEN_KEY = 'angularRockToken';
   isAuthenticated$ = new BehaviorSubject<boolean>(this.isLocalAuthenticated());
   isLoading$ = new BehaviorSubject<boolean>(false);
   errorInput$ = new BehaviorSubject<boolean>(false);
-  userInfo$: BehaviorSubject<User | object> = new BehaviorSubject({});
+  userInfo$ = new BehaviorSubject<User>(this.initialUserInfo);
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -30,7 +38,7 @@ export class AuthService {
     this.http
       .post(URLS.LOGIN, { login, password })
       .pipe(
-        delay(2000),
+        delay(500),
         concatMap((token) => this.http.post<User>(URLS.USER_INFO, token))
       )
       .subscribe(
@@ -49,6 +57,7 @@ export class AuthService {
   }
   loginOut(): void {
     this.isAuthenticated$.next(false);
+    this.userInfo$.next(this.initialUserInfo);
     localStorage.removeItem(this.TOKEN_KEY);
   }
 
