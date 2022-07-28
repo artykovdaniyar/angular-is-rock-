@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Route } from '@angular/router';
-import { ErrorPageComponent } from '../error-page/error-page.component';
+import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { CoursesGalleryComponent } from './courses-gallery/courses-gallery.component';
 import { CoursesComponent } from './courses.component';
 
@@ -9,6 +9,7 @@ const routes: Route[] = [
     path: 'courses',
     component: CoursesComponent,
     data: { breadcrumb: 'Courses' },
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
