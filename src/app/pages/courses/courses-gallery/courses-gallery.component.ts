@@ -1,7 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { Store } from '@ngrx/store';
 import { CoursesService } from 'src/app/core/services/courses.service';
+import * as fromStore from '../store';
+import { Course } from '../../../shared/models/course';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'courses-gallery',
@@ -10,12 +14,14 @@ import { CoursesService } from 'src/app/core/services/courses.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CoursesGalleryComponent implements OnInit {
+  courses$: Observable<Course[]> = of([]);
   searchQuery = '';
   faTriangleExclamation = faTriangleExclamation;
   constructor(
     public coursesService: CoursesService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store<fromStore.CoursesStoreState>
   ) {}
 
   ngOnInit(): void {
@@ -24,7 +30,9 @@ export class CoursesGalleryComponent implements OnInit {
         this.searchQuery = query['search'];
       }
     });
-    this.coursesService.getCourses(this.searchQuery);
+    this.courses$ = this.store.select<Course[]>(fromStore.getCourses);
+    this.store.dispatch(new fromStore.GetCourses());
+    // this.coursesService.getCourses(this.searchQuery);
   }
 
   loadMore(): void {

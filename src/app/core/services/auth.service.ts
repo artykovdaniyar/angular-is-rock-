@@ -31,6 +31,7 @@ export class AuthService {
   errorInput$ = new BehaviorSubject<boolean>(false);
   userInfo$ = new BehaviorSubject<User>(this.initialUserInfo);
   serverError$ = new BehaviorSubject<boolean>(false);
+
   constructor(private http: HttpClient, private router: Router) {}
 
   loginIn({ login, password }: Login): void {

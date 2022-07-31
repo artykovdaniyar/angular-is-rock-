@@ -19,27 +19,28 @@ export class CoursesService {
 
   constructor(private http: HttpClient) {}
 
-  fetchCourse(startNum = 0): void {
+  fetchCourse(startNum = 0) {
     this.isLoading$.next(true);
     this.getTotalCoursesNum();
-    this.http
-      .get<Course[]>(URLS.COURSES_PAGING(startNum, this.coursePerPage))
-      .subscribe(
-        (courses) => {
-          this.isLoading$.next(false);
-          this.courses$.next([...this.courses$.value, ...courses]);
-          this.isCoursesListEmpty();
-        },
-        (error) => this.onError(error)
-      );
+    return this.http.get<Course[]>(
+      URLS.COURSES_PAGING(startNum, this.coursePerPage)
+    );
+    // .subscribe(
+    //   (courses) => {
+    //     this.isLoading$.next(false);
+    //     this.courses$.next([...this.courses$.value, ...courses]);
+    //     this.isCoursesListEmpty();
+    //   },
+    //   (error) => this.onError(error)
+    // );
   }
-  getCourses(searchText = ''): void {
+  getCourses(searchText = ''): Observable<Course[]> {
     this.coursesNoFound$.next(false);
     if (searchText) {
       this.startWith = 0;
-      this.fetchCoursesBySearch(searchText, this.startWith);
+      return this.fetchCoursesBySearch(searchText, this.startWith);
     } else {
-      this.fetchCourse(this.startWith);
+      return this.fetchCourse(this.startWith);
     }
   }
 
@@ -71,10 +72,10 @@ export class CoursesService {
     });
   }
 
-  fetchCoursesBySearch(searchText = '', startNum = 0): void {
+  fetchCoursesBySearch(searchText = '', startNum = 0) {
     this.isLoading$.next(true);
 
-    this.http
+    return this.http
       .get<Course[]>(
         URLS.COURSES_SEARCH(searchText, startNum, this.coursePerPage)
       )
@@ -85,13 +86,13 @@ export class CoursesService {
             this.coursesNoFound$.next(true);
           }
         })
-      )
-      .subscribe(
-        (courses) => {
-          this.courses$.next([...this.courses$.value, ...courses]);
-        },
-        (error) => this.onError(error)
       );
+    // .subscribe(
+    //   (courses) => {
+    //     this.courses$.next([...this.courses$.value, ...courses]);
+    //   },
+    //   (error) => this.onError(error)
+    // );
   }
 
   getCourseById(courseId: number): Observable<Course> {

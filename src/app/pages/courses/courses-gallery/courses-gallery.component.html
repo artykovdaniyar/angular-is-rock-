@@ -8,7 +8,7 @@
 
     <courses-list
       [searchValue]="searchQuery"
-      [coursesList]="coursesService.courses$ | async"
+      [coursesList]="courses$ | async"
       (onDelete)="deleteCourseHandler($event)"
     ></courses-list>
     <courses-info-card *ngIf="coursesService.error$ | async">
