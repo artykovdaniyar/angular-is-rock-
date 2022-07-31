@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
+  catchError,
   concatMap,
   delay,
   Observable,
@@ -29,7 +30,7 @@ export class AuthService {
   isLoading$ = new BehaviorSubject<boolean>(false);
   errorInput$ = new BehaviorSubject<boolean>(false);
   userInfo$ = new BehaviorSubject<User>(this.initialUserInfo);
-
+  serverError$ = new BehaviorSubject<boolean>(false);
   constructor(private http: HttpClient, private router: Router) {}
 
   loginIn({ login, password }: Login): void {
@@ -50,7 +51,15 @@ export class AuthService {
           this.router.navigate(['/courses']);
         },
         (error) => {
-          this.errorInput$.next(true);
+          this.isLoading$.next(false);
+          if (error.status === 401) {
+            this.errorInput$.next(true);
+            console.error(error.error);
+          } else if (error.status === 0) {
+            this.serverError$.next(true);
+            console.log(this.serverError$.value);
+          }
+
           return throwError(error.error);
         }
       );

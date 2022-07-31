@@ -46,5 +46,6 @@
       </form>
     </div>
   </div>
-  <loading *ngIf="authService.isLoading$ | async"></loading>
+  <login-loading *ngIf="authService.isLoading$ | async"></login-loading>
+  <login-error *ngIf="authService.serverError$ | async"></login-error>
 </div>
