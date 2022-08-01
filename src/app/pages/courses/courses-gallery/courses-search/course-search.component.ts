@@ -25,11 +25,11 @@ export class CoursesSearchComponent implements OnInit, OnDestroy {
   faArrowRotateRight = faArrowRotateRight;
   searchControl!: FormControl;
   searchControlSub!: Subscription;
+
   @ViewChild('searchInput') searchInput!: ElementRef;
   @Input() searchQuery = '';
   @Output() onSubmit: EventEmitter<string> = new EventEmitter<string>();
   @Output() onReset: EventEmitter<boolean> = new EventEmitter<boolean>();
-  constructor() {}
 
   ngOnInit(): void {
     this.searchControl = new FormControl('');
@@ -50,7 +50,10 @@ export class CoursesSearchComponent implements OnInit, OnDestroy {
       .subscribe((searchInputValue: string) => {
         if (this.searchControl.value.length) {
           this.submitHandler(searchInputValue.trim());
-        } else if (!this.searchControl.dirty) {
+        } else if (
+          !this.searchControl.dirty &&
+          this.searchControl.value.length !== 0
+        ) {
           this.resetFormHandler();
           this.clearFormHandler();
         }

@@ -1,7 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import * as fromFeature from '../reducers';
 import * as fromReduser from '../reducers/courses.reducer';
-import * as fromState from '../state';
 import { COURSES_KEY } from '../reducers/index';
 
 export const getCoursesState = createSelector(
@@ -9,17 +8,46 @@ export const getCoursesState = createSelector(
   (state: fromFeature.CoursesStoreState) => state[COURSES_KEY]
 );
 
-export const getCourses = createSelector(
+export const coursesSelector = createSelector(
   getCoursesState,
   fromReduser.getCourses
 );
 
-export const getCoursesLoading = createSelector(
+export const coursesLoadingSelector = createSelector(
   getCoursesState,
   fromReduser.getCoursesLoading
 );
 
-export const getCoursesLoaded = createSelector(
+export const allCoursesLoadedSelector = createSelector(
   getCoursesState,
-  fromReduser.getCoursesLoaded
+  fromReduser.getAllCoursesLoaded
+);
+export const coursesErrorSelector = createSelector(
+  getCoursesState,
+  fromReduser.getCoursesError
+);
+
+export const totalCourseNumSelector = createSelector(
+  getCoursesState,
+  fromReduser.getTotalCourseNum
+);
+
+export const dataIsEmptySelector = createSelector(
+  getCoursesState,
+  fromReduser.getDataIsEmpty
+);
+
+export const coursesNoFoundSelector = createSelector(
+  getCoursesState,
+  fromReduser.getCoursesNoFound
+);
+
+export const startLoadWithSelector = createSelector(
+  getCoursesState,
+  fromReduser.getStartLoadWith
+);
+
+export const coursesPerPageSelector = createSelector(
+  getCoursesState,
+  fromReduser.getCoursesPerPage
 );

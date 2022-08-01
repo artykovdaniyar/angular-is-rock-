@@ -11,29 +11,30 @@
       [coursesList]="courses$ | async"
       (onDelete)="deleteCourseHandler($event)"
     ></courses-list>
-    <courses-info-card *ngIf="coursesService.error$ | async">
-      <course-error></course-error>
-    </courses-info-card>
-    <courses-info-card *ngIf="coursesService.coursesNoFound$ | async">
-      No found any courses by request
-    </courses-info-card>
-
-    <courses-info-card *ngIf="coursesService.isAllCoursesLoaded$ | async">
-      All courses loaded
-    </courses-info-card>
-
-    <courses-info-card *ngIf="coursesService.noData$ | async">
-      No data, feel free to add new course
-    </courses-info-card>
-
-    <courses-info-card *ngIf="coursesService.isLoading$ | async">
-      <loading></loading>
-    </courses-info-card>
 
     <courses-more
+      *ngIf="!(allCoursesLoaded$ | async)"
       infiniteScroll
       [infiniteScrollDistance]="1"
       (scrolled)="loadMore()"
     ></courses-more>
+    <courses-info-card *ngIf="error$ | async">
+      <course-error></course-error>
+    </courses-info-card>
+    <courses-info-card *ngIf="coursesNoFound$ | async">
+      No found any courses by request
+    </courses-info-card>
+
+    <courses-info-card *ngIf="allCoursesLoaded$ | async">
+      All courses loaded
+    </courses-info-card>
+
+    <courses-info-card *ngIf="dataIsEmpty$ | async">
+      No data, feel free to add new course
+    </courses-info-card>
+
+    <courses-info-card *ngIf="loading$ | async">
+      <loading></loading>
+    </courses-info-card>
   </div>
 </section>
