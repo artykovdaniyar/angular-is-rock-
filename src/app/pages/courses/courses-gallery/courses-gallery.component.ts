@@ -46,10 +46,9 @@ export class CoursesGalleryComponent implements OnInit {
         this.coursePerPage,
       ])
     );
-
+    this.store.dispatch(new fromStore.IsAllCoursesLoaded());
     this.store
       .select<number>(fromStore.startLoadWithSelector)
-      .pipe(tap((value) => console.log(value)))
       .subscribe((stateNum) => (this.startWith = stateNum));
 
     this.store
@@ -74,7 +73,6 @@ export class CoursesGalleryComponent implements OnInit {
 
   loadMore(): void {
     this.store.dispatch(new fromStore.NextPage());
-    console.log(this.startWith);
     this.store.dispatch(
       new fromStore.LoadMoreCourses([
         this.searchQuery,
@@ -82,6 +80,7 @@ export class CoursesGalleryComponent implements OnInit {
         this.coursePerPage,
       ])
     );
+    this.store.dispatch(new fromStore.IsAllCoursesLoaded());
   }
   searchHandler(inputSearchValue: string): void {
     this.router.navigate(['/courses'], {
@@ -99,7 +98,11 @@ export class CoursesGalleryComponent implements OnInit {
     );
   }
   deleteCourseHandler(courseId: number): void {
-    // this.coursesService.removeCourse(courseId);
+    this.store.dispatch(new fromStore.DeleteCourse(courseId));
+    this.store.dispatch(new fromStore.ResetCoursesState());
+    this.store.dispatch(
+      new fromStore.GetCourses([this.searchQuery, 0, this.coursePerPage])
+    );
   }
   resetSearch(): void {
     this.router.navigate(['/courses']);

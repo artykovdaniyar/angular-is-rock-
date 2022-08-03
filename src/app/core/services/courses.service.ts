@@ -17,12 +17,6 @@ import { CoursesState } from '../../pages/courses/store/state/courses.state';
   providedIn: 'root',
 })
 export class CoursesService {
-  error$ = new BehaviorSubject<boolean>(false);
-  courses$ = new BehaviorSubject<Course[]>([]);
-  isLoading$ = new BehaviorSubject<boolean>(false);
-
-  totalCourseLength = 0;
-
   constructor(private http: HttpClient, private store: Store<CoursesState>) {}
 
   getCourses(
@@ -31,8 +25,6 @@ export class CoursesService {
     coursePerPage: number
   ): Observable<Course[]> {
     this.store.dispatch(new fromStore.TotalCourseNum(searchText));
-
-    this.store.dispatch(new fromStore.IsAllCoursesLoaded());
     if (searchText) {
       return this.fetchCoursesBySearch(searchText, startWith, coursePerPage);
     } else {
@@ -64,15 +56,20 @@ export class CoursesService {
   }
 
   fetchCourse(startWith: number, coursePerPage: number) {
-    return this.http
-      .get<Course[]>(URLS.COURSES_PAGING(startWith, coursePerPage))
-      .pipe(
-        tap((res) => {
-          if (res.length === 0) {
-            this.store.dispatch(new fromStore.DataIsEmpty(true));
-          }
-        })
-      );
+    return this.store.select<Course[]>(fromStore.coursesSelector).pipe(
+      map((courses: Course[]) => courses.length),
+      exhaustMap((coursesLength) => {
+        return this.http
+          .get<Course[]>(URLS.COURSES_PAGING(startWith, coursePerPage))
+          .pipe(
+            tap((res) => {
+              if (res.length === 0 && !coursesLength) {
+                this.store.dispatch(new fromStore.DataIsEmpty(true));
+              }
+            })
+          );
+      })
+    );
   }
 
   loadMoreCourses(
@@ -98,15 +95,10 @@ export class CoursesService {
     );
   }
 
-  removeCourse(courseId: number): void {
-    this.http.delete(URLS.DELETE_COURSE(courseId)).subscribe(() => {
-      let updatedCoursesList = this.courses$.value.filter(
-        (course: Course) => course.id !== courseId
-      );
-      this.courses$.next(updatedCoursesList);
-      // this.isAllCoursesLoaded();
-      // this.isCoursesListEmpty();
-    });
+  removeCourse(courseId: number) {
+    return this.http.delete(URLS.DELETE_COURSE(courseId));
+
+    // this.isCoursesListEmpty();
   }
   createCourse(course: Course): Observable<Course> {
     return this.http.post<Course>(URLS.CREATE_COURSE, course);

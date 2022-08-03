@@ -53,14 +53,25 @@ export class CoursesEffects {
       map((action) => action['payload']),
       switchMap((searchText) => {
         return this.coursesService.getTotalCoursesNum(searchText).pipe(
-          first(),
           map((number) => new fromAction.TotalCourseNumSuccess(number)),
+          first(),
           catchError((error) => of(new fromAction.TotalCourseNumFail(error)))
         );
       })
     )
   );
-
+  getCourseById$ = createEffect(() =>
+    this.actions$.pipe(ofType(CoursesActions.GET_COURSE_BY_ID)).pipe(
+      map((action) => action['payload']),
+      switchMap((courseId) => {
+        return this.coursesService.getCourseById(courseId).pipe(
+          map((course: Course) => new fromAction.GetCourseByIdSuccess(course)),
+          first(),
+          catchError((error) => of(new fromAction.GetCourseByIdFail(error)))
+        );
+      })
+    )
+  );
   editCourse$ = createEffect(() =>
     this.actions$.pipe(ofType(CoursesActions.EDIT_COURSE)).pipe(
       map((action) => action['payload']),
@@ -88,15 +99,14 @@ export class CoursesEffects {
       })
     )
   );
-
-  getCourseById$ = createEffect(() =>
-    this.actions$.pipe(ofType(CoursesActions.GET_COURSE_BY_ID)).pipe(
+  deleteCourse$ = createEffect(() =>
+    this.actions$.pipe(ofType(CoursesActions.DELETE_COURSE)).pipe(
       map((action) => action['payload']),
-      switchMap((courseId) => {
-        return this.coursesService.getCourseById(courseId).pipe(
-          map((course: Course) => new fromAction.GetCourseByIdSuccess(course)),
+      switchMap((courseId: number) => {
+        return this.coursesService.removeCourse(courseId).pipe(
+          map(() => new fromAction.DeleteCourseSuccess()),
           first(),
-          catchError((error) => of(new fromAction.GetCourseByIdFail(error)))
+          catchError((error) => of(new fromAction.DeleteCourseFail(error)))
         );
       })
     )

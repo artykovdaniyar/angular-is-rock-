@@ -12,7 +12,8 @@ export const coursesReduser = (
     case fromAction.CoursesActions.GET_COURSE_BY_ID:
     case fromAction.CoursesActions.TOTAL_COURSES_NUM:
     case fromAction.CoursesActions.EDIT_COURSE:
-    case fromAction.CoursesActions.CREATE_COURSE: {
+    case fromAction.CoursesActions.CREATE_COURSE:
+    case fromAction.CoursesActions.DELETE_COURSE: {
       return {
         ...state,
         loading: true,
@@ -25,7 +26,8 @@ export const coursesReduser = (
     case fromAction.CoursesActions.GET_COURSE_BY_ID_FAIL:
     case fromAction.CoursesActions.TOTAL_COURSES_NUM_FAIL:
     case fromAction.CoursesActions.EDIT_COURSE_FAIL:
-    case fromAction.CoursesActions.CREATE_COURSE_FAIL: {
+    case fromAction.CoursesActions.CREATE_COURSE_FAIL:
+    case fromAction.CoursesActions.DELETE_COURSE_FAIL: {
       return {
         ...state,
         loading: false,
@@ -44,7 +46,8 @@ export const coursesReduser = (
       };
     }
     case fromAction.CoursesActions.EDIT_COURSE_SUCCESS:
-    case fromAction.CoursesActions.CREATE_COURSE_SUCCESS: {
+    case fromAction.CoursesActions.CREATE_COURSE_SUCCESS:
+    case fromAction.CoursesActions.DELETE_COURSE_FAIL: {
       return {
         ...state,
         loading: false,

@@ -27,6 +27,10 @@ export enum CoursesActions {
   CREATE_COURSE_SUCCESS = '[Courses] Create Course Success',
   CREATE_COURSE_FAIL = '[Courses] Create Course Fail',
 
+  DELETE_COURSE = '[Courses] Delete Course',
+  DELETE_COURSE_SUCCESS = '[Courses] Delete Course Success',
+  DELETE_COURSE_FAIL = '[Courses] Delete Course Fail',
+
   DATA_IS_EMPTY = '[Courses] Data Is Empty',
   COURSES_NO_FOUND = '[Courses] Courses No Found',
   RESET_COURSES_STATE = '[Courses] Reset Courses State',
@@ -98,6 +102,18 @@ export class CreateCourseFail implements Action {
   constructor(public payload: any) {}
 }
 
+export class DeleteCourse implements Action {
+  public readonly type = CoursesActions.DELETE_COURSE;
+  constructor(public payload: number) {}
+}
+export class DeleteCourseSuccess implements Action {
+  public readonly type = CoursesActions.DELETE_COURSE_SUCCESS;
+}
+export class DeleteCourseFail implements Action {
+  public readonly type = CoursesActions.DELETE_COURSE_FAIL;
+  constructor(public payload: any) {}
+}
+
 export class GetCourseById implements Action {
   public readonly type = CoursesActions.GET_COURSE_BY_ID;
   constructor(public payload: number) {}
@@ -157,6 +173,9 @@ export type CoursesActionTypes =
   | CreateCourse
   | CreateCourseSuccess
   | CreateCourseFail
+  | DeleteCourse
+  | DeleteCourseSuccess
+  | DeleteCourseFail
   | DataIsEmpty
   | CousesNoFound
   | ResetCoursesState
