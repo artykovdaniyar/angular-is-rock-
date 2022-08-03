@@ -1,53 +1,54 @@
-import { createSelector } from '@ngrx/store';
-import * as fromFeature from '../reducers';
-import * as fromReduser from '../reducers/courses.reducer';
-import { COURSES_KEY } from '../reducers/index';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { CoursesState } from '../state';
 
-export const getCoursesState = createSelector(
-  fromFeature.getCourseListState,
-  (state: fromFeature.CoursesStoreState) => state[COURSES_KEY]
-);
+export const coursesFeatureSelector =
+  createFeatureSelector<CoursesState>('coursesStore');
 
 export const coursesSelector = createSelector(
-  getCoursesState,
-  fromReduser.getCourses
+  coursesFeatureSelector,
+  (coursesState) => coursesState.courses
+);
+
+export const courseDetailsSelector = createSelector(
+  coursesFeatureSelector,
+  (coursesState) => coursesState.courseForUpdate
 );
 
 export const coursesLoadingSelector = createSelector(
-  getCoursesState,
-  fromReduser.getCoursesLoading
+  coursesFeatureSelector,
+  (coursesState) => coursesState.loading
 );
 
 export const allCoursesLoadedSelector = createSelector(
-  getCoursesState,
-  fromReduser.getAllCoursesLoaded
+  coursesFeatureSelector,
+  (coursesState) => coursesState.allCoursesLoaded
 );
 export const coursesErrorSelector = createSelector(
-  getCoursesState,
-  fromReduser.getCoursesError
+  coursesFeatureSelector,
+  (coursesState) => coursesState.error
 );
 
 export const totalCourseNumSelector = createSelector(
-  getCoursesState,
-  fromReduser.getTotalCourseNum
+  coursesFeatureSelector,
+  (coursesState) => coursesState.totalCourseNum
 );
 
 export const dataIsEmptySelector = createSelector(
-  getCoursesState,
-  fromReduser.getDataIsEmpty
+  coursesFeatureSelector,
+  (coursesState) => coursesState.dataIsEmpty
 );
 
 export const coursesNoFoundSelector = createSelector(
-  getCoursesState,
-  fromReduser.getCoursesNoFound
+  coursesFeatureSelector,
+  (coursesState) => coursesState.coursesNoFound
 );
 
 export const startLoadWithSelector = createSelector(
-  getCoursesState,
-  fromReduser.getStartLoadWith
+  coursesFeatureSelector,
+  (coursesState) => coursesState.startWith
 );
 
 export const coursesPerPageSelector = createSelector(
-  getCoursesState,
-  fromReduser.getCoursesPerPage
+  coursesFeatureSelector,
+  (coursesState) => coursesState.coursesPerPage
 );

@@ -10,6 +10,7 @@ export interface CoursesState {
   totalCourseNum: number;
   dataIsEmpty: boolean;
   coursesNoFound: boolean;
+  courseForUpdate: Course;
 }
 export const initialCoursesState: CoursesState = {
   courses: [],
@@ -21,4 +22,13 @@ export const initialCoursesState: CoursesState = {
   totalCourseNum: 0,
   dataIsEmpty: false,
   coursesNoFound: false,
+  courseForUpdate: {
+    id: 0,
+    name: '',
+    date: '',
+    length: 0,
+    description: '',
+    authors: [],
+    isTopRated: false,
+  },
 };

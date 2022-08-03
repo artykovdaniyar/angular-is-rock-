@@ -1,19 +1,37 @@
-import { createReducer, on } from '@ngrx/store';
 import * as fromState from '../state';
 import * as fromAction from '../actions/courses.actions';
-import { Course } from '../../../../shared/models/course';
 
 export const coursesReduser = (
   state: fromState.CoursesState = fromState.initialCoursesState,
   action: fromAction.CoursesActionTypes
 ): fromState.CoursesState => {
   switch (action.type) {
-    case fromAction.CoursesActions.GET_COURSES: {
+    // LOADING
+    case fromAction.CoursesActions.GET_COURSES:
+    case fromAction.CoursesActions.LOAD_MORE_COURSES:
+    case fromAction.CoursesActions.GET_COURSE_BY_ID:
+    case fromAction.CoursesActions.TOTAL_COURSES_NUM:
+    case fromAction.CoursesActions.EDIT_COURSE: {
       return {
         ...state,
         loading: true,
       };
     }
+
+    // ERROR
+    case fromAction.CoursesActions.GET_COURSES_FAIL:
+    case fromAction.CoursesActions.LOAD_MORE_COURSES_FAIL:
+    case fromAction.CoursesActions.GET_COURSE_BY_ID_FAIL:
+    case fromAction.CoursesActions.TOTAL_COURSES_NUM_FAIL:
+    case fromAction.CoursesActions.EDIT_COURSE_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        error: true,
+      };
+    }
+
+    // SUCCESS
     case fromAction.CoursesActions.GET_COURSES_SUCCESS: {
       const courses = action.payload;
 
@@ -23,20 +41,12 @@ export const coursesReduser = (
         courses: courses,
       };
     }
-    case fromAction.CoursesActions.GET_COURSES_FAIL: {
+    case fromAction.CoursesActions.NEXT_PAGE: {
       return {
         ...state,
-        loading: false,
-      };
-    }
-    case fromAction.CoursesActions.LOAD_MORE_COURSES: {
-      return {
-        ...state,
-        loading: true,
         startWith: state.startWith + state.coursesPerPage,
       };
     }
-
     case fromAction.CoursesActions.LOAD_MORE_COURSES_SUCCESS: {
       const courses = action.payload;
       return {
@@ -46,11 +56,12 @@ export const coursesReduser = (
       };
     }
 
-    case fromAction.CoursesActions.LOAD_MORE_COURSES_FAIL: {
+    case fromAction.CoursesActions.GET_COURSE_BY_ID_SUCCESS: {
+      const course = action.payload;
       return {
         ...state,
         loading: false,
-        error: true,
+        courseForUpdate: course,
       };
     }
 
@@ -61,12 +72,6 @@ export const coursesReduser = (
       };
     }
 
-    case fromAction.CoursesActions.TOTAL_COURSES_NUM: {
-      return {
-        ...state,
-        loading: true,
-      };
-    }
     case fromAction.CoursesActions.TOTAL_COURSES_NUM_SUCCESS: {
       return {
         ...state,
@@ -74,13 +79,14 @@ export const coursesReduser = (
         totalCourseNum: action.payload,
       };
     }
-    case fromAction.CoursesActions.TOTAL_COURSES_NUM_FAIL: {
+
+    case fromAction.CoursesActions.EDIT_COURSE_SUCCESS: {
       return {
         ...state,
         loading: false,
-        error: true,
       };
     }
+
     case fromAction.CoursesActions.DATA_IS_EMPTY: {
       return {
         ...state,
@@ -94,7 +100,7 @@ export const coursesReduser = (
         coursesNoFound: action.payload,
       };
     }
-    case fromAction.CoursesActions.RESET_COURSES_REQUEST: {
+    case fromAction.CoursesActions.RESET_COURSES_STATE: {
       return {
         ...state,
         courses: [],
@@ -103,6 +109,7 @@ export const coursesReduser = (
         allCoursesLoaded: false,
         dataIsEmpty: false,
         coursesNoFound: false,
+        totalCourseNum: 0,
       };
     }
     case fromAction.CoursesActions.IS_ALL_COURSES_LOADED: {
@@ -113,24 +120,9 @@ export const coursesReduser = (
           state.courses.length !== 0,
       };
     }
+
     default: {
       return { ...state };
     }
   }
 };
-export const getCourses = (state: fromState.CoursesState) => state.courses;
-export const getCoursesLoading = (state: fromState.CoursesState) =>
-  state.loading;
-export const getAllCoursesLoaded = (state: fromState.CoursesState) =>
-  state.allCoursesLoaded;
-export const getCoursesError = (state: fromState.CoursesState) => state.error;
-export const getTotalCourseNum = (state: fromState.CoursesState) =>
-  state.totalCourseNum;
-export const getDataIsEmpty = (state: fromState.CoursesState) =>
-  state.dataIsEmpty;
-export const getCoursesNoFound = (state: fromState.CoursesState) =>
-  state.coursesNoFound;
-export const getStartLoadWith = (state: fromState.CoursesState) =>
-  state.startWith;
-export const getCoursesPerPage = (state: fromState.CoursesState) =>
-  state.coursesPerPage;

@@ -2,10 +2,12 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { CoursesService } from 'src/app/core/services/courses.service';
 import { Author } from 'src/app/shared/models/author';
 import { Course } from 'src/app/shared/models/course';
+import * as fromStore from '../store';
+import { CoursesState } from '../store/state';
 
 @Component({
   selector: 'app-edit-course',
@@ -14,11 +16,14 @@ import { Course } from 'src/app/shared/models/course';
 })
 export class EditCourseComponent implements OnInit {
   form!: FormGroup;
-  course$!: Observable<Course>;
+  course$!: Observable<Course | undefined>;
   courseId = 0;
+  loading: boolean = false;
+  error: boolean = false;
+  authors?: Author[];
 
   constructor(
-    public coursesService: CoursesService,
+    private store: Store<CoursesState>,
     private route: ActivatedRoute,
     private router: Router,
     private datePipe: DatePipe
@@ -39,27 +44,41 @@ export class EditCourseComponent implements OnInit {
     this.route.params.subscribe(({ id }) => {
       this.courseId = +id;
     });
-
-    this.course$ = this.coursesService.getCourseById(this.courseId);
-
-    this.course$.subscribe((course) => {
-      this.form.patchValue({
-        id: course.id,
-        name: course.name,
-        description: course.description,
-        length: course.length,
-        date: this.datePipe.transform(course.date, 'yyyy-MM-dd'),
-        authors: course.authors,
-        isTopRated: course.isTopRated,
+    this.store
+      .select<boolean>(fromStore.coursesLoadingSelector)
+      .subscribe((state) => {
+        this.loading = state;
       });
+    this.store
+      .select<boolean>(fromStore.coursesErrorSelector)
+      .subscribe((state) => {
+        this.error = state;
+      });
+    this.store.dispatch(new fromStore.GetCourseById(this.courseId));
+    this.store.select(fromStore.courseDetailsSelector).subscribe((course) => {
+      if (course) {
+        this.form.patchValue({
+          id: course?.id,
+          name: course?.name,
+          description: course?.description,
+          length: course?.length,
+          date: this.datePipe.transform(course?.date, 'yyyy-MM-dd'),
+          authors: course?.authors,
+          isTopRated: course?.isTopRated,
+        });
+        this.authors = course?.authors;
+      }
     });
   }
 
   updateAuthorsHandler(newAuthorsList: Author[]) {
     this.form.get('authors')?.patchValue(newAuthorsList);
   }
+
   onSubmit() {
-    this.coursesService.updateCourse(this.form.value);
+    this.store.dispatch(new fromStore.EditCourse(this.form.value));
+    // this.coursesService.updateCourse(this.form.value);
+
     this.goToCoursesPage();
   }
   goToCoursesPage() {

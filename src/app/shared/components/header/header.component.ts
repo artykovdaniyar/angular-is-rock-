@@ -4,7 +4,7 @@ import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { Name } from '../../models/Name';
+import { Name } from '../../models/name';
 import { User } from '../../models/user';
 
 @Component({

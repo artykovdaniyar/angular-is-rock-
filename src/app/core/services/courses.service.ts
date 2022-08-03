@@ -4,16 +4,15 @@ import { Course } from '../../shared/models/course';
 import * as fromStore from '../../pages/courses/store';
 import {
   BehaviorSubject,
-  catchError,
+  exhaustMap,
   map,
-  mergeMap,
   Observable,
-  of,
   tap,
   throwError,
 } from 'rxjs';
 import { URLS } from 'src/app/shared/urls/urls';
 import { Store } from '@ngrx/store';
+import { CoursesState } from '../../pages/courses/store/state/courses.state';
 @Injectable({
   providedIn: 'root',
 })
@@ -24,26 +23,16 @@ export class CoursesService {
 
   totalCourseLength = 0;
 
-  constructor(
-    private http: HttpClient,
-    private store: Store<fromStore.CoursesStoreState>
-  ) {}
-  getCourses(searchText = ''): Observable<Course[]> {
-    let startWith: number = 0;
-    let coursePerPage: number = 10;
+  constructor(private http: HttpClient, private store: Store<CoursesState>) {}
 
-    this.store
-      .select<number>(fromStore.startLoadWithSelector)
-      .subscribe((stateNum) => {
-        startWith = stateNum;
-      });
+  getCourses(
+    searchText: string,
+    startWith: number,
+    coursePerPage: number
+  ): Observable<Course[]> {
+    this.store.dispatch(new fromStore.TotalCourseNum(searchText));
 
-    this.store
-      .select<number>(fromStore.coursesPerPageSelector)
-      .subscribe((coursePerPageNum) => {
-        coursePerPage = coursePerPageNum;
-      });
-
+    this.store.dispatch(new fromStore.IsAllCoursesLoaded());
     if (searchText) {
       return this.fetchCoursesBySearch(searchText, startWith, coursePerPage);
     } else {
@@ -51,17 +40,21 @@ export class CoursesService {
     }
   }
 
-  fetchCoursesBySearch(searchText = '', startNum = 0, coursePerPage = 10) {
+  fetchCoursesBySearch(
+    searchText: string,
+    startWith: number,
+    coursePerPage: number
+  ) {
     return this.store.select<Course[]>(fromStore.coursesSelector).pipe(
       map((courses: Course[]) => courses.length),
-      mergeMap((length) => {
+      exhaustMap((coursesLength) => {
         return this.http
           .get<Course[]>(
-            URLS.COURSES_SEARCH(searchText, startNum, coursePerPage)
+            URLS.COURSES_SEARCH(searchText, startWith, coursePerPage)
           )
           .pipe(
             tap((res) => {
-              if (res.length === 0 && !length) {
+              if (res.length === 0 && !coursesLength) {
                 this.store.dispatch(new fromStore.CousesNoFound(true));
               }
             })
@@ -70,9 +63,9 @@ export class CoursesService {
     );
   }
 
-  fetchCourse(startNum = 0, coursePerPage = 10) {
+  fetchCourse(startWith: number, coursePerPage: number) {
     return this.http
-      .get<Course[]>(URLS.COURSES_PAGING(startNum, coursePerPage))
+      .get<Course[]>(URLS.COURSES_PAGING(startWith, coursePerPage))
       .pipe(
         tap((res) => {
           if (res.length === 0) {
@@ -82,40 +75,21 @@ export class CoursesService {
       );
   }
 
-  loadMoreCourses(searchText = ''): Observable<Course[]> {
-    let AllLoaded: boolean = false;
-    this.store.dispatch(new fromStore.IsAllCoursesLoaded());
-    this.store
-      .select(fromStore.allCoursesLoadedSelector)
-      .subscribe((state) => (AllLoaded = state));
-
-    if (!AllLoaded) {
-      return this.getCourses(searchText);
-    } else {
-      return of([]);
-    }
+  loadMoreCourses(
+    searchText: string,
+    startWith: number,
+    coursePerPage: number
+  ): Observable<Course[]> {
+    return this.getCourses(searchText, startWith, coursePerPage);
   }
 
-  getTotalCoursesNum(): Observable<number> {
-    return this.http.get<number>(URLS.COURSES_LENGTH);
+  getTotalCoursesNum(searchText: string): Observable<number> {
+    return this.http.get<number>(URLS.COURSES_LENGTH(searchText));
   }
 
   getCourseById(courseId: number): Observable<Course> {
-    return this.http
-      .get<Course>(`http://localhost:3004/courses/${courseId}`)
-      .pipe(
-        // tap(() => this.isLoading$.next(false)),
-        catchError((error) => this.onError(error))
-      );
+    return this.http.get<Course>(`http://localhost:3004/courses/${courseId}`);
   }
-
-  // isCoursesListEmpty() {
-  //   if (this.courses$.value.length === 0) {
-  //     this.noData$.next(true);
-  //   } else {
-  //     this.noData$.next(false);
-  //   }
-  // }
   onError(error: any) {
     this.isLoading$.next(false);
     this.error$.next(true);
@@ -124,9 +98,10 @@ export class CoursesService {
   }
 
   updateCourse(updatedCourse: Course) {
-    this.http
-      .patch<Course>(URLS.EDIT_COURSE(updatedCourse.id), updatedCourse)
-      .subscribe();
+    return this.http.patch<Course>(
+      URLS.EDIT_COURSE(updatedCourse.id),
+      updatedCourse
+    );
   }
 
   removeCourse(courseId: number): void {

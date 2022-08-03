@@ -11,7 +11,7 @@ import { TitleCasePipe } from '@angular/common';
 export class CourseAuthorsComponent{
 
   @Input() error: boolean = false
-  @Input() authors?: Author[] = []
+  @Input() authors?: Author[]
   @Input() isLoading = false;
 
   @Output() onAddAuthor: EventEmitter<Author[]> = new EventEmitter<Author[]>;
@@ -27,15 +27,19 @@ export class CourseAuthorsComponent{
   addAuthorHandler(event: Event, authorName: HTMLInputElement){
     event.preventDefault();
     if(authorName.value){
-      const authorArray = authorName.value.split(" ")
-      const [firstName, ...lastName] = authorArray
+      const authorNameArray = authorName.value.split(" ")
+      const [firstName, ...lastName] = authorNameArray
+      
       const newAuthorObj = {
-        id: +(Math.random() * (9 - 1) + 1).toFixed(2),
+        id: +(Math.random() * (9 - 1) + 1).
+        toFixed(2),
         name: this.titleCasePipe.transform(firstName),
         lastName: this.titleCasePipe.transform(lastName.join(" "))
       }
       authorName.value = ''
-      this.authors?.push(newAuthorObj)
+
+      let newAuthorArray = Object.assign(JSON.parse(JSON.stringify(this.authors)))
+      this.authors = [...newAuthorArray, newAuthorObj]
       this.onAddAuthor.emit(this.authors);
     }
   }

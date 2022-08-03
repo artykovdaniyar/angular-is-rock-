@@ -1,4 +1,4 @@
-import { Name } from './Name';
+import { Name } from './name';
 
 export interface User {
   id: number;
