@@ -11,7 +11,8 @@ export const coursesReduser = (
     case fromAction.CoursesActions.LOAD_MORE_COURSES:
     case fromAction.CoursesActions.GET_COURSE_BY_ID:
     case fromAction.CoursesActions.TOTAL_COURSES_NUM:
-    case fromAction.CoursesActions.EDIT_COURSE: {
+    case fromAction.CoursesActions.EDIT_COURSE:
+    case fromAction.CoursesActions.CREATE_COURSE: {
       return {
         ...state,
         loading: true,
@@ -23,7 +24,8 @@ export const coursesReduser = (
     case fromAction.CoursesActions.LOAD_MORE_COURSES_FAIL:
     case fromAction.CoursesActions.GET_COURSE_BY_ID_FAIL:
     case fromAction.CoursesActions.TOTAL_COURSES_NUM_FAIL:
-    case fromAction.CoursesActions.EDIT_COURSE_FAIL: {
+    case fromAction.CoursesActions.EDIT_COURSE_FAIL:
+    case fromAction.CoursesActions.CREATE_COURSE_FAIL: {
       return {
         ...state,
         loading: false,
@@ -32,19 +34,20 @@ export const coursesReduser = (
     }
 
     // SUCCESS
+
     case fromAction.CoursesActions.GET_COURSES_SUCCESS: {
       const courses = action.payload;
-
       return {
         ...state,
         loading: false,
         courses: courses,
       };
     }
-    case fromAction.CoursesActions.NEXT_PAGE: {
+    case fromAction.CoursesActions.EDIT_COURSE_SUCCESS:
+    case fromAction.CoursesActions.CREATE_COURSE_SUCCESS: {
       return {
         ...state,
-        startWith: state.startWith + state.coursesPerPage,
+        loading: false,
       };
     }
     case fromAction.CoursesActions.LOAD_MORE_COURSES_SUCCESS: {
@@ -64,14 +67,6 @@ export const coursesReduser = (
         courseForUpdate: course,
       };
     }
-
-    case fromAction.CoursesActions.ALL_COURSES_LOADED: {
-      return {
-        ...state,
-        allCoursesLoaded: action.payload,
-      };
-    }
-
     case fromAction.CoursesActions.TOTAL_COURSES_NUM_SUCCESS: {
       return {
         ...state,
@@ -79,14 +74,7 @@ export const coursesReduser = (
         totalCourseNum: action.payload,
       };
     }
-
-    case fromAction.CoursesActions.EDIT_COURSE_SUCCESS: {
-      return {
-        ...state,
-        loading: false,
-      };
-    }
-
+    // HELPERS
     case fromAction.CoursesActions.DATA_IS_EMPTY: {
       return {
         ...state,
@@ -100,6 +88,7 @@ export const coursesReduser = (
         coursesNoFound: action.payload,
       };
     }
+
     case fromAction.CoursesActions.RESET_COURSES_STATE: {
       return {
         ...state,
@@ -112,6 +101,7 @@ export const coursesReduser = (
         totalCourseNum: 0,
       };
     }
+
     case fromAction.CoursesActions.IS_ALL_COURSES_LOADED: {
       return {
         ...state,
@@ -121,6 +111,19 @@ export const coursesReduser = (
       };
     }
 
+    case fromAction.CoursesActions.ALL_COURSES_LOADED: {
+      return {
+        ...state,
+        allCoursesLoaded: action.payload,
+      };
+    }
+
+    case fromAction.CoursesActions.NEXT_PAGE: {
+      return {
+        ...state,
+        startWith: state.startWith + state.coursesPerPage,
+      };
+    }
     default: {
       return { ...state };
     }

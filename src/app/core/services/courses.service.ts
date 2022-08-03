@@ -90,14 +90,8 @@ export class CoursesService {
   getCourseById(courseId: number): Observable<Course> {
     return this.http.get<Course>(`http://localhost:3004/courses/${courseId}`);
   }
-  onError(error: any) {
-    this.isLoading$.next(false);
-    this.error$.next(true);
-    console.log('ERROR MESSAGE:', error.message);
-    return throwError(error);
-  }
 
-  updateCourse(updatedCourse: Course) {
+  updateCourse(updatedCourse: Course): Observable<Course> {
     return this.http.patch<Course>(
       URLS.EDIT_COURSE(updatedCourse.id),
       updatedCourse
@@ -114,7 +108,7 @@ export class CoursesService {
       // this.isCoursesListEmpty();
     });
   }
-  createCourse(course: Course): void {
-    this.http.post(URLS.CREATE_COURSE, course).subscribe();
+  createCourse(course: Course): Observable<Course> {
+    return this.http.post<Course>(URLS.CREATE_COURSE, course);
   }
 }

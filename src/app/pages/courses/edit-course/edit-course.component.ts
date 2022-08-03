@@ -77,9 +77,6 @@ export class EditCourseComponent implements OnInit {
 
   onSubmit() {
     this.store.dispatch(new fromStore.EditCourse(this.form.value));
-    // this.coursesService.updateCourse(this.form.value);
-
-    this.goToCoursesPage();
   }
   goToCoursesPage() {
     this.router.navigate(['courses']);

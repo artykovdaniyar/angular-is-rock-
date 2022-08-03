@@ -1,18 +1,27 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { map, switchMap, catchError, first, concatMap } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+  catchError,
+  first,
+  concatMap,
+  tap,
+} from 'rxjs/operators';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { CoursesService } from 'src/app/core/services/courses.service';
 import { CoursesActions } from '../actions/courses.actions';
 import * as fromAction from '../actions/courses.actions';
 import { Course } from '../../../../shared/models/course';
 import { searchParams } from '../../../../shared/models/requestParams';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class CoursesEffects {
   constructor(
     private actions$: Actions,
-    private coursesService: CoursesService
+    private coursesService: CoursesService,
+    private router: Router
   ) {}
 
   getCourses$ = createEffect(() =>
@@ -59,6 +68,21 @@ export class CoursesEffects {
         return this.coursesService.updateCourse(course).pipe(
           map(() => new fromAction.EditCourseSuccess()),
           first(),
+          tap(() => this.router.navigate(['courses'])),
+          catchError((error) => of(new fromAction.EditCourseFail(error)))
+        );
+      })
+    )
+  );
+
+  createCourse$ = createEffect(() =>
+    this.actions$.pipe(ofType(CoursesActions.CREATE_COURSE)).pipe(
+      map((action) => action['payload']),
+      switchMap((course: Course) => {
+        return this.coursesService.createCourse(course).pipe(
+          map(() => new fromAction.CreateCourseSuccess()),
+          first(),
+          tap(() => this.router.navigate(['courses'])),
           catchError((error) => of(new fromAction.EditCourseFail(error)))
         );
       })

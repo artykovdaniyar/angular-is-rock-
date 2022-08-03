@@ -4,7 +4,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../store';
 import { Course } from '../../../shared/models/course';
-import { last, Observable, of, take, takeLast, tap } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { CoursesState } from '../store/state';
 
 @Component({
@@ -18,14 +18,14 @@ export class CoursesGalleryComponent implements OnInit {
   coursePerPage = 10;
   courses$: Observable<Course[]> = of([]);
   loading$: Observable<boolean> = of(false);
-  allCoursesLoaded$: Observable<boolean> = of(false);
   error$: Observable<boolean> = of(false);
+  allCoursesLoaded$: Observable<boolean> = of(false);
   totalCourseNum$: Observable<number> = of(0);
   dataIsEmpty$: Observable<boolean> = of(false);
   coursesNoFound$: Observable<boolean> = of(false);
-
   searchQuery = '';
   faTriangleExclamation = faTriangleExclamation;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,

@@ -10,8 +10,8 @@ import { TitleCasePipe } from '@angular/common';
 })
 export class CourseAuthorsComponent{
 
-  @Input() error: boolean = false
-  @Input() authors?: Author[]
+  @Input() error = false
+  @Input() authors?: Author[] = []
   @Input() isLoading = false;
 
   @Output() onAddAuthor: EventEmitter<Author[]> = new EventEmitter<Author[]>;
