@@ -7,9 +7,9 @@
   <div class="info">
     <div class="info-header">
       <div class="title-wrapper">
-        <h3 class="title">
+        <h2 class="title">
           {{ course.name | uppercase }}
-        </h3>
+        </h2>
         <fa-icon
           *ngIf="course.isTopRated"
           [icon]="faStar"
@@ -43,7 +43,7 @@
     </button>
   </div>
   <div class="authors">
-    <h4 class="author-title">Authors:</h4>
+    <h3 class="author-title">Authors:</h3>
     <ul class="list">
       <li class="author" *ngFor="let author of course.authors">
         {{ author.name }} {{ author.lastName }}

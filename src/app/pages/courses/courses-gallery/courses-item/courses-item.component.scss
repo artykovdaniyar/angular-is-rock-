@@ -125,6 +125,7 @@
 @media screen and (max-width: 767px) {
   .card {
     flex-direction: column;
+    align-items: flex-start;
   }
   .info {
     flex-basis: 100%;

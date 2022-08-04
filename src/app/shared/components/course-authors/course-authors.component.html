@@ -24,7 +24,7 @@
     class="column author-list"
     *ngIf="authors?.length !== 0 && !isLoading && !error"
   >
-    <h4>Authors' list:</h4>
+    <h3>Authors' list:</h3>
     <ul class="list">
       <loading *ngIf="isLoading"></loading>
       <li class="item" *ngFor="let author of authors">

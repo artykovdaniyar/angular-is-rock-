@@ -16,6 +16,7 @@
       class="reset-btn"
       type="reset"
     >
+      <span class="visually-hidden">Clear Search Box</span>
       &times;
     </button>
   </div>
@@ -26,6 +27,7 @@
     [disabled]="!searchControl.value"
     (click)="clearFormHandler()"
   >
+    <span class="visually-hidden">Reset Search Form</span>
     <fa-icon [icon]="faArrowRotateRight" size="sm" flip="horizontal"></fa-icon>
   </button>
 </form>

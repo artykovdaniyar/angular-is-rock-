@@ -2,13 +2,13 @@
   color: #e8e9ea;
   background: var(--gray-700);
   height: 70px;
-  &__container {
+  .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 100%;
   }
-  &__icon-link {
+  .icon-link {
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -17,14 +17,14 @@
       color: var(--primary-color);
     }
   }
-  &__icon-title {
+  .icon-title {
     text-transform: uppercase;
     margin-left: 8px;
   }
 }
 
 .registration {
-  &__link:first-child {
+  .link:first-child {
     margin-right: 18px;
   }
 }
@@ -42,7 +42,7 @@ button {
 
 @media screen and (max-width: 767px) {
   .registration {
-    &__link {
+    .link {
       display: inline-flex;
       justify-content: center;
       align-items: center;
@@ -53,7 +53,7 @@ button {
       font-size: 0;
       border: 1px solid #fff;
     }
-    &__icon {
+    .icon {
       font-size: 16px;
     }
   }
