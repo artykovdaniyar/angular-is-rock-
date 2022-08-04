@@ -4,12 +4,12 @@
       <fa-icon [icon]="faPlayCircle" size="2x"></fa-icon>
       <h1 class="icon-title">{{ title }}</h1>
     </a>
-    <div class="registration" *ngIf="authService.isAuthenticated$ | async">
+    <div class="registration" *ngIf="isAuthenticated$ | async">
       <button
         href="/login"
         type="button"
         class="link"
-        *ngIf="authService.userInfo$ | async as userInfo"
+        *ngIf="userInfo$ | async as userInfo"
       >
         <fa-icon [icon]="faUser" class="icon"></fa-icon>
         <span class="visually-hidden">Profile</span>

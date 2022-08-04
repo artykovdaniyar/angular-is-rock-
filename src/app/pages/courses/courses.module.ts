@@ -8,7 +8,7 @@ import { CoursesGalleryModule } from './courses-gallery/courses-gallery.module';
 import { CoursesComponent } from './courses.component';
 import { CoursesRoutingModule } from './courses.routing.module';
 import { effects } from './store/effects';
-import { coursesReduser } from './store/reducers/courses.reducer';
+import { coursesReducer } from './store/reducers/courses.reducer';
 
 @NgModule({
   declarations: [CoursesComponent],
@@ -16,7 +16,7 @@ import { coursesReduser } from './store/reducers/courses.reducer';
     CoursesRoutingModule,
     CommonModule,
     CoursesGalleryModule,
-    StoreModule.forFeature('coursesStore', coursesReduser),
+    StoreModule.forFeature('coursesStore', coursesReducer),
     EffectsModule.forFeature(effects),
   ],
   providers: [CoursesService],

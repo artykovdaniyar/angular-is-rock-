@@ -1,7 +1,7 @@
 import * as fromState from '../state';
 import * as fromAction from '../actions/courses.actions';
 
-export const coursesReduser = (
+export const coursesReducer = (
   state: fromState.CoursesState = fromState.initialCoursesState,
   action: fromAction.CoursesActionTypes
 ): fromState.CoursesState => {

@@ -6,49 +6,49 @@ export const coursesFeatureSelector =
 
 export const coursesSelector = createSelector(
   coursesFeatureSelector,
-  (coursesState) => coursesState.courses
+  (state) => state.courses
 );
 
 export const courseDetailsSelector = createSelector(
   coursesFeatureSelector,
-  (coursesState) => coursesState.courseForUpdate
+  (state) => state.courseForUpdate
 );
 
 export const coursesLoadingSelector = createSelector(
   coursesFeatureSelector,
-  (coursesState) => coursesState.loading
+  (state) => state.loading
 );
 
 export const allCoursesLoadedSelector = createSelector(
   coursesFeatureSelector,
-  (coursesState) => coursesState.allCoursesLoaded
+  (state) => state.allCoursesLoaded
 );
 export const coursesErrorSelector = createSelector(
   coursesFeatureSelector,
-  (coursesState) => coursesState.error
+  (state) => state.error
 );
 
 export const totalCourseNumSelector = createSelector(
   coursesFeatureSelector,
-  (coursesState) => coursesState.totalCourseNum
+  (state) => state.totalCourseNum
 );
 
 export const dataIsEmptySelector = createSelector(
   coursesFeatureSelector,
-  (coursesState) => coursesState.dataIsEmpty
+  (state) => state.dataIsEmpty
 );
 
 export const coursesNoFoundSelector = createSelector(
   coursesFeatureSelector,
-  (coursesState) => coursesState.coursesNoFound
+  (state) => state.coursesNoFound
 );
 
 export const startLoadWithSelector = createSelector(
   coursesFeatureSelector,
-  (coursesState) => coursesState.startWith
+  (state) => state.startWith
 );
 
 export const coursesPerPageSelector = createSelector(
   coursesFeatureSelector,
-  (coursesState) => coursesState.coursesPerPage
+  (state) => state.coursesPerPage
 );

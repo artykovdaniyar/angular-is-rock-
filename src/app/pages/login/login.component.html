@@ -30,7 +30,7 @@
           formControlName="password"
         />
 
-        <small class="error-message" *ngIf="authService.errorInput$ | async"
+        <small class="error-message" *ngIf="errorInput$ | async"
           >Invalid login or password</small
         >
         <fieldset class="form-group form-group--last">
@@ -46,6 +46,6 @@
       </form>
     </div>
   </div>
-  <login-loading *ngIf="authService.isLoading$ | async"></login-loading>
-  <login-error *ngIf="authService.serverError$ | async"></login-error>
 </div>
+<login-loading *ngIf="isLoading$ | async"></login-loading>
+<login-error *ngIf="serverError$ | async"></login-error>

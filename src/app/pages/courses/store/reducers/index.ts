@@ -15,5 +15,5 @@ import * as fromState from '../state';
 
 // export const reducers: ActionReducerMap<CoursesStoreState> = {
 //   [COURSES_KEY]:
-//     fromReducer.coursesReduser as ActionReducer<fromState.CoursesState>,
+//     fromReducer.coursesReducer as ActionReducer<fromState.CoursesState>,
 // };

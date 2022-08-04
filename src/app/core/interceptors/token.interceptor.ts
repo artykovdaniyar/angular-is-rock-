@@ -5,20 +5,31 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import * as fromStore from '../../pages/login/store';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(private store: Store<fromStore.LoginState>) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (this.authService.isAuthenticated()) {
+    let isAuthenticated = false;
+    let token = '';
+    this.store
+      .select(fromStore.isAuthenticatedSelector)
+      .subscribe((state) => (isAuthenticated = state));
+
+    this.store
+      .select(fromStore.tokenSelector)
+      .subscribe((state) => (token = state));
+
+    if (isAuthenticated) {
       req = req.clone({
         setHeaders: {
-          Authorization: this.authService.getAuthToken(),
+          Authorization: token,
         },
       });
     }

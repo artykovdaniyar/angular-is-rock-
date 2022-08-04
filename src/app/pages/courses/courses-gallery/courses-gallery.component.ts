@@ -4,7 +4,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../store';
 import { Course } from '../../../shared/models/course';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { CoursesState } from '../store/state';
 
 @Component({

@@ -1,8 +1,8 @@
-import { AfterContentChecked, Component, DoCheck, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { CoursesService } from 'src/app/core/services/courses.service';
 import { Course } from '../../models/course';
+import * as fromStore from '../../../pages/login/store';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -12,9 +12,15 @@ import { Course } from '../../models/course';
 export class BreadcrumbsComponent implements OnInit {
   course?: Course;
   courseId = 0;
-  constructor(public authService: AuthService) {}
+  isAuthenticated!: boolean;
+  constructor(
+    public authService: AuthService,
+    private store: Store<fromStore.LoginState>
+  ) {}
 
   ngOnInit(): void {
-    this.courseId = +window.location.pathname.replace(/\D/g, '');
+    this.store
+      .select(fromStore.isAuthenticatedSelector)
+      .subscribe((state) => (this.isAuthenticated = state));
   }
 }
