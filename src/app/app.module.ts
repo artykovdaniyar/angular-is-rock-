@@ -12,6 +12,10 @@ import { BreadcrumbModule } from 'angular-crumbs';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import * as fromStore from './store';
+import { appReducers, metaReducers } from './store/reducers/app.reduser';
+import { LoginEffects } from './store/effects/login.effects';
+import { CoursesEffects } from './store';
 
 const environment = {
   development: true,
@@ -28,8 +32,8 @@ const environment = {
     SharedModule,
     AppRouterModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot(appReducers, { metaReducers }),
+    EffectsModule.forRoot([LoginEffects, CoursesEffects]),
     environment.development ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [

@@ -5,8 +5,8 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import * as fromStore from 'src/app/pages/login/store';
 import { User } from '../../models/user';
+import * as fromStore from '../../../pages/login/store';
 
 @Component({
   selector: 'app-header',

@@ -1,6 +1,6 @@
-import { Login } from '../../../../shared/models/login';
-import { User } from '../../../../shared/models/user';
 import { createAction, props } from '@ngrx/store';
+import { Login } from 'src/app/shared/models/login';
+import { User } from 'src/app/shared/models/user';
 
 // LOGIN IN
 export const loginIn = createAction(
