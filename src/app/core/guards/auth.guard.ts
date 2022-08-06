@@ -7,12 +7,14 @@ import {
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LoginState } from 'src/app/pages/login/store';
-import { isAuthenticatedSelector } from 'src/app/pages/login/store/selectors';
+import * as fromStore from '../../store';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private store: Store<LoginState>) {}
+  constructor(
+    private router: Router,
+    private store: Store<fromStore.LoginState>
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -20,7 +22,7 @@ export class AuthGuard implements CanActivate {
   ): Observable<boolean> | Promise<boolean> | boolean {
     let isAuthenticated: boolean = false;
     this.store
-      .select(isAuthenticatedSelector)
+      .select(fromStore.isAuthenticatedSelector)
       .subscribe((state) => (isAuthenticated = state));
 
     return isAuthenticated ? true : this.router.navigate(['/login'], {});

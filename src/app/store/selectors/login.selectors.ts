@@ -1,8 +1,9 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { LoginState } from '../state';
 
-export const loginFeatureSelector =
-  createFeatureSelector<LoginState>('loginStore');
+export const TOKEN_KEY = 'angularRockToken';
+
+export const loginFeatureSelector = createFeatureSelector<LoginState>('login');
 
 export const userInfoSelector = createSelector(
   loginFeatureSelector,

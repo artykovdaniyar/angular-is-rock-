@@ -3,10 +3,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, delay, exhaustMap, map, mergeMap, of, tap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import * as fromActions from '../actions';
+import * as fromSelectors from '../selectors';
 import { Router } from '@angular/router';
 import { Token } from '../../shared/models/token';
 
-export const TOKEN_KEY = 'angularRockToken';
 interface loginInsState {
   token: string;
   type: string;
@@ -54,7 +54,7 @@ export class LoginEffects {
   loginOut$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromActions.loginOut),
-      tap(() => localStorage.removeItem(TOKEN_KEY)),
+      tap(() => localStorage.removeItem(fromSelectors.TOKEN_KEY)),
       map(() => {
         return fromActions.loginOutSuccess();
       })
