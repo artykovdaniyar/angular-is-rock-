@@ -8,13 +8,7 @@
         <fieldset class="form-group">
           <div class="form-wrapper">
             <label for="courseTitle">Title:</label>
-
-            <div class="validation" *ngIf="form.get('name')?.touched">
-              <small *ngIf="form.get('name')?.errors?.['required']"
-                >Required!</small
-              >
-              <small *ngIf="false">Title must be less then 50 symbols!</small>
-            </div>
+            <small class="error-message" *ngIf="false">*required</small>
           </div>
           <input
             type="text"
@@ -25,6 +19,7 @@
             formControlName="name"
           />
         </fieldset>
+
         <fieldset class="form-group">
           <div class="form-wrapper">
             <label for="courseDescription">Description:</label>
@@ -78,9 +73,7 @@
         </fieldset>
 
         <fieldset class="form-group btns">
-          <button class="btn btn-save" type="submit" [disabled]="form.invalid">
-            Save
-          </button>
+          <button class="btn btn-save">Save</button>
           <button
             class="btn btn-cancel"
             type="button"
