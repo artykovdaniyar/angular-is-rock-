@@ -1,23 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Course } from '../../shared/models/course';
-import * as fromStore from '../../pages/courses/store';
-import {
-  BehaviorSubject,
-  exhaustMap,
-  map,
-  Observable,
-  tap,
-  throwError,
-} from 'rxjs';
+import * as fromStore from '../../store';
+import { exhaustMap, map, Observable, tap } from 'rxjs';
 import { URLS } from 'src/app/shared/urls/urls';
 import { Store } from '@ngrx/store';
-import { CoursesState } from '../../pages/courses/store/state/courses.state';
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
-  constructor(private http: HttpClient, private store: Store<CoursesState>) {}
+  constructor(
+    private http: HttpClient,
+    private store: Store<fromStore.CoursesState>
+  ) {}
 
   getCourses(
     searchText: string,
@@ -97,8 +92,6 @@ export class CoursesService {
 
   removeCourse(courseId: number) {
     return this.http.delete(URLS.DELETE_COURSE(courseId));
-
-    // this.isCoursesListEmpty();
   }
   createCourse(course: Course): Observable<Course> {
     return this.http.post<Course>(URLS.CREATE_COURSE, course);

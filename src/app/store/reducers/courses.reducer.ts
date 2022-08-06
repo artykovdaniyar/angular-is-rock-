@@ -58,6 +58,7 @@ export const coursesReducer = (
       return {
         ...state,
         loading: false,
+
         courses: [...state.courses, ...courses],
       };
     }

@@ -5,8 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { Course } from 'src/app/shared/models/course';
 import { Author } from '../../../shared/models/author';
-import { CoursesState } from '../store/state';
-import * as fromStore from '../store';
+import * as fromStore from '../../../store';
 
 @Component({
   selector: 'app-add-course',
@@ -20,7 +19,10 @@ export class AddCourseComponent implements OnInit {
   loading = false;
   error = false;
 
-  constructor(private router: Router, private store: Store<CoursesState>) {}
+  constructor(
+    private router: Router,
+    private store: Store<fromStore.CoursesState>
+  ) {}
 
   ngOnInit(): void {
     window.scrollTo(0, 0);

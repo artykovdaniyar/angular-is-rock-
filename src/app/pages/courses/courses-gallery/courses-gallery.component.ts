@@ -2,10 +2,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import * as fromStore from '../store';
+import * as fromStore from '../../../store';
 import { Course } from '../../../shared/models/course';
 import { Observable, of } from 'rxjs';
-import { CoursesState } from '../store/state';
 
 @Component({
   selector: 'courses-gallery',
@@ -29,7 +28,7 @@ export class CoursesGalleryComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<CoursesState>
+    private store: Store<fromStore.CoursesState>
   ) {}
 
   ngOnInit(): void {
@@ -116,6 +115,4 @@ export class CoursesGalleryComponent implements OnInit {
       ])
     );
   }
-
-  ngOnDestroy(): void {}
 }

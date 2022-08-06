@@ -2,7 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { CoursesState } from '../state';
 
 export const coursesFeatureSelector =
-  createFeatureSelector<CoursesState>('coursesStore');
+  createFeatureSelector<CoursesState>('courses');
 
 export const coursesSelector = createSelector(
   coursesFeatureSelector,
