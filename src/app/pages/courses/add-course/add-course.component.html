@@ -6,62 +6,10 @@
       <loading *ngIf="loading"></loading>
       <h2 class="title">Add course</h2>
       <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-        <fieldset class="form-group">
-          <div class="form-wrapper">
-            <label for="courseTitle">Title:</label>
-            <small class="error-message" *ngIf="false">*required</small>
-          </div>
-          <input
-            type="text"
-            class="input"
-            id="courseTitle"
-            autocomplete="off"
-            placeholder="Text input"
-            formControlName="name"
-          />
-        </fieldset>
-
-        <fieldset class="form-group">
-          <div class="form-wrapper">
-            <label for="courseDescription">Description:</label>
-            <small class="error-message" *ngIf="false">*required</small>
-          </div>
-          <textarea
-            id="courseDescription"
-            placeholder="Add description"
-            autocomplete="off"
-            formControlName="description"
-          ></textarea>
-        </fieldset>
-
-        <fieldset class="form-group form-group-date">
-          <div class="form-wrapper">
-            <label for="courseDate">Date:</label>
-            <small class="error-message" *ngIf="false">*required</small>
-          </div>
-
-          <input type="date" id="courseDate" formControlName="date" />
-        </fieldset>
-
-        <fieldset class="form-group form-group--duration">
-          <div class="form-wrapper">
-            <label for="courseDuration">Duration:</label>
-            <small class="error-message" *ngIf="false">*required</small>
-          </div>
-          <div class="form-wrapper">
-            <input
-              type="number"
-              id="courseDuration"
-              placeholder="in minutes"
-              autocomplete="off"
-              formControlName="length"
-            />
-
-            <b class="info" *ngIf="form.get('length')?.value">{{
-              form.get("length")?.value | courseDuration
-            }}</b>
-          </div>
-        </fieldset>
+        <course-title></course-title>
+        <course-description></course-description>
+        <course-date formControlName="date"></course-date>
+        <course-duration formControlName="length"></course-duration>
 
         <fieldset class="form-group">
           <course-authors
@@ -73,7 +21,9 @@
         </fieldset>
 
         <fieldset class="form-group btns">
-          <button class="btn btn-save">Save</button>
+          <button class="btn btn-save" type="submit" [disabled]="form.invalid">
+            Save
+          </button>
           <button
             class="btn btn-cancel"
             type="button"

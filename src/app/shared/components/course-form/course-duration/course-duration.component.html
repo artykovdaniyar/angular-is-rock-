@@ -1,0 +1,26 @@
+<fieldset class="form-group form-group--duration">
+  <div class="form-wrapper validation-wrapper">
+    <label for="courseDuration">Duration:</label>
+    <div class="validation" *ngIf="length.touched">
+      <small *ngIf="length.errors?.['required']">Required</small>
+      <small *ngIf="length.errors?.['pattern']">Input only numbers</small>
+    </div>
+  </div>
+  <div class="form-wrapper">
+    <input
+      type="text"
+      id="courseDuration"
+      placeholder="in minutes"
+      autocomplete="off"
+      [formControl]="length"
+      [value]="value"
+      [disabled]="isDisabled"
+      (input)="onChange($event)"
+      (blur)="touched()"
+    />
+
+    <b class="info" *ngIf="length.value && !length.errors?.['pattern']">{{
+      length.value | courseDuration
+    }}</b>
+  </div>
+</fieldset>

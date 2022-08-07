@@ -1,0 +1,18 @@
+<fieldset class="form-group form-group-date">
+  <div class="form-wrapper">
+    <label for="courseDate">Date:</label>
+    <div class="validation" *ngIf="date?.touched">
+      <small *ngIf="date?.errors?.['required']">Required!</small>
+    </div>
+  </div>
+
+  <input
+    type="date"
+    id="courseDate"
+    [formControl]="date"
+    [value]="value"
+    [disabled]="isDisabled"
+    (input)="onChange($event)"
+    (blur)="touched()"
+  />
+</fieldset>

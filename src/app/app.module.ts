@@ -12,7 +12,6 @@ import { BreadcrumbModule } from 'angular-crumbs';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import * as fromStore from './store';
 import { appReducers, metaReducers } from './store/reducers/app.reduser';
 import { LoginEffects } from './store/effects/login.effects';
 import { CoursesEffects } from './store';

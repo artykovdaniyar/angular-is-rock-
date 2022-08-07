@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
@@ -27,12 +27,23 @@ export class AddCourseComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0, 0);
     this.form = new FormGroup({
-      id: new FormControl(+(Math.random() * (9 - 1) + 1).toFixed(2)),
-      name: new FormControl(''),
-      description: new FormControl(''),
-      length: new FormControl(),
-      date: new FormControl(''),
-      authors: new FormControl([]),
+      id: new FormControl(0),
+      name: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(50),
+        Validators.minLength(3),
+      ]),
+      description: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(500),
+        Validators.minLength(10),
+      ]),
+      date: new FormControl('', Validators.required),
+      length: new FormControl(0, [
+        Validators.required,
+        Validators.pattern('[0-9]*'),
+      ]),
+      authors: new FormControl([], Validators.required),
       isTopRated: new FormControl(false),
     });
     this.store

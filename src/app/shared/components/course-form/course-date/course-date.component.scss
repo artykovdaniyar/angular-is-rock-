@@ -1,0 +1,9 @@
+fieldset {
+  width: 50%;
+}
+@media screen and (max-width: 767px) {
+  fieldset {
+    width: 100%;
+  }
+}
+// The rest styles of the component in "src\app\styles\components\_courses-form.scss"

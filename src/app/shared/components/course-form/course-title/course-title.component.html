@@ -1,0 +1,22 @@
+<fieldset class="form-group">
+  <div class="form-wrapper">
+    <label for="courseTitle">Title:</label>
+    <div class="validation" *ngIf="name?.touched">
+      <small *ngIf="name?.errors?.['required']">Required!</small>
+      <small *ngIf="name?.errors?.['maxlength']"
+        >Title must be less then 50 symbols!</small
+      >
+      <small *ngIf="name?.errors?.['minlength']"
+        >Title must be more then 3 symbols!</small
+      >
+    </div>
+  </div>
+  <input
+    type="text"
+    class="input"
+    id="courseTitle"
+    autocomplete="off"
+    placeholder="Input title"
+    [formControl]="name"
+  />
+</fieldset>

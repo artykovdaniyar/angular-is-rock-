@@ -1,0 +1,25 @@
+input {
+  width: 50%;
+}
+b {
+  font-size: 14px;
+  color: var(--gray-300);
+}
+.form-wrapper {
+  justify-content: flex-start;
+  gap: 10px;
+}
+.validation-wrapper {
+  justify-content: space-between;
+  width: 50%;
+}
+@media screen and (max-width: 767px) {
+  input {
+    width: 100%;
+  }
+  .validation-wrapper {
+    width: 100%;
+  }
+}
+
+// The rest styles of the component in "src\app\styles\components\_courses-form.scss"

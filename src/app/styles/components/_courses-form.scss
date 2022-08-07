@@ -1,8 +1,6 @@
 .course-form {
   padding: 30px 0 80px;
-  label {
-    margin-bottom: 8px;
-  }
+
   input,
   textarea {
     display: block;
@@ -12,7 +10,6 @@
     border: 1px solid var(--gray-200);
     background: #fff;
     transition: border 0.2s;
-
     &:hover,
     &:focus {
       outline: none;
@@ -23,10 +20,10 @@
       color: var(--gray-300);
     }
     &.ng-invalid.ng-touched {
-      border-color: red;
+      border-color: var(--danger-color);
     }
     &.ng-valid.ng-touched {
-      border-color: green;
+      border-color: var(--success-color);
     }
   }
   textarea {
@@ -62,6 +59,7 @@
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-bottom: 8px;
   }
   .validation {
     font-size: 14px;
@@ -89,6 +87,9 @@
   .btn-save {
     &:disabled {
       background: var(--gray-600);
+      &:hover {
+        background: #6c707c;
+      }
     }
     background: var(--success-color);
     &:hover {
@@ -111,20 +112,6 @@
       background: var(--primary-dark-color);
     }
   }
-  .form-group--duration,
-  .form-group-date {
-    .form-wrapper {
-      justify-content: flex-start;
-      gap: 10px;
-    }
-    input {
-      width: 50%;
-    }
-    b {
-      font-size: 14px;
-      color: var(--gray-300);
-    }
-  }
   .error {
     position: absolute;
     top: 0;
@@ -143,15 +130,5 @@
   }
   .loading {
     font-size: 21px;
-  }
-}
-@media screen and (max-width: 767px) {
-  .course-form {
-    .form-group--duration,
-    .form-group-date {
-      input {
-        width: 100%;
-      }
-    }
   }
 }

@@ -10,6 +10,7 @@ import { CourseAuthorsComponent } from './course-authors/course-authors.componen
 import { CourseLoadingComponent } from './loading/loading.component';
 import { CourseErrorComponent } from './course-error/course-error.component';
 import { BreadcrumbModule } from 'angular-crumbs';
+import { CourseFormModule } from './course-form/course-form.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { BreadcrumbModule } from 'angular-crumbs';
     DiractivesModule,
     RouterModule,
     BreadcrumbModule,
+    CourseFormModule,
   ],
   exports: [
     HeaderComponent,

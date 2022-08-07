@@ -4,7 +4,6 @@ import { catchError, delay, exhaustMap, map, mergeMap, of, tap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import * as fromActions from '../actions';
 import * as fromSelectors from '../selectors';
-import { Router } from '@angular/router';
 import { Token } from '../../shared/models/token';
 
 interface loginInsState {
@@ -13,11 +12,7 @@ interface loginInsState {
 }
 @Injectable()
 export class LoginEffects {
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private actions$: Actions, private authService: AuthService) {}
 
   loginIn$ = createEffect(() =>
     this.actions$.pipe(
@@ -67,7 +62,6 @@ export class LoginEffects {
       mergeMap((action) =>
         this.authService.getUserInfo(action.token).pipe(
           map((user) => fromActions.getUserInfoSuccess({ userInfo: user })),
-          tap(() => this.router.navigate(['/courses'])),
           catchError((error) => {
             return of(fromActions.getUserInfoFail({ error: error }));
           })
