@@ -1,11 +1,12 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { Name } from '../../models/Name';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { User } from '../../models/user';
+import * as fromStore from '../../../store';
 
 @Component({
   selector: 'app-header',
@@ -13,25 +14,34 @@ import { User } from '../../models/user';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  isAuthenticated$!: Observable<boolean>;
+  userInfo$!: Observable<User | null>;
   faPlayCircle = faPlayCircle;
   faUser = faUser;
-  userName?: Name;
   faRightFromBracket = faRightFromBracket;
 
   @Input() title = '';
 
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(
+    private router: Router,
+    private store: Store<fromStore.LoginState>
+  ) {}
 
   ngOnInit(): void {
-    // if (this.authService.isAuthenticated()) {
-    //   this.authService.userInfo$.subscribe((userInfo: User) => {
-    //     this.userName = userInfo.name;
-    //   });
-    // }
+    if (localStorage[fromStore.TOKEN_KEY]) {
+      const userToken = JSON.parse(
+        JSON.stringify(localStorage.getItem(fromStore.TOKEN_KEY))
+      );
+      this.store.dispatch(fromStore.getUserInfo({ token: userToken }));
+    }
+    this.isAuthenticated$ = this.store.select(
+      fromStore.isAuthenticatedSelector
+    );
+    this.userInfo$ = this.store.select(fromStore.userInfoSelector);
   }
   loginOut(): void {
     if (confirm('Do you really want to login out?')) {
-      this.authService.loginOut();
+      this.store.dispatch(fromStore.loginOut());
       this.router.navigate(['/login']);
     }
   }

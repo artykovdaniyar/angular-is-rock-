@@ -7,6 +7,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginLoadingComponent } from './login-loading/login-loading.component';
 import { LoginErrorComponent } from './login-error/login-error.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { loginReducer } from '../../store/';
+import { StoreModule } from '@ngrx/store';
+import { effects } from '../../store/effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [LoginComponent, LoginLoadingComponent, LoginErrorComponent],

@@ -7,6 +7,7 @@ import { DiractivesModule } from './diractives/diractives.module';
 @NgModule({
   declarations: [],
   imports: [CommonModule],
+
   exports: [PipesModule, ComponentsModule, DiractivesModule],
 })
 export class SharedModule {}

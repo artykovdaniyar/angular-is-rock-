@@ -50,7 +50,19 @@ module.exports = (server) => {
     res.json(courses);
   });
   router.get("/courses/length", function (req, res, next) {
+    let url_parts = url.parse(req.originalUrl, true);
     let courses = server.db.getState().courses;
+    const query = url_parts.query;
+
+    if (!!query.textFragment) {
+      courses = courses.filter(
+        (course) =>
+          course.name
+            .concat(course.description)
+            .toUpperCase()
+            .indexOf(query.textFragment.toUpperCase()) >= 0
+      );
+    }
     res.json(courses.length);
   });
 

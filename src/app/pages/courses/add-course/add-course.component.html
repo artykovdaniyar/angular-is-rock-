@@ -1,7 +1,9 @@
 <section class="course-form">
   <div class="container">
     <div class="card">
-      <loading *ngIf="coursesService.isLoading$ | async"></loading>
+      <loading *ngIf="loading"></loading>
+      <course-error *ngIf="error"></course-error>
+      <loading *ngIf="loading"></loading>
       <h2 class="title">Add course</h2>
       <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
         <fieldset class="form-group">
@@ -63,6 +65,8 @@
 
         <fieldset class="form-group">
           <course-authors
+            [error]="error"
+            [isLoading]="loading"
             (onAddAuthor)="updateAuthorsHandler($event)"
             (onDeleteAuthor)="updateAuthorsHandler($event)"
           ></course-authors>

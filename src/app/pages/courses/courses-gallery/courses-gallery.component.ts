@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
-import { CoursesService } from 'src/app/core/services/courses.service';
+import { Store } from '@ngrx/store';
+import * as fromStore from '../../../store';
+import { Course } from '../../../shared/models/course';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'courses-gallery',
@@ -10,25 +13,73 @@ import { CoursesService } from 'src/app/core/services/courses.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CoursesGalleryComponent implements OnInit {
+  startWith = 0;
+  coursePerPage = 10;
+  courses$: Observable<Course[]> = of([]);
+  loading$: Observable<boolean> = of(false);
+  error$: Observable<boolean> = of(false);
+  allCoursesLoaded$: Observable<boolean> = of(false);
+  totalCourseNum$: Observable<number> = of(0);
+  dataIsEmpty$: Observable<boolean> = of(false);
+  coursesNoFound$: Observable<boolean> = of(false);
   searchQuery = '';
   faTriangleExclamation = faTriangleExclamation;
+
   constructor(
-    public coursesService: CoursesService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store<fromStore.CoursesState>
   ) {}
 
   ngOnInit(): void {
+    this.store.dispatch(new fromStore.ResetCoursesState());
     this.route.queryParams.subscribe((query: Params) => {
       if (query['search']) {
         this.searchQuery = query['search'];
       }
     });
-    this.coursesService.getCourses(this.searchQuery);
+    this.store.dispatch(
+      new fromStore.GetCourses([
+        this.searchQuery,
+        this.startWith,
+        this.coursePerPage,
+      ])
+    );
+    this.store.dispatch(new fromStore.IsAllCoursesLoaded());
+    this.store
+      .select<number>(fromStore.startLoadWithSelector)
+      .subscribe((stateNum) => (this.startWith = stateNum));
+
+    this.store
+      .select<number>(fromStore.coursesPerPageSelector)
+      .subscribe((coursePerPageNum) => (this.coursePerPage = coursePerPageNum));
+
+    this.courses$ = this.store.select<Course[]>(fromStore.coursesSelector);
+    this.loading$ = this.store.select<boolean>(
+      fromStore.coursesLoadingSelector
+    );
+    this.allCoursesLoaded$ = this.store.select<boolean>(
+      fromStore.allCoursesLoadedSelector
+    );
+    this.error$ = this.store.select<boolean>(fromStore.coursesErrorSelector);
+    this.dataIsEmpty$ = this.store.select<boolean>(
+      fromStore.dataIsEmptySelector
+    );
+    this.coursesNoFound$ = this.store.select<boolean>(
+      fromStore.coursesNoFoundSelector
+    );
   }
 
   loadMore(): void {
-    this.coursesService.loadMoreCourses(this.searchQuery);
+    this.store.dispatch(new fromStore.NextPage());
+    this.store.dispatch(
+      new fromStore.LoadMoreCourses([
+        this.searchQuery,
+        this.startWith,
+        this.coursePerPage,
+      ])
+    );
+    this.store.dispatch(new fromStore.IsAllCoursesLoaded());
   }
   searchHandler(inputSearchValue: string): void {
     this.router.navigate(['/courses'], {
@@ -36,22 +87,32 @@ export class CoursesGalleryComponent implements OnInit {
         search: inputSearchValue.toLowerCase(),
       },
     });
-    this.coursesService.resetRequest();
-    this.coursesService.getCourses(inputSearchValue);
+    this.store.dispatch(new fromStore.ResetCoursesState());
+    this.store.dispatch(
+      new fromStore.GetCourses([
+        inputSearchValue,
+        this.startWith,
+        this.coursePerPage,
+      ])
+    );
   }
   deleteCourseHandler(courseId: number): void {
-    this.coursesService.removeCourse(courseId);
+    this.store.dispatch(new fromStore.DeleteCourse(courseId));
+    this.store.dispatch(new fromStore.ResetCoursesState());
+    this.store.dispatch(
+      new fromStore.GetCourses([this.searchQuery, 0, this.coursePerPage])
+    );
   }
   resetSearch(): void {
-    this.router.navigate(['/courses'], {
-      queryParams: {},
-    });
+    this.router.navigate(['/courses']);
     this.searchQuery = '';
-    this.coursesService.resetRequest();
-    this.coursesService.getCourses(this.searchQuery);
-  }
-
-  ngOnDestroy(): void {
-    this.coursesService.resetRequest();
+    this.store.dispatch(new fromStore.ResetCoursesState());
+    this.store.dispatch(
+      new fromStore.GetCourses([
+        this.searchQuery,
+        this.startWith,
+        this.coursePerPage,
+      ])
+    );
   }
 }

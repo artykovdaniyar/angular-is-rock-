@@ -1,7 +1,4 @@
-<section
-  class="breadcrumbs"
-  *IfAuthenticated="authService.isAuthenticated$.value"
->
+<section class="breadcrumbs" *IfAuthenticated="isAuthenticated">
   <div class="container">
     <breadcrumb #parent>
       <ul class="list">
