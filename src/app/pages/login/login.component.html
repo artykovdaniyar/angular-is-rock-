@@ -5,7 +5,16 @@
         <h3 class="title">Login</h3>
         <fieldset class="form-group">
           <label for="#userEmail" class="label">E-mail:</label>
-          <!-- <small class="error-message">*required</small> -->
+          <small
+            class="error-message"
+            *ngIf="form.get('login')?.errors?.['required'] && form.get('login')?.touched"
+            >*required</small
+          >
+          <small
+            class="error-message"
+            *ngIf="form.get('login')?.errors?.['email'] && form.get('login')?.touched"
+            >incorrect login!</small
+          >
         </fieldset>
 
         <input
@@ -18,7 +27,21 @@
         />
         <fieldset class="form-group">
           <label for="#userPassword" class="label">Password:</label>
-          <!-- <small class="error-message">*required</small> -->
+          <small
+            class="error-message"
+            *ngIf="form.get('password')?.errors?.['required'] && form.get('password')?.touched"
+            >required!</small
+          >
+          <small
+            class="error-message"
+            *ngIf="form.get('password')?.errors?.['maxlength'] && form.get('password')?.touched"
+            >Must be less then 15 symbols</small
+          >
+          <small
+            class="error-message"
+            *ngIf="form.get('password')?.errors?.['minlength'] && form.get('password')?.touched"
+            >Must be more then 6 symbols</small
+          >
         </fieldset>
 
         <input
@@ -35,11 +58,7 @@
         >
         <fieldset class="form-group form-group--last">
           <a href="/" class="link">Forget password?</a>
-          <button
-            type="submit"
-            class="btn"
-            [disabled]="!userLogin || !userPassword"
-          >
+          <button type="submit" class="btn" [disabled]="form.invalid">
             Login
           </button>
         </fieldset>

@@ -46,6 +46,7 @@
     margin-top: 30px;
   }
   .error-message {
+    font-size: 12px;
     color: var(--danger-color);
   }
 
@@ -60,8 +61,14 @@
       color: #e7e7e7;
     }
     &:focus {
-      border: 1px solid #6c6ca5;
+      border: 1px solid var(--primary-color);
       outline: none;
+    }
+    &.ng-invalid.ng-touched {
+      border: 1px solid var(--danger-color);
+    }
+    &.ng-valid.ng-touched {
+      border: 1px solid var(--success-color);
     }
   }
   .link {
