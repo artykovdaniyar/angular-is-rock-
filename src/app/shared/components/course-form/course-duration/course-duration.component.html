@@ -3,7 +3,8 @@
     <label for="courseDuration">Duration:</label>
     <div class="validation" *ngIf="length.touched">
       <small *ngIf="length.errors?.['required']">Required</small>
-      <small *ngIf="length.errors?.['pattern']">Input only numbers</small>
+      <small *ngIf="length.errors?.['pattern']">Enter only numbers</small>
+      <small *ngIf="length.errors?.['min']">Must be more than 5 min</small>
     </div>
   </div>
   <div class="form-wrapper">

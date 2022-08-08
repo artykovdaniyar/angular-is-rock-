@@ -5,6 +5,7 @@ import * as fromStore from '../../store';
 import { exhaustMap, map, Observable, tap } from 'rxjs';
 import { URLS } from 'src/app/shared/urls/urls';
 import { Store } from '@ngrx/store';
+import { Author } from '../../shared/models/author';
 @Injectable({
   providedIn: 'root',
 })
@@ -95,5 +96,8 @@ export class CoursesService {
   }
   createCourse(course: Course): Observable<Course> {
     return this.http.post<Course>(URLS.CREATE_COURSE, course);
+  }
+  getAllAuthors() {
+    return this.http.get<Author[]>(URLS.ALL_COURSE_AUTHORS);
   }
 }

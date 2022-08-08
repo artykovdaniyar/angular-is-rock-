@@ -6,9 +6,9 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DiractivesModule } from '../diractives/diractives.module';
 import { RouterModule } from '@angular/router';
-import { CourseAuthorsComponent } from './course-authors/course-authors.component';
+import { CourseAuthorsComponent } from './course-form/course-authors/course-authors.component';
 import { CourseLoadingComponent } from './loading/loading.component';
-import { CourseErrorComponent } from './course-error/course-error.component';
+import { CourseErrorComponent } from './course-form/course-error/course-error.component';
 import { BreadcrumbModule } from 'angular-crumbs';
 import { CourseFormModule } from './course-form/course-form.module';
 

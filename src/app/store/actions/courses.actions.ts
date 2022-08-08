@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { Course } from 'src/app/shared/models/course';
 import { searchParams } from 'src/app/shared/models/requestParams';
+import { Author } from '../../shared/models/author';
 
 export enum CoursesActions {
   GET_COURSES = '[Courses] Get Courses',
@@ -30,6 +31,10 @@ export enum CoursesActions {
   DELETE_COURSE = '[Courses] Delete Course',
   DELETE_COURSE_SUCCESS = '[Courses] Delete Course Success',
   DELETE_COURSE_FAIL = '[Courses] Delete Course Fail',
+
+  GET_AUTHORS = '[Courses] Get Authors',
+  GET_AUTHORS_SUCCESS = '[Courses] Get Authors Success',
+  GET_AUTHORS_FAIL = '[Courses] Get Authors Fail',
 
   DATA_IS_EMPTY = '[Courses] Data Is Empty',
   COURSES_NO_FOUND = '[Courses] Courses No Found',
@@ -114,6 +119,19 @@ export class DeleteCourseFail implements Action {
   constructor(public payload: any) {}
 }
 
+export class GetAuthors implements Action {
+  public readonly type = CoursesActions.GET_AUTHORS;
+}
+
+export class GetAuthorsSuccess implements Action {
+  public readonly type = CoursesActions.GET_AUTHORS_SUCCESS;
+  constructor(public payload: Author[] | any[]) {}
+}
+export class GetAuthorsFail implements Action {
+  public readonly type = CoursesActions.GET_AUTHORS_FAIL;
+  constructor(public payload: any) {}
+}
+
 export class GetCourseById implements Action {
   public readonly type = CoursesActions.GET_COURSE_BY_ID;
   constructor(public payload: number) {}
@@ -176,6 +194,9 @@ export type CoursesActionTypes =
   | DeleteCourse
   | DeleteCourseSuccess
   | DeleteCourseFail
+  | GetAuthors
+  | GetAuthorsSuccess
+  | GetAuthorsFail
   | DataIsEmpty
   | CousesNoFound
   | ResetCoursesState

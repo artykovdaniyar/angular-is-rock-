@@ -13,7 +13,8 @@ export const coursesReducer = (
     case fromAction.CoursesActions.TOTAL_COURSES_NUM:
     case fromAction.CoursesActions.EDIT_COURSE:
     case fromAction.CoursesActions.CREATE_COURSE:
-    case fromAction.CoursesActions.DELETE_COURSE: {
+    case fromAction.CoursesActions.DELETE_COURSE:
+    case fromAction.CoursesActions.GET_AUTHORS: {
       return {
         ...state,
         loading: true,
@@ -27,7 +28,8 @@ export const coursesReducer = (
     case fromAction.CoursesActions.TOTAL_COURSES_NUM_FAIL:
     case fromAction.CoursesActions.EDIT_COURSE_FAIL:
     case fromAction.CoursesActions.CREATE_COURSE_FAIL:
-    case fromAction.CoursesActions.DELETE_COURSE_FAIL: {
+    case fromAction.CoursesActions.DELETE_COURSE_FAIL:
+    case fromAction.CoursesActions.GET_AUTHORS_FAIL: {
       return {
         ...state,
         loading: false,
@@ -47,7 +49,7 @@ export const coursesReducer = (
     }
     case fromAction.CoursesActions.EDIT_COURSE_SUCCESS:
     case fromAction.CoursesActions.CREATE_COURSE_SUCCESS:
-    case fromAction.CoursesActions.DELETE_COURSE_FAIL: {
+    case fromAction.CoursesActions.DELETE_COURSE_SUCCESS: {
       return {
         ...state,
         loading: false,
@@ -126,6 +128,14 @@ export const coursesReducer = (
       return {
         ...state,
         startWith: state.startWith + state.coursesPerPage,
+      };
+    }
+    case fromAction.CoursesActions.GET_AUTHORS_SUCCESS: {
+      action.payload;
+      return {
+        ...state,
+        allAuthors: action.payload,
+        loading: false,
       };
     }
     default: {

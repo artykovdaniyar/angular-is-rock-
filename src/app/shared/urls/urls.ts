@@ -4,7 +4,7 @@ const USER_INFO = `${BASE_URL}/auth/userinfo`;
 const ALL_COURSES = `${BASE_URL}/courses`;
 const COURSES_PAGING = (start = 0, count = 10) =>
   `${ALL_COURSES}?start=${start}&count=${count}`;
-
+const ALL_COURSE_AUTHORS = `${BASE_URL}/authors`;
 const COURSES_LENGTH = (textFragment: string) => {
   if (textFragment) {
     return `${ALL_COURSES}/length?textFragment=${textFragment}`;
@@ -27,6 +27,7 @@ export const URLS = {
   ALL_COURSES,
   COURSES_LENGTH,
   COURSES_PAGING,
+  ALL_COURSE_AUTHORS,
   COURSES_SEARCH,
   GET_COURSE_INFO,
   CREATE_COURSE,

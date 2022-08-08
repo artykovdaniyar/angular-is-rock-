@@ -20,6 +20,7 @@ export class EditCourseComponent implements OnInit {
   loading: boolean = false;
   error: boolean = false;
   authors?: Author[];
+  allAuthors$!: Observable<Author[]>;
 
   constructor(
     private store: Store<fromStore.CoursesState>,
@@ -35,9 +36,18 @@ export class EditCourseComponent implements OnInit {
       name: new FormControl('', [
         Validators.required,
         Validators.maxLength(50),
+        Validators.minLength(3),
       ]),
-      description: new FormControl('', Validators.required),
-      length: new FormControl(0, Validators.required),
+      description: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(500),
+        Validators.minLength(3),
+      ]),
+      length: new FormControl(0, [
+        Validators.required,
+        Validators.min(5),
+        Validators.pattern('[0-9]*'),
+      ]),
       date: new FormControl('', Validators.required),
       authors: new FormControl([], Validators.required),
       isTopRated: new FormControl(false),
@@ -57,6 +67,7 @@ export class EditCourseComponent implements OnInit {
         this.error = state;
       });
     this.store.dispatch(new fromStore.GetCourseById(this.courseId));
+
     this.store.select(fromStore.courseDetailsSelector).subscribe((course) => {
       if (course) {
         this.form.patchValue({
@@ -71,6 +82,8 @@ export class EditCourseComponent implements OnInit {
         this.authors = course?.authors;
       }
     });
+    this.store.dispatch(new fromStore.GetAuthors());
+    this.allAuthors$ = this.store.select(fromStore.allAuthorsSelector);
   }
 
   updateAuthorsHandler(newAuthorsList: Author[]) {

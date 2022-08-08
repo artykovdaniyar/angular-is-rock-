@@ -1,13 +1,13 @@
 <fieldset class="form-group">
   <div class="form-wrapper">
-    <label for="courseTitle">Description:</label>
+    <label for="courseDescription">Description:</label>
     <div class="validation" *ngIf="description?.touched">
       <small *ngIf="description?.errors?.['required']">Required!</small>
       <small *ngIf="description?.errors?.['maxlength']"
-        >Description must be less then 500 symbols!</small
+        >Must be less then 500 symbols!</small
       >
       <small *ngIf="description?.errors?.['minlength']"
-        >Description must be more then 10 symbols!</small
+        >Must be more then 10 symbols!</small
       >
     </div>
   </div>

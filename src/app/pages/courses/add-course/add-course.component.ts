@@ -18,6 +18,7 @@ export class AddCourseComponent implements OnInit {
   courseId = 0;
   loading = false;
   error = false;
+  allAuthors$!: Observable<Author[]>;
 
   constructor(
     private router: Router,
@@ -36,13 +37,14 @@ export class AddCourseComponent implements OnInit {
       description: new FormControl('', [
         Validators.required,
         Validators.maxLength(500),
-        Validators.minLength(10),
+        Validators.minLength(3),
       ]),
-      date: new FormControl('', Validators.required),
       length: new FormControl(0, [
         Validators.required,
+        Validators.min(5),
         Validators.pattern('[0-9]*'),
       ]),
+      date: new FormControl('', Validators.required),
       authors: new FormControl([], Validators.required),
       isTopRated: new FormControl(false),
     });
@@ -52,6 +54,8 @@ export class AddCourseComponent implements OnInit {
     this.store
       .select<boolean>(fromStore.coursesErrorSelector)
       .subscribe((state) => (this.error = state));
+    this.store.dispatch(new fromStore.GetAuthors());
+    this.allAuthors$ = this.store.select(fromStore.allAuthorsSelector);
   }
 
   updateAuthorsHandler(newAuthorsList: Author[]) {

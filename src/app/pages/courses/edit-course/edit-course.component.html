@@ -13,7 +13,8 @@
         <fieldset class="form-group">
           <course-authors
             [error]="error"
-            [authors]="authors"
+            [authors]="authors!"
+            [allAuthors$]="allAuthors$"
             [isLoading]="loading"
             (onAddAuthor)="updateAuthorsHandler($event)"
             (onDeleteAuthor)="updateAuthorsHandler($event)"

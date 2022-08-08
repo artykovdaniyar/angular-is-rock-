@@ -52,3 +52,8 @@ export const coursesPerPageSelector = createSelector(
   coursesFeatureSelector,
   (state) => state.coursesPerPage
 );
+
+export const allAuthorsSelector = createSelector(
+  coursesFeatureSelector,
+  (state) => state.allAuthors
+);

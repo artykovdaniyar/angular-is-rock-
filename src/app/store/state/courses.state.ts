@@ -1,4 +1,5 @@
 import { Course } from 'src/app/shared/models/course';
+import { Author } from '../../shared/models/author';
 
 export interface CoursesState {
   courses: Course[];
@@ -11,6 +12,7 @@ export interface CoursesState {
   dataIsEmpty: boolean;
   coursesNoFound: boolean;
   courseForUpdate: Course;
+  allAuthors: Author[] | any[];
 }
 export const initialCoursesState: CoursesState = {
   courses: [],
@@ -31,4 +33,5 @@ export const initialCoursesState: CoursesState = {
     authors: [],
     isTopRated: false,
   },
+  allAuthors: [],
 };

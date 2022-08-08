@@ -15,6 +15,7 @@ import * as fromAction from '../actions/courses.actions';
 import { Router } from '@angular/router';
 import { searchParams } from 'src/app/shared/models/requestParams';
 import { Course } from 'src/app/shared/models/course';
+import { Author } from '../../shared/models/author';
 
 @Injectable()
 export class CoursesEffects {
@@ -107,6 +108,20 @@ export class CoursesEffects {
           map(() => new fromAction.DeleteCourseSuccess()),
           first(),
           catchError((error) => of(new fromAction.DeleteCourseFail(error)))
+        );
+      })
+    )
+  );
+  getAllAuthors$ = createEffect(() =>
+    this.actions$.pipe(ofType(CoursesActions.GET_AUTHORS)).pipe(
+      switchMap(() => {
+        return this.coursesService.getAllAuthors().pipe(
+          map(
+            (authorsList: Author[]) =>
+              new fromAction.GetAuthorsSuccess(authorsList)
+          ),
+          first(),
+          catchError((error) => of(new fromAction.GetAuthorsFail(error)))
         );
       })
     )
