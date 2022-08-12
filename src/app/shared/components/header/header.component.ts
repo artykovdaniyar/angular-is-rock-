@@ -28,12 +28,6 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (localStorage[fromStore.TOKEN_KEY]) {
-      const userToken = JSON.parse(
-        JSON.stringify(localStorage.getItem(fromStore.TOKEN_KEY))
-      );
-      this.store.dispatch(fromStore.getUserInfo({ token: userToken }));
-    }
     this.isAuthenticated$ = this.store.select(
       fromStore.isAuthenticatedSelector
     );

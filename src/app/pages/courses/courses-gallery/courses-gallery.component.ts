@@ -29,22 +29,7 @@ export class CoursesGalleryComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<fromStore.CoursesState>
-  ) {
-    this.courses$ = this.store.select<Course[]>(fromStore.coursesSelector);
-    this.loading$ = this.store.select<boolean>(
-      fromStore.coursesLoadingSelector
-    );
-    this.allCoursesLoaded$ = this.store.select<boolean>(
-      fromStore.allCoursesLoadedSelector
-    );
-    this.error$ = this.store.select<boolean>(fromStore.coursesErrorSelector);
-    this.dataIsEmpty$ = this.store.select<boolean>(
-      fromStore.dataIsEmptySelector
-    );
-    this.coursesNoFound$ = this.store.select<boolean>(
-      fromStore.coursesNoFoundSelector
-    );
-  }
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(new fromStore.ResetCoursesState());
@@ -68,6 +53,21 @@ export class CoursesGalleryComponent implements OnInit {
     this.store
       .select<number>(fromStore.coursesPerPageSelector)
       .subscribe((coursePerPageNum) => (this.coursePerPage = coursePerPageNum));
+
+    this.courses$ = this.store.select<Course[]>(fromStore.coursesSelector);
+    this.loading$ = this.store.select<boolean>(
+      fromStore.coursesLoadingSelector
+    );
+    this.allCoursesLoaded$ = this.store.select<boolean>(
+      fromStore.allCoursesLoadedSelector
+    );
+    this.error$ = this.store.select<boolean>(fromStore.coursesErrorSelector);
+    this.dataIsEmpty$ = this.store.select<boolean>(
+      fromStore.dataIsEmptySelector
+    );
+    this.coursesNoFound$ = this.store.select<boolean>(
+      fromStore.coursesNoFoundSelector
+    );
   }
 
   loadMore(): void {

@@ -15,9 +15,8 @@ import * as fromStore from '../../../store';
 export class AddCourseComponent implements OnInit {
   form!: FormGroup;
   course$!: Observable<Course>;
-  courseId = 0;
-  loading = false;
-  error = false;
+  loading$!: Observable<boolean>;
+  error$!: Observable<boolean>;
   allAuthors$!: Observable<Author[]>;
 
   constructor(
@@ -48,12 +47,10 @@ export class AddCourseComponent implements OnInit {
       authors: new FormControl([], Validators.required),
       isTopRated: new FormControl(false),
     });
-    this.store
-      .select<boolean>(fromStore.coursesLoadingSelector)
-      .subscribe((state) => (this.loading = state));
-    this.store
-      .select<boolean>(fromStore.coursesErrorSelector)
-      .subscribe((state) => (this.error = state));
+    this.loading$ = this.store.select<boolean>(
+      fromStore.coursesLoadingSelector
+    );
+    this.error$ = this.store.select<boolean>(fromStore.coursesErrorSelector);
     this.store.dispatch(new fromStore.GetAuthors());
     this.allAuthors$ = this.store.select(fromStore.allAuthorsSelector);
   }

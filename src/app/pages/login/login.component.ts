@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import * as fromStore from '../../store';
 
 @Component({
@@ -10,7 +10,7 @@ import * as fromStore from '../../store';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   userLogin = 'artykovdaniyar@gmail.com';
   userPassword = 'lampa69';
   isAuthenticated = false;
@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   serverError$!: Observable<boolean>;
   isLoading$!: Observable<boolean>;
   form!: FormGroup;
+  isLoadingSub!: Subscription;
   constructor(
     private store: Store<fromStore.LoginState>,
     private router: Router
@@ -38,15 +39,17 @@ export class LoginComponent implements OnInit {
     this.errorInput$ = this.store.select(fromStore.errorSelector);
     this.serverError$ = this.store.select(fromStore.serverErrorSelector);
     this.isLoading$ = this.store.select(fromStore.loadingSelector);
-    this.store.select(fromStore.isAuthenticatedSelector).subscribe((state) => {
-      if (state) {
-        this.router.navigate(['/courses']);
-      }
-    });
   }
 
   onSubmit() {
     this.store.dispatch(fromStore.loginIn({ login: this.form.value }));
-    this.router.navigate(['/courses']);
+    this.isLoadingSub = this.isLoading$.subscribe((state) => {
+      if (!state) {
+        this.router.navigate(['/courses']);
+      }
+    });
+  }
+  ngOnDestroy() {
+    this.isLoadingSub.unsubscribe();
   }
 }

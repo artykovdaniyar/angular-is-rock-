@@ -10,10 +10,10 @@ const routes: Route[] = [
     component: CoursesComponent,
     data: { breadcrumb: 'Courses' },
     canActivate: [AuthGuard],
+
     children: [
       {
         path: '',
-        pathMatch: 'full',
         component: CoursesGalleryComponent,
         title: 'Courses Gallery | Angular is Rock',
         data: { breadcrumb: 'Gallery' },
@@ -21,7 +21,6 @@ const routes: Route[] = [
 
       {
         path: 'new',
-        pathMatch: 'full',
         loadChildren: () =>
           import('./add-course/add-course.module').then(
             (m) => m.AddCourseModule
@@ -32,12 +31,10 @@ const routes: Route[] = [
 
       {
         path: ':id',
-        pathMatch: 'full',
         loadChildren: () =>
           import('./edit-course/edit-course.module').then(
             (m) => m.EditCourseModule
           ),
-
         data: { breadcrumb: 'Edit Course' },
         title: 'Edit Course | Angular is Rock',
       },

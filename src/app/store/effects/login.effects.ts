@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import * as fromActions from '../actions';
 import * as fromSelectors from '../selectors';
 import { Token } from '../../shared/models/token';
+import { Router } from '@angular/router';
 
 interface loginInsState {
   token: string;
@@ -12,7 +13,11 @@ interface loginInsState {
 }
 @Injectable()
 export class LoginEffects {
-  constructor(private actions$: Actions, private authService: AuthService) {}
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   loginIn$ = createEffect(() =>
     this.actions$.pipe(
