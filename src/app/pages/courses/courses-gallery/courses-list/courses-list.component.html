@@ -5,7 +5,7 @@
   </a>
 
   <ul class="list">
-    <li *ngFor="let course of coursesList">
+    <li *ngFor="let course of coursesList; trackBy: identify">
       <courses-item
         [course]="course"
         (onDelete)="deleteEventEmit($event)"

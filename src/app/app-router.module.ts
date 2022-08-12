@@ -16,7 +16,10 @@ const routes: Routes = [
       import('./pages/login/login.module').then((m) => m.LoginModule),
   },
 
-  { path: '**', component: ErrorPageComponent },
+  {
+    path: '**',
+    component: ErrorPageComponent,
+  },
 ];
 
 @NgModule({

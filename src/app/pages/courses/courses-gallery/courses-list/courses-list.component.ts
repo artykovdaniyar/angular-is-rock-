@@ -21,6 +21,9 @@ export class CoursesListComponent {
   @Input() coursesList!: Course[] | null;
   constructor() {}
 
+  identify(index: number, item: Course) {
+    return item.name;
+  }
   deleteEventEmit(courseId: number) {
     this.onDelete.emit(courseId);
   }

@@ -16,6 +16,7 @@ const routes: Route[] = [
         pathMatch: 'full',
         component: CoursesGalleryComponent,
         title: 'Courses Gallery | Angular is Rock',
+        data: { breadcrumb: 'Gallery' },
       },
 
       {
