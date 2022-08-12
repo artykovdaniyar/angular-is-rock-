@@ -23,7 +23,7 @@
       border-color: var(--danger-color);
     }
     &.ng-valid.ng-touched {
-      border-color: var(--success-color);
+      border-color: var(--success-light-color);
     }
   }
   textarea {
@@ -90,7 +90,7 @@
         background: #6c707c;
       }
     }
-    background: var(--success-color);
+    background: var(--success-light-color);
     &:hover {
       background: var(--success-dark-color);
       transform: translateY(-2px);

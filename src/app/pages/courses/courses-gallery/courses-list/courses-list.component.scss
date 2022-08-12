@@ -8,16 +8,16 @@
   font-size: 14px;
   width: fit-content;
   white-space: nowrap;
-  background: var(--primary-color);
+  background: var(--success-light-color);
   transition: background 0.3s, transform 0.3s;
 }
 .add-btn:hover {
   transform: translateY(-2px);
-  background: var(--primary-dark-color);
+  background: var(--success-dark-color);
 }
 .add-btn:active {
   transform: translateY(1px);
-  background: var(--primary-dark-color);
+  background: var(--success-color);
 }
 .add-icon {
   margin-right: 8px;
