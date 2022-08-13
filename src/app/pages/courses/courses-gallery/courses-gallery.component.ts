@@ -4,7 +4,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../store';
 import { Course } from '../../../shared/models/course';
-import { Observable, of } from 'rxjs';
+import { Observable, of, take } from 'rxjs';
 
 @Component({
   selector: 'courses-gallery',
@@ -48,10 +48,12 @@ export class CoursesGalleryComponent implements OnInit {
     this.store.dispatch(new fromStore.IsAllCoursesLoaded());
     this.store
       .select<number>(fromStore.startLoadWithSelector)
+      .pipe(take(2))
       .subscribe((stateNum) => (this.startWith = stateNum));
 
     this.store
       .select<number>(fromStore.coursesPerPageSelector)
+      .pipe(take(2))
       .subscribe((coursePerPageNum) => (this.coursePerPage = coursePerPageNum));
 
     this.courses$ = this.store.select<Course[]>(fromStore.coursesSelector);

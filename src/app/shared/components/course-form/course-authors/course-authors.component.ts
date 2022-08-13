@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Author } from 'src/app/shared/models/author';
 import { TitleCasePipe } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 
 
 @Component({
@@ -24,7 +24,9 @@ export class CourseAuthorsComponent implements OnInit{
 
   constructor( public titleCasePipe: TitleCasePipe){}
   ngOnInit(): void {
-    this.allAuthors$.subscribe((authorList: Author[]) => {
+    this.allAuthors$.pipe(
+      take(2)
+    ).subscribe((authorList: Author[]) => {
       if(authorList.length){
         this.unSelectedAuthor = authorList.filter(f => !this.selectedAuthor.some(item => item.name === f.name));
       }

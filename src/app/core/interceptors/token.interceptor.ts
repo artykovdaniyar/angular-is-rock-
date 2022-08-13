@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import * as fromStore from '../../store';
 
 @Injectable()
@@ -20,10 +20,12 @@ export class TokenInterceptor implements HttpInterceptor {
     let token = '';
     this.store
       .select(fromStore.isAuthenticatedSelector)
+      .pipe(take(2))
       .subscribe((state) => (isAuthenticated = state));
 
     this.store
       .select(fromStore.tokenSelector)
+      .pipe(take(2))
       .subscribe((state) => (token = state));
 
     if (isAuthenticated) {

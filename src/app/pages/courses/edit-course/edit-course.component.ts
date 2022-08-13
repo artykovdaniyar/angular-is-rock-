@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { Author } from 'src/app/shared/models/author';
 import { Course } from 'src/app/shared/models/course';
 import * as fromStore from '../../../store';
@@ -63,25 +63,29 @@ export class EditCourseComponent implements OnInit {
       });
     this.store
       .select<boolean>(fromStore.coursesErrorSelector)
+      .pipe(take(2))
       .subscribe((state) => {
         this.error = state;
       });
     this.store.dispatch(new fromStore.GetCourseById(this.courseId));
 
-    this.store.select(fromStore.courseDetailsSelector).subscribe((course) => {
-      if (course) {
-        this.form.patchValue({
-          id: course?.id,
-          name: course?.name,
-          description: course?.description,
-          length: course?.length,
-          date: this.datePipe.transform(course?.date, 'yyyy-MM-dd'),
-          authors: course?.authors,
-          isTopRated: course?.isTopRated,
-        });
-        this.authors = course?.authors;
-      }
-    });
+    this.store
+      .select(fromStore.courseDetailsSelector)
+      .pipe(take(2))
+      .subscribe((course) => {
+        if (course) {
+          this.form.patchValue({
+            id: course?.id,
+            name: course?.name,
+            description: course?.description,
+            length: course?.length,
+            date: this.datePipe.transform(course?.date, 'yyyy-MM-dd'),
+            authors: course?.authors,
+            isTopRated: course?.isTopRated,
+          });
+          this.authors = course?.authors;
+        }
+      });
     this.store.dispatch(new fromStore.GetAuthors());
     this.allAuthors$ = this.store.select(fromStore.allAuthorsSelector);
   }
