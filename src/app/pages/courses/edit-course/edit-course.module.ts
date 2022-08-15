@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { CourseFormModule } from 'src/app/shared/components/course-form/course-form.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [EditCourseComponent],
@@ -22,6 +23,7 @@ import { CourseFormModule } from 'src/app/shared/components/course-form/course-f
     ReactiveFormsModule,
     SharedModule,
     CourseFormModule,
+    TranslateModule,
   ],
   exports: [EditCourseComponent, RouterModule],
   providers: [DatePipe],

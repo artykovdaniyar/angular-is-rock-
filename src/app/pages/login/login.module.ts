@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginLoadingComponent } from './login-loading/login-loading.component';
 import { LoginErrorComponent } from './login-error/login-error.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [LoginComponent, LoginLoadingComponent, LoginErrorComponent],
@@ -22,6 +23,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         component: LoginComponent,
       },
     ]),
+    TranslateModule,
   ],
 })
 export class LoginModule {}

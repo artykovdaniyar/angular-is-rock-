@@ -20,8 +20,6 @@ export class HeaderComponent implements OnInit {
   faUser = faUser;
   faRightFromBracket = faRightFromBracket;
 
-  @Input() title = '';
-
   constructor(
     private router: Router,
     private store: Store<fromStore.LoginState>

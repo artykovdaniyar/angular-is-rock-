@@ -13,7 +13,8 @@ import {
   faTrash,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'courses-item',
@@ -27,16 +28,20 @@ export class CoursesItemComponent {
   faCalendarDays = faCalendarDays;
   faPen = faPen;
   faTrash = faTrash;
-
-  constructor(private router: Router) {}
+  conformText = '';
+  constructor(private router: Router, public translate: TranslateService) {}
 
   @Input() course!: Course;
   @Output() onDelete: EventEmitter<number> = new EventEmitter<number>();
   deleteCourse(course: Course) {
-    if (
-      confirm(`Do you really want to delete
-${course.name}`)
-    ) {
+    this.translate
+      .get('PAGES.COURSES.COURSES_ITEM.CONFORM_FOR_DELETE', {
+        courseName: this.course.name.toUpperCase(),
+      })
+      .subscribe((res: string) => {
+        this.conformText = res;
+      });
+    if (confirm(this.conformText)) {
       this.onDelete.emit(course.id);
     }
   }

@@ -1391,24 +1391,24 @@
   dependencies:
     tslib "^2.2.0"
 
-"@ngrx/effects@^14.0.2":
-  version "14.0.2"
-  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-14.0.2.tgz#4f448de91462a5905a58b4db8c860270e567ee83"
-  integrity sha512-1VBJ9eBoeCKSBDkn+wllV1gFGLBrRwq5So0F0QUX2rPcjpE5N1pdpuLAmmwQ84f8nttVlMOx4P9kcEM8qW9jLg==
+"@ngrx/effects@^14.1.0":
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-14.1.0.tgz#79c4a9d497dda7ffd09a8450f72a6472e2da8b07"
+  integrity sha512-o4rJzxH79i3JpikFLCXTtcNEppuXYNN347aBJ9I6BLJW+RMM9B765Zd31e0AKa3DgI9TMOziRGDX9LvvNqghLg==
   dependencies:
     tslib "^2.0.0"
 
-"@ngrx/router-store@^14.0.2":
-  version "14.0.2"
-  resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-14.0.2.tgz#4e7b3e042eadee85c9b3328415547ac34ceefdda"
-  integrity sha512-kW4//ipsZioVFeHPHQeKdn+8O0V2sPp3ydXuarsZGiosq2uQbKvYaUQqRNz2CtNyrn0z2Tw0zdEbLnvQhNrOog==
+"@ngrx/router-store@^14.1.0":
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-14.1.0.tgz#59f2353f564df019093cf1fe63f819cb09998e28"
+  integrity sha512-UwBe4Hp2iVzdfvwCcnpG3QGu6Ss32yhLA6sishxIH0u7Dzu/bBvvf0NGhSvdDXWPOvEvqw8dZvesGsWMWcLOqQ==
   dependencies:
     tslib "^2.0.0"
 
-"@ngrx/store-devtools@^14.0.2":
-  version "14.0.2"
-  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-14.0.2.tgz#c071ca666c6de21686de69abb1f56fd85fd924ae"
-  integrity sha512-szaJSeoWA2GAaE9uzVmH00ewlWQDCI4Xfb6/5GEKMhGNtRSh6UctulNHVR+0TjjiEb4dhUBLMOVUc9HkI+yFCQ==
+"@ngrx/store-devtools@^14.1.0":
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-14.1.0.tgz#4d03d6acb2c1e3568e9c79e3d7e9880d3adfb9ac"
+  integrity sha512-MSLJ7ukHpgLTudwZyFM/gtTnAZxDIkdRosV1MEUu7jLeBU3pjYhsPQ3CyXF7iGQH+T8Je/y47c+XHU3lZDsoyA==
   dependencies:
     tslib "^2.0.0"
 
@@ -1423,6 +1423,20 @@
   version "14.1.0"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-14.1.0.tgz#2e79fffe93f35939ed3dc65ab5aa830afdb13d39"
   integrity sha512-d4U6ymDCXckVgfjYEv1Wjzd78ZSm0NKgq8mN6FdlrCupg02LPIODjeKyNr4c4zwMAOJeHkVNEZ+USoDEK3XSsw==
+
+"@ngx-translate/core@^14.0.0":
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/@ngx-translate/core/-/core-14.0.0.tgz#af421d0e1a28376843f0fed375cd2fae7630a5ff"
+  integrity sha512-UevdwNCXMRCdJv//0kC8h2eSfmi02r29xeE8E9gJ1Al4D4jEJ7eiLPdjslTMc21oJNGguqqWeEVjf64SFtvw2w==
+  dependencies:
+    tslib "^2.3.0"
+
+"@ngx-translate/http-loader@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@ngx-translate/http-loader/-/http-loader-7.0.0.tgz#905f38d8d13342621516635bf480ff9a4f73e9fc"
+  integrity sha512-j+NpXXlcGVdyUNyY/qsJrqqeAdJdizCd+GKh3usXExSqy1aE9866jlAIL+xrfDU4w+LiMoma5pgE4emvFebZmA==
+  dependencies:
+    tslib "^2.3.0"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"

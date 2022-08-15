@@ -7,16 +7,20 @@
       type="text"
       id="serchInput"
       class="input"
-      placeholder="Text to search"
       autocomplete="off"
       [formControl]="searchControl"
+      placeholder="{{
+        'PAGES.COURSES.COURSES_SEARCH.TEXT_TO_SEARCH' | translate
+      }}"
     />
     <button
       *ngIf="searchControl.value.length !== 0"
       class="reset-btn"
       type="reset"
     >
-      <span class="visually-hidden">Clear Search Box</span>
+      <span class="visually-hidden">
+        {{ "PAGES.COURSES.COURSES_SEARCH.CLEAR_FORM" | translate }}
+      </span>
       &times;
     </button>
   </div>
@@ -27,7 +31,9 @@
     [disabled]="!searchControl.value"
     (click)="clearFormHandler()"
   >
-    <span class="visually-hidden">Reset Search Form</span>
+    <span class="visually-hidden">
+      {{ "PAGES.COURSES.COURSES_SEARCH.RESET_FORM" | translate }}
+    </span>
     <fa-icon [icon]="faArrowRotateRight" size="sm" flip="horizontal"></fa-icon>
   </button>
 </form>

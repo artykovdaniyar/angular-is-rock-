@@ -1,17 +1,27 @@
 <fieldset class="form-group form-group--duration">
   <div class="form-wrapper validation-wrapper">
-    <label for="courseDuration">Duration:</label>
+    <label for="courseDuration">{{
+      "PAGES.COURSES.COURSE_FORM.DURATION.LABEL" | translate
+    }}</label>
     <div class="validation" *ngIf="length.touched">
-      <small *ngIf="length.errors?.['required']">Required</small>
-      <small *ngIf="length.errors?.['pattern']">Enter only numbers</small>
-      <small *ngIf="length.errors?.['min']">Must be more than 5 min</small>
+      <small *ngIf="length.errors?.['required']">{{
+        "SHARED.REQUIRED" | translate
+      }}</small>
+      <small *ngIf="length.errors?.['pattern']">{{
+        "PAGES.COURSES.COURSE_FORM.DURATION.PATTERN" | translate
+      }}</small>
+      <small *ngIf="length.errors?.['min']">{{
+        "PAGES.COURSES.COURSE_FORM.DURATION.MIN" | translate
+      }}</small>
     </div>
   </div>
   <div class="form-wrapper">
     <input
       type="text"
       id="courseDuration"
-      placeholder="in minutes"
+      placeholder="{{
+        'PAGES.COURSES.COURSE_FORM.DURATION.PLACEHOLDER' | translate
+      }}"
       autocomplete="off"
       [formControl]="length"
       [value]="value"

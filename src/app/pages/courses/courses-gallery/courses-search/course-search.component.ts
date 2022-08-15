@@ -13,7 +13,7 @@ import {
   faArrowRotateRight,
   faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
-import { debounceTime, filter, Subscription, tap } from 'rxjs';
+import { debounceTime, filter, Subscription, take, tap } from 'rxjs';
 
 @Component({
   selector: 'courses-search',

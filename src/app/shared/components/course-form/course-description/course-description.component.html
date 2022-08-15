@@ -1,20 +1,26 @@
 <fieldset class="form-group">
   <div class="form-wrapper">
-    <label for="courseDescription">Description:</label>
+    <label for="courseDescription">{{
+      "PAGES.COURSES.COURSE_FORM.DESCRIPTION.LABEL" | translate
+    }}</label>
     <div class="validation" *ngIf="description?.touched">
-      <small *ngIf="description?.errors?.['required']">Required!</small>
-      <small *ngIf="description?.errors?.['maxlength']"
-        >Must be less then 500 symbols!</small
-      >
-      <small *ngIf="description?.errors?.['minlength']"
-        >Must be more then 10 symbols!</small
-      >
+      <small *ngIf="description?.errors?.['required']">{{
+        "SHARED.REQUIRED" | translate
+      }}</small>
+      <small *ngIf="description?.errors?.['maxlength']">{{
+        "SHARED.MAX_LENGTH" | translate: { numbers: "500" }
+      }}</small>
+      <small *ngIf="description?.errors?.['minlength']">{{
+        "SHARED.MIN_LENGTH" | translate: { numbers: "50" }
+      }}</small>
     </div>
   </div>
   <textarea
     id="courseDescription"
     autocomplete="off"
-    placeholder="Input description"
+    placeholder="{{
+      'PAGES.COURSES.COURSE_FORM.DESCRIPTION.PLACEHOLDER' | translate
+    }}"
     [formControl]="description"
   ></textarea>
 </fieldset>

@@ -4,7 +4,9 @@
       <loading *ngIf="loading$ | async"></loading>
       <course-error *ngIf="error$ | async"></course-error>
       <loading *ngIf="loading$ | async"></loading>
-      <h2 class="title">Add course</h2>
+      <h2 class="title">
+        {{ "PAGES.COURSES.COURSE_FORM.ADD_COURSE" | translate }}
+      </h2>
       <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
         <course-title></course-title>
         <course-description></course-description>
@@ -16,21 +18,19 @@
             [error]="(error$ | async)!"
             [allAuthors$]="allAuthors$"
             [isLoading]="(loading$ | async)!"
-            (onAddAuthor)="updateAuthorsHandler($event)"
-            (onDeleteAuthor)="updateAuthorsHandler($event)"
           ></course-authors>
         </fieldset>
 
         <fieldset class="form-group btns">
           <button class="btn btn-save" type="submit" [disabled]="form.invalid">
-            Save
+            {{ "SHARED.SAVE" | translate }}
           </button>
           <button
             class="btn btn-cancel"
             type="button"
             (click)="goToCoursesPage()"
           >
-            Cancel
+            {{ "SHARED.CANCEL" | translate }}
           </button>
         </fieldset>
       </form>

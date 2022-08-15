@@ -1,0 +1,97 @@
+{
+  "HEADER": {
+    "TITLE": "VIDEO COURSES",
+    "LOGINOUT": "Log off"
+  },
+  "FOOTER": {
+    "COPYRIGHT": "Copyright &copy; Videocourses. All rights reserved"
+  },
+  "SHARED": {
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "REQUIRED": "Required!",
+    "ERROR": "Something go wrong, Please retry later",
+    "MAX_LENGTH": "Must be less then {{numbers}} symbols!",
+    "MIN_LENGTH": "Must be more then {{numbers}} symbols!",
+    "INCORRECT": "Incorrect"
+  },
+  "PAGES": {
+    "LOGIN": {
+      "LOGIN": "Login",
+      "INVALID_INPUTS": "Invalid login or password",
+      "FORGET_PASSWORD": "Forget password?",
+      "EMAIL": {
+        "LABEL": "E-mail:",
+        "PLACEHOLDER": "Enter e-mail"
+      },
+      "PASSWORD": {
+        "LABEL": "Password:",
+        "PLACEHOLDER": "Enter password"
+      }
+    },
+    "ERROR": {
+      "NO_FOUND": "Page not found",
+      "BACK": "Back to Courses"
+    },
+    "COURSES": {
+      "COURSES_LIST": {
+        "ADD_COURSE": "Add course"
+      },
+
+      "COURSES_ITEM": {
+        "CONFORM_FOR_DELETE": "Do you really want to delete {{courseName}}",
+        "EDIT": "Edit",
+        "DELETE": "Delete",
+        "AUTHORS": "Authors:"
+      },
+      "COURSES_SEARCH": {
+        "TEXT_TO_SEARCH": "Text to search",
+        "CLEAR_FORM": "Clear Search Box",
+        "RESET_FORM": "Reset Search Form"
+      },
+      "COURSES_INFO_CARD": {
+        "LOADING": "Loading...",
+        "NO_DATA": "No data. Feel free to add new course!",
+        "NO_FOUND": "No found any courses by request",
+        "All_LOADED": "All courses loaded"
+      },
+      "COURSE_FORM": {
+        "ADD_COURSE": "Add course",
+        "EDIT_COURSE": "Edit course",
+
+        "TITLE": {
+          "LABEL": "Title:",
+          "PLACEHOLDER": "Input title"
+        },
+
+        "DESCRIPTION": {
+          "LABEL": "Description:",
+          "PLACEHOLDER": "Input description"
+        },
+        "DATE": {
+          "LABEL": "Date:",
+          "PLACEHOLDER": "Input date"
+        },
+
+        "DURATION": {
+          "LABEL": "Duration:",
+          "MIN": "Must be more than 5 min",
+          "PATTERN": "Enter only numbers",
+          "PLACEHOLDER": "in minutes"
+        },
+
+        "ADD_AUTHORS": {
+          "ADD": "Add author:",
+          "LIST": "Authors' list:",
+          "NO_FOUND": "Author no found",
+          "PLACEHOLDER": "Type Author Name..."
+        }
+      }
+    }
+  },
+
+  "demo": {
+    "title": "Translation demo",
+    "text": "This is a simple demonstration app for ngx-translate"
+  }
+}

@@ -54,10 +54,6 @@ export class AddCourseComponent implements OnInit {
     this.store.dispatch(new fromStore.GetAuthors());
     this.allAuthors$ = this.store.select(fromStore.allAuthorsSelector);
   }
-
-  updateAuthorsHandler(newAuthorsList: Author[]) {
-    this.form.get('authors')?.patchValue(newAuthorsList);
-  }
   onSubmit() {
     this.store.dispatch(new fromStore.CreateCourse(this.form.value));
   }

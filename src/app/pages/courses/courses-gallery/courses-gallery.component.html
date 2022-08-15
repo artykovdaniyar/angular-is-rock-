@@ -18,21 +18,22 @@
       [infiniteScrollDistance]="1"
       (scrolled)="loadMore()"
     ></courses-more>
+
     <courses-info-card *ngIf="error$ | async">
       <course-error></course-error>
     </courses-info-card>
     <courses-info-card *ngIf="coursesNoFound$ | async">
-      No found any courses by request
+      {{ "PAGES.COURSES.COURSES_INFO_CARD.NO_FOUND" | translate }}
     </courses-info-card>
 
     <courses-info-card
       *ngIf="(allCoursesLoaded$ | async) && !(loading$ | async)"
     >
-      All courses loaded
+      {{ "PAGES.COURSES.COURSES_INFO_CARD.All_LOADED" | translate }}
     </courses-info-card>
 
     <courses-info-card *ngIf="dataIsEmpty$ | async">
-      No data, feel free to add new course
+      {{ "PAGES.COURSES.COURSES_INFO_CARD.NO_DATA" | translate }}
     </courses-info-card>
 
     <courses-info-card *ngIf="loading$ | async">

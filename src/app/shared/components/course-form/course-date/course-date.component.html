@@ -1,14 +1,19 @@
 <fieldset class="form-group form-group-date">
   <div class="form-wrapper">
-    <label for="courseDate">Date:</label>
+    <label for="courseDate">{{
+      "PAGES.COURSES.COURSE_FORM.DATE.LABEL" | translate
+    }}</label>
     <div class="validation" *ngIf="date?.touched">
-      <small *ngIf="date?.errors?.['required']">Required!</small>
+      <small *ngIf="date?.errors?.['required']">{{
+        "SHARED.REQUIRED" | translate
+      }}</small>
     </div>
   </div>
 
   <input
     type="date"
     id="courseDate"
+    placeholder="{{ 'PAGES.COURSES.COURSE_FORM.DATE.PLACEHOLDER' | translate }}"
     [formControl]="date"
     [value]="value"
     [disabled]="isDisabled"

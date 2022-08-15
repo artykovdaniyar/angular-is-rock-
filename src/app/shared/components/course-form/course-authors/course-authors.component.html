@@ -2,45 +2,52 @@
   <div class="column">
     <form class="form">
       <fieldset class="form-group label">
-        <label for="addAuthorInput">Add author:</label>
-        <small class="error-message" *ngIf="false">*required</small>
+        <label for="addAuthorInput">
+          {{ "PAGES.COURSES.COURSE_FORM.ADD_AUTHORS.ADD" | translate }}
+        </label>
       </fieldset>
 
       <fieldset class="form-group author-wrapper">
-        <button
-          *ngIf="unSelectedAuthor.length; else noAuthor"
-          [style.border]="isAuthorListOpened ? '1px solid #30b6dd' : ''"
-          class="author-open-btn"
-          type="button"
-          (click)="isAuthorListOpened = !isAuthorListOpened"
-        >
-          Select Author
-          <svg
-            width="12"
-            viewBox="0 0 320 512"
-            [ngClass]="{ opened: isAuthorListOpened }"
+        <input
+          type="text"
+          class="search-author-input"
+          #searchAuthorsInput
+          placeholder=" {{
+            'PAGES.COURSES.COURSE_FORM.ADD_AUTHORS.PLACEHOLDER' | translate
+          }}"
+          (input)="searchAuthors(searchAuthorsInput.value)"
+          (focus)="isAuthorListOpened = true"
+        />
+
+        <ng-container *ngIf="isAuthorListOpened">
+          <ul
+            *ngIf="
+              (unSelectedAuthor | authorFilter: searchAuthorsInput.value)
+                .length > 0;
+              else noAuthor
+            "
+            class="unselected-author"
           >
-            <path
-              d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"
-              fill="currentColor"
-            />
-          </svg>
-        </button>
-        <ng-template #noAuthor>
-          <p class="no-more-auhtor">No more authors</p>
-        </ng-template>
-        <ul
-          *ngIf="isAuthorListOpened && unSelectedAuthor.length"
-          class="unselected-author"
-        >
-          <li *ngFor="let author of unSelectedAuthor">
-            <input
-              type="button"
-              [value]="author.name"
-              (click)="selectAuthorHandler($event)"
-            />
-          </li>
-        </ul>
+            <li
+              *ngFor="
+                let author of unSelectedAuthor
+                  | authorFilter: searchAuthorsInput.value
+              "
+            >
+              <input
+                class="author-btn"
+                type="button"
+                [value]="author.name"
+                (click)="selectAuthorHandler($event)"
+              />
+            </li>
+          </ul>
+          <ng-template #noAuthor>
+            <p class="no-more-auhtor">
+              {{ "PAGES.COURSES.COURSE_FORM.ADD_AUTHORS.NO_FOUND" | translate }}
+            </p>
+          </ng-template>
+        </ng-container>
       </fieldset>
     </form>
   </div>
@@ -48,7 +55,9 @@
     class="column course-authors"
     *ngIf="selectedAuthor.length !== 0 && !isLoading && !error"
   >
-    <h3 class="label">Authors' list:</h3>
+    <h3 class="label">
+      {{ "PAGES.COURSES.COURSE_FORM.ADD_AUTHORS.LIST" | translate }}
+    </h3>
     <ul class="list">
       <li class="item" *ngFor="let author of selectedAuthor">
         {{ author.name }} {{ author.lastName }}

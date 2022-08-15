@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SharedModule,
     RouterModule,
     ReactiveFormsModule,
+    TranslateModule,
   ],
   exports: [CoursesGalleryComponent],
 })

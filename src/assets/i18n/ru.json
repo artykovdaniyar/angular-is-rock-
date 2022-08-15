@@ -1,0 +1,97 @@
+{
+  "HEADER": {
+    "TITLE": "ВИДЕОКУРСЫ",
+    "LOGINOUT": "Выход"
+  },
+  "FOOTER": {
+    "COPYRIGHT": "Авторское право &copy; Видеокурсы. Все права защищены!"
+  },
+  "SHARED": {
+    "SAVE": "Сохранить",
+    "CANCEL": "Отмена",
+    "REQUIRED": "Обязателен!",
+    "LOADING": "Загрузка...",
+    "ERROR": "Что-то пошло не так, повторите попытку позже",
+    "MAX_LENGTH": "Должно быть меньше {{numbers}} символов!",
+    "MIN_LENGTH": "Должно быть больше {{numbers}} символов!",
+    "INCORRECT": "Неверно"
+  },
+  "PAGES": {
+    "LOGIN": {
+      "LOGIN": "Войти",
+      "INVALID_INPUTS": "Неверный логин или пароль",
+      "FORGET_PASSWORD": "Забыли пароль?",
+      "EMAIL": {
+        "LABEL": "Логин:",
+        "PLACEHOLDER": "Введите логин"
+      },
+      "PASSWORD": {
+        "LABEL": "Пароль:",
+        "PLACEHOLDER": "Введите пароль"
+      }
+    },
+    "ERROR": {
+      "NO_FOUND": "Страница не найдена",
+      "BACK": "Вернуться к Курсам"
+    },
+    "COURSES": {
+      "COURSES_LIST": {
+        "ADD_COURSE": "Добавить "
+      },
+
+      "COURSES_ITEM": {
+        "CONFORM_FOR_DELETE": "Вы действительно хотите удалить {{courseName}}",
+        "EDIT": "Изменить",
+        "DELETE": "Удалить",
+        "AUTHORS": "Авторы:"
+      },
+      "COURSES_SEARCH": {
+        "TEXT_TO_SEARCH": "Текст для поиска",
+        "CLEAR_FORM": "Очистить окно поиска",
+        "RESET_FORM": "Сбросить форму поиска"
+      },
+      "COURSES_INFO_CARD": {
+        "LOADING": "Загрузка...",
+        "NO_DATA": "Нет данных. Не стесняйтесь добавлять новый курс!",
+        "NO_FOUND": "Курсы по запросу не найдены",
+        "All_LOADED": "Все курсы загружены"
+      },
+      "COURSE_FORM": {
+        "ADD_COURSE": "Добавить курс",
+        "EDIT_COURSE": "Редактировать курс",
+
+        "TITLE": {
+          "LABEL": "Название:",
+          "PLACEHOLDER": "Введите название"
+        },
+
+        "DESCRIPTION": {
+          "LABEL": "Описание:",
+          "PLACEHOLDER": "Введите описание"
+        },
+        "DATE": {
+          "LABEL": "Дату:",
+          "PLACEHOLDER": "Введите дату"
+        },
+
+        "DURATION": {
+          "LABEL": "Длительность:",
+          "MIN": "Должно быть больше 5 минут",
+          "PATTERN": "Введите только число",
+          "PLACEHOLDER": "в минутах"
+        },
+
+        "ADD_AUTHORS": {
+          "ADD": "Добавьте автора:",
+          "LIST": "Список авторов:",
+          "NO_FOUND": "Автор не найден",
+          "PLACEHOLDER": "Введите имя автора..."
+        }
+      }
+    }
+  },
+  "demo": {
+    "title": "Übersetzungsdemo",
+    "text": "Dies ist ein einfaches Beispielprojekt für ngx-translate"
+  }
+}

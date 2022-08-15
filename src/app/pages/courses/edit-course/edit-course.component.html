@@ -3,7 +3,9 @@
     <div class="card">
       <loading *ngIf="loading"></loading>
       <course-error *ngIf="error"></course-error>
-      <h2 class="title">Edit course</h2>
+      <h2 class="title">
+        {{ "PAGES.COURSES.COURSE_FORM.EDIT_COURSE" | translate }}
+      </h2>
       <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
         <course-title></course-title>
         <course-description></course-description>
@@ -23,14 +25,14 @@
 
         <fieldset class="form-group btns">
           <button class="btn btn-save" type="submit" [disabled]="form.invalid">
-            Save
+            {{ "SHARED.SAVE" | translate }}
           </button>
           <button
             class="btn btn-cancel"
             type="button"
             (click)="goToCoursesPage()"
           >
-            Cancel
+            {{ "SHARED.CANCEL" | translate }}
           </button>
         </fieldset>
       </form>

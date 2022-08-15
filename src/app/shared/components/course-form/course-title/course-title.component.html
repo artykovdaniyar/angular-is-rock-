@@ -1,13 +1,17 @@
 <fieldset class="form-group">
   <div class="form-wrapper">
-    <label for="courseTitle">Title:</label>
+    <label for="courseTitle">{{
+      "PAGES.COURSES.COURSE_FORM.TITLE.LABEL" | translate
+    }}</label>
     <div class="validation" *ngIf="name?.touched">
-      <small *ngIf="name?.errors?.['required']"> Required! </small>
+      <small *ngIf="name?.errors?.['required']">
+        {{ "SHARED.REQUIRED" | translate }}</small
+      >
       <small *ngIf="name?.errors?.['maxlength']"
-        >Title must be less then 50 symbols!
+        >{{ "SHARED.MAX_LENGTH" | translate: { numbers: "50" } }}
       </small>
       <small *ngIf="name?.errors?.['minlength']">
-        Title must be more then 3 symbols!
+        {{ "SHARED.MIN_LENGTH" | translate: { numbers: "3" } }}
       </small>
     </div>
   </div>
@@ -16,7 +20,9 @@
     class="input"
     id="courseTitle"
     autocomplete="off"
-    placeholder="Input title"
+    placeholder="{{
+      'PAGES.COURSES.COURSE_FORM.TITLE.PLACEHOLDER' | translate
+    }}"
     [formControl]="name"
   />
 </fieldset>

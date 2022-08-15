@@ -3,7 +3,6 @@ import { Course } from 'src/app/shared/models/course';
 
 @Pipe({
   name: 'filter',
-  pure: false,
 })
 export class CoursesFilterPipe implements PipeTransform {
   transform(courses: Course[], search: string): Course[] {

@@ -6,18 +6,17 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DiractivesModule } from '../diractives/diractives.module';
 import { RouterModule } from '@angular/router';
-import { CourseAuthorsComponent } from './course-form/course-authors/course-authors.component';
 import { CourseLoadingComponent } from './loading/loading.component';
 import { CourseErrorComponent } from './course-form/course-error/course-error.component';
 import { BreadcrumbModule } from 'angular-crumbs';
 import { CourseFormModule } from './course-form/course-form.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     BreadcrumbsComponent,
-    CourseAuthorsComponent,
     CourseLoadingComponent,
     CourseErrorComponent,
     BreadcrumbsComponent,
@@ -29,12 +28,13 @@ import { CourseFormModule } from './course-form/course-form.module';
     RouterModule,
     BreadcrumbModule,
     CourseFormModule,
+    TranslateModule,
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
     BreadcrumbsComponent,
-    CourseAuthorsComponent,
+
     CourseLoadingComponent,
     CourseErrorComponent,
   ],

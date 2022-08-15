@@ -1,6 +1,9 @@
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+  HttpClient,
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
-
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRouterModule } from './app-router.module';
 import { AppComponent } from './app.component';
@@ -11,10 +14,13 @@ import { SharedModule } from './shared/shared.module';
 import { BreadcrumbModule } from 'angular-crumbs';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducers, metaReducers } from './store/reducers/app.reduser';
 import { LoginEffects } from './store/effects/login.effects';
 import { CoursesEffects } from './store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 const environment = {
   development: true,
@@ -34,6 +40,16 @@ const environment = {
     StoreModule.forRoot(appReducers, { metaReducers }),
     EffectsModule.forRoot([LoginEffects, CoursesEffects]),
     environment.development ? StoreDevtoolsModule.instrument() : [],
+    BrowserModule,
+    // ngx-translate and the loader module
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [
     {
@@ -46,3 +62,6 @@ const environment = {
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}

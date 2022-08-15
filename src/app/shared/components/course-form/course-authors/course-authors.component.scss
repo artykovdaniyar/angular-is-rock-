@@ -53,7 +53,8 @@
 .unselected-author {
   margin-top: 10px;
   width: 100%;
-  z-index: 2;
+  max-height: 148px;
+  overflow-y: scroll;
   border: 1px solid var(--gray-200);
   input {
     padding: 10px;
@@ -85,27 +86,31 @@
     }
   }
   .author-wrapper {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--gray-200);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 60px;
   }
   .no-more-auhtor {
+    margin-top: 10px;
     display: block;
+    width: 100%;
     height: 100%;
-    margin-top: 20px;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
     color: var(--gray-500);
+    border: 1px solid var(--gray-200);
   }
 
   .error-message {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
     color: var(--danger-color);
+    text-align: right;
   }
-  input {
+  .author-btn {
     border: none;
   }
   button {
@@ -126,27 +131,6 @@
     }
     &:hover {
       background: var(--primary-dark-color);
-    }
-    &.author-open-btn {
-      position: relative;
-      height: 60px;
-      width: 100%;
-      font-size: 16px;
-      color: var(--primary-dark-color);
-      border: 1px solid var(--gray-200);
-      background: transparent;
-      transition: 0.3s border;
-      &:hover {
-        border: 1px solid var(--primary-color);
-      }
-      svg {
-        color: var(--primary-dark-color);
-        position: absolute;
-        right: 20px;
-      }
-      svg.opened {
-        transform: rotate(180deg);
-      }
     }
   }
 }
