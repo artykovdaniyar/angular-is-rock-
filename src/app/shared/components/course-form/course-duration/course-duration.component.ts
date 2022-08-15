@@ -5,6 +5,7 @@ import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'course-duration',
@@ -26,7 +27,10 @@ export class CourseDurationComponent implements OnInit, ControlValueAccessor {
   isDisabled!: boolean;
   disabled!: boolean;
 
-  constructor(private formGroupDirective: FormGroupDirective) {}
+  constructor(
+    private formGroupDirective: FormGroupDirective,
+    public translate: TranslateService
+  ) {}
   ngOnInit(): void {
     this.length = this.formGroupDirective.control.get('length') as FormControl;
   }

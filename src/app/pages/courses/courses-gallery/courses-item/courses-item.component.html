@@ -21,7 +21,7 @@
         <ul class="info-date">
           <li class="visite-time">
             <fa-icon [icon]="faClock"></fa-icon>
-            {{ course.length | courseDuration }}
+            {{ course.length | courseDuration: translate.currentLang }}
           </li>
           <li class="creation-time">
             <fa-icon [icon]="faCalendarDays"></fa-icon>

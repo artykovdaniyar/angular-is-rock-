@@ -31,7 +31,7 @@
     />
 
     <b class="info" *ngIf="length.value && !length.errors?.['pattern']">{{
-      length.value | courseDuration
+      length.value | courseDuration: translate.currentLang
     }}</b>
   </div>
 </fieldset>
