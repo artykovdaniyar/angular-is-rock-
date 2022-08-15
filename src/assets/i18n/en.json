@@ -1,7 +1,8 @@
 {
   "HEADER": {
     "TITLE": "VIDEO COURSES",
-    "LOGINOUT": "Log off"
+    "LOGINOUT": "Log off",
+    "LANG": "En"
   },
   "FOOTER": {
     "COPYRIGHT": "Copyright &copy; Videocourses. All rights reserved"

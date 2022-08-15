@@ -1,12 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEarthAmericas,
+  faPlayCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user';
 import * as fromStore from '../../../store';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
@@ -19,10 +23,12 @@ export class HeaderComponent implements OnInit {
   faPlayCircle = faPlayCircle;
   faUser = faUser;
   faRightFromBracket = faRightFromBracket;
+  faEarthAmericas = faEarthAmericas;
 
   constructor(
     private router: Router,
-    private store: Store<fromStore.LoginState>
+    private store: Store<fromStore.LoginState>,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -36,5 +42,10 @@ export class HeaderComponent implements OnInit {
       this.store.dispatch(fromStore.loginOut());
       this.router.navigate(['/login']);
     }
+  }
+  useLanguage(): void {
+    const currLang = this.translate.currentLang;
+    const langToChange = currLang === 'en' ? 'ru' : 'en';
+    this.translate.use(langToChange);
   }
 }

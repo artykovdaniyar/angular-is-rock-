@@ -24,9 +24,9 @@
 }
 
 .registration {
-  .link:first-child {
-    margin-right: 18px;
-  }
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 button {
   font-size: 16px;
@@ -34,7 +34,6 @@ button {
   &:hover {
     color: var(--primary-color);
   }
-  &:focus,
   &:active {
     color: #106ebe;
   }

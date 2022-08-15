@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private store: Store, public translate: TranslateService) {
+  constructor(private store: Store, private translate: TranslateService) {
     translate.setDefaultLang('en');
     translate.use('en');
   }
@@ -19,8 +19,5 @@ export class AppComponent implements OnInit {
       );
       this.store.dispatch(fromStore.getUserInfo({ token: userToken }));
     }
-  }
-  useLanguage(language: string): void {
-    this.translate.use(language);
   }
 }
