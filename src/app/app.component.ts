@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from './store';
 import { TranslateService } from '@ngx-translate/core';
+
+export let test = 'test';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,8 +12,14 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
   constructor(private store: Store, private translate: TranslateService) {
-    translate.setDefaultLang('en');
-    translate.use('en');
+    if (localStorage['angularIsRockCurrLang']) {
+      translate.setDefaultLang(localStorage['angularIsRockCurrLang']);
+      translate.use(localStorage['angularIsRockCurrLang']);
+    } else {
+      translate.setDefaultLang('en');
+      translate.use('en');
+      localStorage.setItem('angularIsRockCurrLang', 'en');
+    }
   }
   ngOnInit() {
     if (localStorage[fromStore.TOKEN_KEY]) {

@@ -15,6 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'courses-item',
@@ -38,6 +39,7 @@ export class CoursesItemComponent {
       .get('PAGES.COURSES.COURSES_ITEM.CONFORM_FOR_DELETE', {
         courseName: this.course.name.toUpperCase(),
       })
+      .pipe(take(1))
       .subscribe((res: string) => {
         this.conformText = res;
       });

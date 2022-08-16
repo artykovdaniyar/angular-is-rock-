@@ -16,7 +16,6 @@ const routes: Route[] = [
         path: '',
         component: CoursesGalleryComponent,
         title: 'Courses Gallery | Angular is Rock',
-        data: { breadcrumb: 'Gallery' },
       },
 
       {

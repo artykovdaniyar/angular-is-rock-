@@ -18,15 +18,15 @@
         </button>
       </li>
       <li>
-        <button href="/sign-in" type="button" class="link" (click)="loginOut()">
-          <fa-icon class="icon" [icon]="faRightFromBracket"></fa-icon>
-          {{ "HEADER.LOGINOUT" | translate }}
-        </button>
-      </li>
-      <li>
         <button type="button" class="link" (click)="useLanguage()">
           <fa-icon class="icon" [icon]="faEarthAmericas"></fa-icon>
           {{ "HEADER.LANG" | translate }}
+        </button>
+      </li>
+      <li>
+        <button href="/sign-in" type="button" class="link" (click)="loginOut()">
+          <fa-icon class="icon" [icon]="faRightFromBracket"></fa-icon>
+          {{ "HEADER.LOGINOUT" | translate }}
         </button>
       </li>
     </ul>

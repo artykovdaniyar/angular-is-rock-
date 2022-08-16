@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   faEarthAmericas,
@@ -7,7 +7,7 @@ import {
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { User } from '../../models/user';
 import * as fromStore from '../../../store';
 import { TranslateService } from '@ngx-translate/core';
@@ -25,6 +25,8 @@ export class HeaderComponent implements OnInit {
   faRightFromBracket = faRightFromBracket;
   faEarthAmericas = faEarthAmericas;
 
+  conformText = '';
+
   constructor(
     private router: Router,
     private store: Store<fromStore.LoginState>,
@@ -38,7 +40,14 @@ export class HeaderComponent implements OnInit {
     this.userInfo$ = this.store.select(fromStore.userInfoSelector);
   }
   loginOut(): void {
-    if (confirm('Do you really want to login out?')) {
+    this.translate
+      .get('HEADER.CONFORM_FOR_LOGINOUT')
+      .pipe(take(1))
+      .subscribe((res: string) => {
+        this.conformText = res;
+      });
+
+    if (confirm(this.conformText)) {
       this.store.dispatch(fromStore.loginOut());
       this.router.navigate(['/login']);
     }
@@ -47,5 +56,6 @@ export class HeaderComponent implements OnInit {
     const currLang = this.translate.currentLang;
     const langToChange = currLang === 'en' ? 'ru' : 'en';
     this.translate.use(langToChange);
+    localStorage.setItem('angularIsRockCurrLang', langToChange);
   }
 }

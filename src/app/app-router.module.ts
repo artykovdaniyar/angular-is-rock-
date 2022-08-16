@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 const routes: Routes = [
@@ -22,6 +21,7 @@ const routes: Routes = [
   {
     path: '**',
     component: ErrorPageComponent,
+    data: { breadcrumb: 'Error' },
   },
 ];
 

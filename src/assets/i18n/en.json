@@ -2,15 +2,22 @@
   "HEADER": {
     "TITLE": "VIDEO COURSES",
     "LOGINOUT": "Log off",
-    "LANG": "En"
+    "LANG": "En",
+    "CONFORM_FOR_LOGINOUT": "Do you really want to login out?"
   },
   "FOOTER": {
     "COPYRIGHT": "Copyright &copy; Videocourses. All rights reserved"
+  },
+  "BREADCRUMB": {
+    "COURSES": "Course",
+    "CREATE": "Create Course",
+    "UPDATE": "Update Course"
   },
   "SHARED": {
     "SAVE": "Save",
     "CANCEL": "Cancel",
     "REQUIRED": "Required!",
+    "LOADING": "Loading...",
     "ERROR": "Something go wrong, Please retry later",
     "MAX_LENGTH": "Must be less then {{numbers}} symbols!",
     "MIN_LENGTH": "Must be more then {{numbers}} symbols!",
@@ -21,6 +28,7 @@
       "LOGIN": "Login",
       "INVALID_INPUTS": "Invalid login or password",
       "FORGET_PASSWORD": "Forget password?",
+
       "EMAIL": {
         "LABEL": "E-mail:",
         "PLACEHOLDER": "Enter e-mail"
