@@ -1,6 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, concatMap, Observable, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  concatMap,
+  delay,
+  Observable,
+  throwError,
+} from 'rxjs';
 import { User } from 'src/app/shared/models/user';
 import { Login } from '../../shared/models/login';
 import { Router } from '@angular/router';
@@ -10,33 +17,56 @@ import { URLS } from 'src/app/shared/urls/urls';
   providedIn: 'root',
 })
 export class AuthService {
+  initialUserInfo: User = {
+    id: 0,
+    token: '',
+    name: { first: '', last: '' },
+    login: '',
+    password: '',
+    fakeToken: '',
+  };
   private TOKEN_KEY = 'angularRockToken';
   isAuthenticated$ = new BehaviorSubject<boolean>(this.isLocalAuthenticated());
+  isLoading$ = new BehaviorSubject<boolean>(false);
   errorInput$ = new BehaviorSubject<boolean>(false);
-  userInfo$: BehaviorSubject<User | object> = new BehaviorSubject({});
-
+  userInfo$ = new BehaviorSubject<User>(this.initialUserInfo);
+  serverError$ = new BehaviorSubject<boolean>(false);
   constructor(private http: HttpClient, private router: Router) {}
 
   loginIn({ login, password }: Login): void {
+    this.isLoading$.next(true);
     this.errorInput$.next(false);
     this.http
       .post(URLS.LOGIN, { login, password })
-      .pipe(concatMap((token) => this.http.post<User>(URLS.USER_INFO, token)))
+      .pipe(
+        delay(500),
+        concatMap((token) => this.http.post<User>(URLS.USER_INFO, token))
+      )
       .subscribe(
         (user: User) => {
           this.isAuthenticated$.next(true);
           this.userInfo$.next(user);
           localStorage.setItem('angularRockToken', user.fakeToken);
+          this.isLoading$.next(false);
           this.router.navigate(['/courses']);
         },
         (error) => {
-          this.errorInput$.next(true);
+          this.isLoading$.next(false);
+          if (error.status === 401) {
+            this.errorInput$.next(true);
+            console.error(error.error);
+          } else if (error.status === 0) {
+            this.serverError$.next(true);
+            console.log(this.serverError$.value);
+          }
+
           return throwError(error.error);
         }
       );
   }
   loginOut(): void {
     this.isAuthenticated$.next(false);
+    this.userInfo$.next(this.initialUserInfo);
     localStorage.removeItem(this.TOKEN_KEY);
   }
 
